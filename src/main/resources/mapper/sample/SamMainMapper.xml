@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.sample.mapper.SamMainMapper">
+
+    <select id="getDate" resultType="com.zinidata.sample.vo.SamMainVO">
+        /* SamMainMapper.getDate */
+        SELECT
+            now() as currentTime
+        FROM dual
+    </select>
+
+    <select id="getUser" resultType="com.zinidata.sample.vo.SamLoginVO">
+        /* SamMainMapper.getUser */
+        SELECT
+            user_id
+            , user_name
+            , user_pw
+            , user_phone
+        FROM tb_user
+       WHERE user_id = #{id}
+         AND user_pw = #{password}
+    </select>
+
+    <select id="getUserCheck" resultType="com.zinidata.sample.vo.SamLoginVO">
+        /* SamMainMapper.getUserCheck */
+        SELECT
+            user_id
+        FROM tb_user
+       WHERE user_id = #{userId}
+    </select>
+
+    <insert id="setSignUpProc" >
+        /* SamMainMapper.setSignUpProc */
+        INSERT INTO tb_user(
+             user_id
+            , user_name
+            , user_pw
+            , user_phone
+            , user_email
+        ) VALUES (
+            #{userId}
+            , #{userName}
+            , #{userPw}
+            , #{userPhone}
+            , #{userEmail}
+        )
+    </insert>
+
+</mapper>

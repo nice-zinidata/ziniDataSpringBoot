@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zinidata.api.mapper.ApiMapper">
+
+	<select id="getTime" parameterType="com.zinidata.api.vo.ApiVO" resultType="com.zinidata.api.vo.ApiVO">
+		/* MainMapper.getDate */
+		SELECT
+			now() as currentTime
+		, #{id} as id
+		FROM dual
+	</select>
+
+</mapper>

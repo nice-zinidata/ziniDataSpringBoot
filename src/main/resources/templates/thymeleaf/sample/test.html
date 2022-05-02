@@ -1,0 +1,49 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!--<head>-->
+<!--    &lt;!&ndash;<div th:replace="include/head.html :: head"></div>&ndash;&gt;-->
+<!--    <div th:replace="sample/head"></div>-->
+<!--</head>-->
+<!--<head th:replace="include/head.html :: head"></head>-->
+
+<div th:fragment="head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>thymeleaf test</title>
+</div>
+
+<body>
+<div>
+    <h2>name : <span th:text="${name}"></span></h2>
+    <input type="text" id="text_param1">
+    <button onclick="listCall();">submit</button>
+    <div id="list" th:fragment="list">
+        <table>
+            <tr th:each="i : ${list}">
+                <th th:text="${i.a}">data a</th>
+                <td th:text="${i.b}">data b</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+<form id="listForm" method="POST" action="/sample/test">
+    <input type="hidden" id="param1" name="param1" value="30"/>
+</form>
+
+<script th:attr="src='/assets/lib/jquery-1.12.4.min.js'"></script>
+<script th:attr="src='/assets/js/scripts.js'"></script>
+
+<script th:inline="javascript">
+
+    function listCall(){
+        $("#param1").val($("#text_param1").val());
+        getAjax("/sample/test", $("#listForm").serialize(), fn_list_success)
+    }
+
+    function fn_list_success(response){
+        $("#list").html(response);
+    }
+
+</script>

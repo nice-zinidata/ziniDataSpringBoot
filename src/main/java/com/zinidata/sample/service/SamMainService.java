@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.zinidata.config.Sha256;
 import com.zinidata.sample.mapper.SamMainMapper;
 import com.zinidata.sample.vo.SamLoginVO;
+import com.zinidata.sample.vo.SamMainListVO;
 import com.zinidata.util.BizmapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -66,6 +70,28 @@ public class SamMainService {
         String result = gson.toJson(outVo);
 
         System.out.println(result);
+        return result;
+    }
+
+
+    public String getMainList(SamMainListVO samMainListVO){
+
+        ArrayList<Map<String,String>> list = new ArrayList<>();
+        for(int i=0;i<20;i++){
+            Map<String,String> map = new HashMap<>();
+            map.put("data1", Integer.toString(i));
+            map.put("data2", Integer.toString(i+1));
+            map.put("data3", Integer.toString(i+2));
+            map.put("data4", Integer.toString(i+3));
+            list.add(map);
+        }
+
+        Map<String,ArrayList> map = new HashMap<>();;
+        map.put("data",list);
+
+        Gson gson = new Gson();
+        String result = gson.toJson(map);
+
         return result;
     }
 

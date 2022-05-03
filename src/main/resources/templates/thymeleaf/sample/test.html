@@ -1,10 +1,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<!--<head>-->
-<!--    &lt;!&ndash;<div th:replace="include/head.html :: head"></div>&ndash;&gt;-->
-<!--    <div th:replace="sample/head"></div>-->
-<!--</head>-->
-<!--<head th:replace="include/head.html :: head"></head>-->
+<!--<div th:replace="./include/head.html :: head"></div>-->
 
 <div th:fragment="head">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,7 +9,7 @@
 
 <body>
 <div>
-    <h2>name : <span th:text="${name}"></span></h2>
+    <h2>name11111 : <span th:text="${name}"></span></h2>
     <input type="text" id="text_param1">
     <button onclick="listCall();">submit</button>
     <div id="list" th:fragment="list">

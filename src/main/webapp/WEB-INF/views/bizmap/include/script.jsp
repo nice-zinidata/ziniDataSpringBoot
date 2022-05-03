@@ -7,8 +7,8 @@
 
 <!-- BEGIN: Theme JS-->
 <!-- END: Theme JS-->
-<script src="/resources/assets/bizmap/js/jquery-1.4.js"></script>
-<script src="/resources/assets/bizmap/js/jquery.min.js"></script>
+<script src="/resources/assets/lib/jquery-1.4.js"></script>
+<script src="/resources/assets/lib/jquery.min.js"></script>
 <script src="/resources/assets/bizmap/js/common.js"></script>
 <script src="/resources/assets/bizmap/js/ecomp.js"></script>
 <script src="/resources/assets/bizmap/js/main.js"></script>

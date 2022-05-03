@@ -2,6 +2,7 @@ package com.zinidata.sample.controller.api;
 
 import com.zinidata.sample.service.SamMainService;
 import com.zinidata.sample.vo.SamLoginVO;
+import com.zinidata.sample.vo.SamMainListVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -43,6 +44,13 @@ public class SamMainControllerApi {
     @PostMapping("/signUpProc")
     public String signUpProc(SamLoginVO samLoginvO) throws NoSuchAlgorithmException {
         String result = samMainService.setSignUpProc(samLoginvO);
+        return result;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/mainList")
+    public String mainList(SamMainListVO samMainListVO){
+        String result = samMainService.getMainList(samMainListVO);
         return result;
     }
 

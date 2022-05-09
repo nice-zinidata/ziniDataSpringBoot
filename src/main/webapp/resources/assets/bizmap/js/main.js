@@ -1,7 +1,7 @@
 // main
 $(function() {
     Main.load();
-    //gun20130507 skipNavi 기능 추가
+    //gun20130507 skipNavi ??? ???
     //skipNavi
     $('#skipNavi').find('dd a').focus(function(){
         $(this).css({
@@ -16,10 +16,10 @@ $(function() {
         $(this).css({'left' : '-99999px'});
     });
 /*
-    endFocus99 = null;    //전역변수 var 사용안함
+    endFocus99 = null;    //???????? var ??????
     
     $('a, span', document.body).click(function(){    
-        //ifame 페이지 호출전 다음단계 페이지 이동 클릭 이벤트가 발생되어서 endFocus가 변경됨. div,li 요소는 이슈에서 제거함.
+        //ifame ?????? ????? ??????? ?????? ??? ??? ?????? ?????? endFocus?? ?????. div,li ???? ??????? ??????.
         endFocus99 = this;
     });
 */
@@ -31,7 +31,7 @@ var Main = {
     ssChkStart : false,
     loadTime : +new Date(),
 
-    // 초기 로딩
+    // ??? ???
     load : function() {
         try {
             if (!!Main.userId && !!Main.ssKey && !Main.ssChkStart) {
@@ -45,28 +45,28 @@ var Main = {
                     alt = $(this).attr('alt');
 
                 switch(nm) {
-                    case 'top_home' : { // 홈
+                    case 'top_home' : { // ?
                         location.href = '/index.jsp';
                     } break;
-                    case 'top_analy' : { // 상권분석
+                    case 'top_analy' : { // ?????
                         location.href = '/analysis/analysis.jsp';
                     } break;
-                    case 'top_help' : { // 서비스안내
+                    case 'top_help' : { // ??????
                         location.href = '/purchase/service_guide.jsp';
                     } break;
-                    case 'top_login' : { // 로그인
+                    case 'top_login' : { // ?????
                         location.href = '/login.jsp';
                     } break;
-                    case 'top_mypage' : { // 마이페이지
+                    case 'top_mypage' : { // ??????????
                         location.href = '/mypage/usage.jsp';
                     } break;
-                    case 'top_logout' : { // 로그아웃
+                    case 'top_logout' : { // ?????
                         location.href = '/logout.jsp';
                     } break;
                     case 'top_faq' : { // FAQ
                         location.href = '/customer/note.jsp';
                     } break;
-                    case 'top_coupon' : { // 쿠폰등록 창 열기
+                    case 'top_coupon' : { // ??????? ? ????
                         Main.couponWin();
                     }
                 }
@@ -74,24 +74,24 @@ var Main = {
         } catch(e) { alert('Main.load()\n' + e.message); }
     },
 
-    // 타임아웃 체크
+    // ????? ??
     chkTimeout : function() {
         window._chkTime_ = setInterval(function() {
             try  {
                 var nowTime = +new Date();
-                if (Main.loadTime + (1000 * 60 * 1000000000) < nowTime) { // 10분
+                if (Main.loadTime + (1000 * 60 * 1000000000) < nowTime) { // 10??
                     location.href = '/timeout.jsp';
                 }
             } catch(e) {}
         }, 59000);
     },
 
-    // 타임아웃 리셋
+    // ????? ????
     resetTimeout : function() {
         Main.loadTime = +new Date();
     },
 
-    // 중복 로그인 체크
+    // ??? ????? ??
     chkDuplication : function() {
         window._chkDup_ = setInterval(function() {
             try {
@@ -115,7 +115,7 @@ var Main = {
                         alert('Ajax!! : ' + data.error);
                     } else {
                         if (!data.rMemberInfo.length) {
-                            alert('다른곳에서 로그인 하였습니다.');
+                            alert('????????? ????? ????????.');
                             location.href = '/logout.jsp?chk=dup';
                         }
                     }
@@ -125,14 +125,14 @@ var Main = {
     },
 
     couponWin : function() {
-        /** IE7, IE8에서 paging 버튼부분이 투명해서 뒷 배경이 보임. 처리방법을 몰라 팝업을 두개띄움. **
+        /** IE7, IE8???? paging ???????? ??????? ?? ????? ????. ???????? ???? ????? ??????. **
         nullWin = new EWin({id:'nullEWin'});
         nullWin.setSrc('/payment/coupon_list.jsp?inflow=white');
-        nullWin.setRect(216, ($(document).width() / 2) - (790 / 2), 768, 410);//130717 height값 수정
+        nullWin.setRect(216, ($(document).width() / 2) - (790 / 2), 768, 410);//130717 height?? ????
         nullWin.show();
-        /** 끝 **/
+        /** ?? **/
         
-        couponWin = new EWin({id:'couponEWin', title:'쿠폰 보유내역 팝업'});
+        couponWin = new EWin({id:'couponEWin', title:'???? ???????? ???'});
         couponWin.setSrc('/payment/coupon_list.jsp?inflow=top');
         couponWin.setRect(100, ($(document).width() / 2) - (790 / 2), 772, 551);
         couponWin.show();
@@ -150,11 +150,11 @@ var Main = {
             var dim= query[1].split('&');
             var popWidth = dim[0].split('=')[1]; //Gets the first query string value
 
-            //Fade in the Popup and add close button//130607 <a href="#">을 <a href="javascript:;" >로 (고객사요청)
+            //Fade in the Popup and add close button//130607 <a href="#">?? <a href="javascript:;" >?? (??????)
             var html = '<a href="javascript:;" class="close">'
-                     + '  <img src="/images/navi_png/navi_layer_close.png" class="navi_close" alt="닫기"/>'
+                     + '  <img src="/images/navi_png/navi_layer_close.png" class="navi_close" alt="???"/>'
                      + '</a>';
-            $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).append(html);//20130528gun 닫기버튼 순서변경
+            $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).append(html);//20130528gun ????? ????????
 
             //Define margin for center alignment (vertical + horizontal) - we add 80 to the height/width to accomodate for the padding + border width defined in the css
             var popMargTop = ($('#' + popID).height() + 100) / 2;
@@ -187,7 +187,7 @@ var Main = {
         // Close Popups and Fade Layer
         $('a.close, #fade').live('click', function() { // When clicking on the close or fade layer...
             Main.closeBizPop();
-            $('div[id*=popup]').removeAttr('tabindex');//20130528gun close시 텝인덱스 속성 삭제
+            $('div[id*=popup]').removeAttr('tabindex');//20130528gun close?? ??????? ??? ????
         });
     },
 
@@ -200,8 +200,8 @@ var Main = {
     },
 
     prepareWin : function() {
-        //이벤트 준비중 팝업
-        prepareWin = new EWin({id:'prepareWin', title:'이벤트 준비중 팝업'});
+        //???? ????? ???
+        prepareWin = new EWin({id:'prepareWin', title:'???? ????? ???'});
         prepareWin.setSrc('/event/event_pop.jsp');
         prepareWin.setRect(($(document).height() / 2) - (300 / 2) - 80, ($(document).width() / 2) - (400 / 2), 370, 228);
         prepareWin.show();
@@ -210,8 +210,8 @@ var Main = {
     },
 
     gnbPrepareWin : function() {
-        //이벤트 준비중 팝업
-        prepareWin = new EWin({id:'prepareWin', title:'이벤트 준비중 팝업'});
+        //???? ????? ???
+        prepareWin = new EWin({id:'prepareWin', title:'???? ????? ???'});
         prepareWin.setSrc('/event/event_pop.jsp');
         prepareWin.setRect(150, ($(document).width() / 2) - (400 / 2), 370, 240);
         prepareWin.show();
@@ -231,98 +231,98 @@ var Main = {
     }
 };
 
-// 메인 페이지 링크
+// ???? ?????? ???
 var mainLink = function(url) {
     switch (url) {
-        case '0' : { // 기본 보고서
+        case '0' : { // ?? ????
             Main.prepareWin();
         } break;
-        case '00' : { // 기본 보고서
+        case '00' : { // ?? ????
             Main.gnbPrepareWin();
         } break;
-        case '1' : { // 기본 보고서
+        case '1' : { // ?? ????
             location.href = '/analysis/analysisFree.jsp';
         } break;
-        case '2' : { // 요약 보고서 - 사용X
+        case '2' : { // ??? ???? - ???X
             location.href = '/analysis/analysis.jsp?report=summary';
         } break;
-        case '3' : { // 종합 보고서
+        case '3' : { // ???? ????
             location.href = '/analysis/analysis.jsp';
         } break;
-        case '4' : { // 소호 보고서 - 사용X
+        case '4' : { // ??? ???? - ???X
             location.href = '/analysis/analysis.jsp?soho=true&report=soho';
         } break;
-        case '5' : { // 업종추천 보고서
+        case '5' : { // ??????? ????
             location.href = '/analysis/analysisRecom.jsp?type=upjong';
         } break;
-        case '6' : { // 입지추천 보고서
+        case '6' : { // ??????? ????
             location.href = '/analysis/analysisRecom.jsp?type=zone';
         } break;
-        case '7' : { // FRAN 서비스
+        case '7' : { // FRAN ????
             location.href = '/fran/analysis.jsp';
         } break;
-        case '8' : { // 역세권 보고서
+        case '8' : { // ?????? ????
             location.href = '/statsInfo/jobReport2.jsp?rpt_type_id=83&eq=0';
         } break;
-        case '9' : { // 전문가 칼럼
+        case '9' : { // ?????? ???
             location.href = '/statsInfo/jobReport2.jsp?rpt_type_id=84&eq=1';
         } break;
-        case '10' : { // 부동산 보고서
+        case '10' : { // ????? ????
             location.href = '/statsInfo/jobReport.jsp?rpt_type_id=82&eq=2';
         } break;
-        case '11' : { // 창업 가이드
+        case '11' : { // ??? ?????
             location.href = '/customer/contents/busiGuide.jsp';
         } break;
-        case '12' : { // 창업 이러닝
+        case '12' : { // ??? ?????
             location.href = '/customer/contents/busiEdu.jsp';
         } break;
-        case '13' : { // 상가 임대시세
+        case '13' : { // ?? ?????
             location.href = '/customer/marketprice.jsp';
         } break;
-        case '14' : { // 소상공인 경기동향
+        case '14' : { // ?????? ?????
             location.href = '/customer/economy_list.jsp';
         } break;
-        case '15' : { // 프랜차이즈 정보공개서
+        case '15' : { // ?????????? ??????????
             window.open('http://www.seda.or.kr/info/franchise/info.sbdc', 'seda', '');
         } break;
-        case '16' : { // 이용가이드
+        case '16' : { // ??????
             location.href = '/rules/guide_1.jsp';
         } break;
-        case '17' : { // 지오클러스터
+        case '17' : { // ???????????
             location.href = '/cluster/intro/guide_home.jsp';
         } break;
-        case '18' : { // 프랜차이즈 추천서비스
+        case '18' : { // ?????????? ???????
             location.href = '/suggest/introduce.jsp';
         } break;
-        case '19' : { // Nswer 서비스 소개
+        case '19' : { // Nswer ???? ???
             location.href = '/nswer/guide.jsp';
         } break;
     }
 };
 
-// 하단 링크
+// ??? ???
 var bottomLink = function(url) {
 
     switch (url) {
-        case '1' : { // 회사소개
+        case '1' : { // ?????
             window.open('http://www.nicezinidata.co.kr', 'nicezinidata', '');
         } break;
-        case '2' : { // 서비스약관
+        case '2' : { // ??????
             location.href = '/rules/service.jsp';
         } break;
-        case '3' : {  // 개인정보취급방침
+        case '3' : {  // ?????????????
             location.href = '/rules/privacy.jsp';
         } break;
-        case '4' : { // 창업정보
+        case '4' : { // ???????
             location.href = '/customer/contents/busiNews.jsp';
         } break;
-        case '5' : { // 고객지원
+        case '5' : { // ??????
             location.href = '/customer/note.jsp';
         } break;
-        case '6' : { // 서비스안내
+        case '6' : { // ??????
             location.href = '/purchase/service_guide.jsp';
         } break;
-        case '7' : { // 이용권구매
+        case '7' : { // ???????
             location.href = '/payment/ticket_purchase.jsp';
         } break;
         case '8' : { //
@@ -332,7 +332,7 @@ var bottomLink = function(url) {
 
 };
 
-// 공지사항 바로가기
+// ???????? ??????
 var gotoNote = function() {
     var obj = event.srcElement || event.target,
         board_dtl_no = $(obj).attr('board_dtl_no');
@@ -348,32 +348,32 @@ var gotoNote = function() {
     }).submit();
 };
 
-// 레이어 팝업//gun20130507  회사소개로 되어있는 주석 팝업내용에 맞는 주석으로 변경
+// ????? ???//gun20130507  ??????? ?????? ??? ??????? ?�? ??????? ????
 var gotoAnalysis = function(url) {
 
     switch (url) {
-        case 1 : { // 기본분석 보고서
+        case 1 : { // ????? ????
             $('a[name=initP1]').trigger('click');
 
-            if (jQuery.browser.msie && jQuery.browser.version == "7.0")/*130812 추가*/
+            if (jQuery.browser.msie && jQuery.browser.version == "7.0")/*130812 ???*/
             {
                 $('#popup1').children('a').eq(0).focus();
             }else{
-                $('#popup1').attr('tabindex', '0');//20130528gun 수정
+                $('#popup1').attr('tabindex', '0');//20130528gun ????
                 $('#popup1').focus();
             }
 
         } break;
-        case 2 : { // 업종,입지 추천보고서
+        case 2 : { // ????,???? ???????
             $('a[name=initP2]').trigger('click');
-            $('#popup2').attr('tabindex', '0');//20130528gun 수정
+            $('#popup2').attr('tabindex', '0');//20130528gun ????
             $('#popup2').focus();
         } break;
-        case 3 : { // 창업정보
+        case 3 : { // ???????
             $('a[name=initP3]').trigger('click');
             $('#popup3').find('a.close').focus();
         } break;
-        case 4 : { //서비스 이용안내-20160317
+        case 4 : { //???? ?????-20160317
              $('a[name=initP4]').trigger('click');      
                 $('#popup4').attr('tabindex', '0');
                 $('#popup4').focus();
@@ -385,26 +385,26 @@ var gotoAnalysis = function(url) {
 
 var infoView = function(infoNo) {
     switch (infoNo) {
-        case 1 : { // FRAN 안내보기
+        case 1 : { // FRAN ???????
             Main.infoFran();
         } break;
-        case 2 : { // 시장특성정보 안내보기
+        case 2 : { // ??????????? ???????
             Main.prepareWin();
         } break;
-        case 3 : { // 마케팅DB 안내보기
+        case 3 : { // ??????DB ???????
             Main.prepareWin();
         } break;
     }
 };
 
-// 파일 다운로드
+// ???? ?????
 var fnViewservice = function(fno) {
     $('form[name=sampleDown]').form().each(function() {
         this.set("fno", fno);
     }).submit();
 };
 
-// 역세권 보고서 or 전문가 칼럼 바로가기
+// ?????? ???? or ?????? ??? ??????
 var gotoReport = function() {
     var obj = event.srcElement || event.target,
         rpt_type_id = $(obj).attr('rpt_type_id') || $(obj).parent().attr('rpt_type_id'),
@@ -431,44 +431,44 @@ var gotoReport = function() {
     }).submit();
 };
 
-// 쿠키 저장
+// ??? ????
 var setCookie = function( name, value, expiredays ) {
     var todayDate = new Date();
     todayDate.setDate( todayDate.getDate() + expiredays );
     document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
 };
 
-//쿠폰등록
+//???????
 var coupon_reg = function() {
     Main.couponWin();
 };
 
 /*$(document).ready(function(){
 
-  //슬라이드 배너
+  //??????? ???
   $('.title').mouseover(function() {
-      var no = $(this).attr('no');    //-- 클릭한 제목 index
+      var no = $(this).attr('no');    //-- ????? ???? index
 
       $('.title').each(function(index) {
-          var name = '.contents' + index;    //-- 클릭한 제목의 내용 class명
+          var name = '.contents' + index;    //-- ????? ?????? ???? class??
 
-            if( no == index ) {    //mouseover된 녀석
+            if( no == index ) {    //mouseover?? ??
                 $(this).hide();
                 $(name).show();
-            } else {            //mouseover되지 않은 녀석
+            } else {            //mouseover???? ???? ??
                 $(this).show();
                 $(name).hide();
             }
         });
   }).css({'cursor':'pointer'});
 
-  //-- 서브메뉴 띄우기
+  //-- ?????? ????
   $('.cn-images > img').click(function() {
       var no = parseInt($(this).attr('no')) + 1;
       $('a[name=initP'+no+']').trigger('click');
   }).css({'cursor':'pointer'});
 
-  //-- 닫기 클릭
+  //-- ??? ???
   $('div[name=closeBtn]').click(function() {
       $('.cn-sub').hide();
       $('div[name=closeBtn]').hide();

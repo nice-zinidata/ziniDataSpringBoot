@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.bizmap.mapper.BizAnalysisMapper">
+
+    <sql id="geom_top">
+        select jsonb_build_object(
+                'type',     'FeatureCollection',
+                'name',     'geom',
+                'crs',      (select jsonb_build_object('type', 'name','properties', to_jsonb(crs)) a from (select 'urn:ogc:def:crs:OGC:1.3:CRS84' as name) crs),
+                'features', jsonb_agg(features.feature)
+                ) as geojson
+        FROM (
+                SELECT jsonb_build_object(
+                        'type',       'Feature',
+                        'id',         id,
+                        'minx',       minx,
+                        'maxx',       maxx,
+                        'miny',       miny,
+                        'maxy',       maxy,
+                        'geometry',   ST_AsGeoJSON(geom)::jsonb,
+                        'properties', to_jsonb(inputs) - 'geom' - 'minx' - 'maxx' - 'miny' - 'maxy'
+                    ) AS feature
+                FROM (
+    </sql>
+    <sql id="geom_bottom">
+            ) inputs
+        ) features
+    </sql>
+    <sql id="tmp_table">
+        with tmp_table as (
+            select cty_cd, admi_cd as id, admi_cd, admi_nm, minx, miny, maxx, maxy, centerx, centery, geom
+            from tbshp_admi_features
+        )
+    </sql>
+
+    <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+        <include refid="tmp_table"/>
+        select a.*
+            , a.admi_cd as id
+            , ST_AsGeoJSON(a.geom)::jsonb as geometry
+        from tmp_table a
+        where 1=1
+        <if test="xAxis != null">
+            and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
+        </if>
+    </select>
+
+    <select id="getStoreCnt" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+        select sum(store_cnt) as store_cnt
+        from cmapbatch.tbss_sum_sales_v2 a
+           , tbshp_block_new b
+        where a.block_cd_v2= b.blk_cd
+          and b.admi_cd like concat(#{admiCd},'%')
+          and a.upjong3_cd like concat(#{upjongCd},'%')
+    </select>
+
+    <select id="setReportAnalNo" resultType="integer">
+        select nextval('tb_usage_zone_sql') as anal_no
+    </select>
+
+    <select id="getFreeReport" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+
+    </select>
+
+</mapper>

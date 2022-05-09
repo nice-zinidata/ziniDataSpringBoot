@@ -17,7 +17,7 @@ function isEmpty(value){
   return (value == null || value.length === 0);
 }
 
-function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option) {
+function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, async) {
   var isEmptyOption = isEmpty(option);
   $('#fade').show();
   $('#loading').show();
@@ -32,7 +32,7 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option) {
     url: dst_url,
     dataType: isEmptyOption ? 'json' : isEmpty(option.dataType) ? 'json' : option.dataType,
     data: dst_params,
-    async: true,
+    async: isEmpty(async) ? true : async,
     xhrFields: {
       withCredentials: true
     },
@@ -74,4 +74,39 @@ function commonAjaxError(data, textStatus, jqXHR) {
   } catch (e) {
 
   }
+}
+
+function getFeature(name, type, response){
+
+  var list = [];
+
+  for(var i=0;i<response.length;i++){
+
+    var geometry = JSON.parse(response[i].geometry.replace(/$#34;/g,"'"));
+    // geometry 삭제
+    delete response[i].geometry;
+
+    var tmp = {
+      "type" : "Feature"
+      , "id" : response[i].id
+      , "maxx": response[i].maxx
+      , "maxy": response[i].maxy
+      , "minx": response[i].minx
+      , "miny": response[i].miny
+      , "geometry" : geometry
+      , "properties" : response[i]
+    };
+
+    list.push(tmp);
+  }
+
+  var result = {
+    "crs" : { "properties" : {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}
+    , "type" : "name"}
+    , "name": name
+    , "type": type
+    , "features" : list
+  }
+
+  return result;
 }

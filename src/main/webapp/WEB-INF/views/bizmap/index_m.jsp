@@ -1,10 +1,10 @@
 <%--
     PageName    :
-    FileName    :
-    Description : 나이스비즈맵 메인페이지 (디자인 변경 디자이너:박예성)
+    FileName    : index_m.jsp
+    Description : 나이스비즈맵 인터넷 환경 모바일 메인페이지
     Author      : 
     Make DT     :
-    Modify DT   : 2021.12.27
+    Modify DT   :
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%--<%@ include file = "/loginCheck.jsp"%>--%>
@@ -30,7 +30,6 @@
     <%@ include file="/WEB-INF/views/bizmap/include/head.jsp" %>
 
 	<script>
-		//window.open("/analyse/popup.jsp", "바우처팝업", "toolbar=no, location=no, scrollbars=no, left=0, width=540, height=946, top=70, left=100)");
 	</script>
     <style>
         html, body {position: relative;}
@@ -68,7 +67,8 @@
                     <h2>나만의 상권보고서</h2>
                     <p class="sub">원하시는 업종과 지역의 상권보고서<br>를 매월 받아보세요.</p>
                     <div class="btn_box">
-                        <a class="btn" tabindex="0" id="subscribe_1" onclick="subscribeWin(this.id);" onkeydown="enterCheck(event, this.id);" title="구독서비스 신청 팝업 열림">보고서 생성</a>
+<%--                        <a class="btn" tabindex="0" id="subscribe_1" onclick="subscribeWin(this.id);" onkeydown="enterCheck(event, this.id);" title="보고서 생성">보고서 생성</a>--%>
+                        <a class="btn" tabindex="0" id="subscribe_1" onclick="fn_analysisFree();" title="보고서 생성">보고서 생성</a>
                     </div>
                 </div>
                 <div class="img_grp">
@@ -121,18 +121,7 @@
                     <li class="br">Copyright (c) NICE ZiniData Co., Ltd. All rights reserved.</li>
                 </ul>
             </div>
-			<!--
-            <div class="right">
-                <div>
-                    <div class="logo" title="NICEBIZMAP 상권분석서비스">
-                        <img class="slide-in-bottom" src="/resources/assets/images/main/img_f_logo.png" alt="나이스비즈맵 로고">
-                    </div>
-                </div>
-                <a href="http://www.webwatch.or.kr/" target="_blank"><img src="/images/renew/mark2.png" width="145px" height="95px" style="margin-top: 12px;" alt="과학기술정보통신부 WEB ACCESSIBILITY 마크(웹 접근성 품질인증 마크)" title="국가 공인 인증기관 : 웹와치"></a>
-            </div>
-			-->
         </div>
-
     </div>
 </div>
 
@@ -141,27 +130,17 @@
 
 
 </html>
-<%--<div id="iframe-wrap">--%>
-<%--    <div id="iframeList">--%>
-<%--        <iframe src="/analyse/subscribe_iframe_m.jsp" class="iframe" id="subscribe_iframe" style="border: 0px; margin: 0px; padding: 0px; position: absolute; max-width: 500px; width: 100%; height: 100%;" allowTransparency="true" title="구독신청하기 팝업(이름, 휴대폰, 관심지역, 관심업종 등 구독자에 대한 정보 기입하는 팝업)"></iframe>--%>
-<%--        <div id="index_iframe-bg"></div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<%@ include file = "/analytics.jsp" %>--%>
 
-<!-- js 모음 -->
+<!-- js 모읍 -->
 <%@ include file="/WEB-INF/views/bizmap/include/script.jsp" %>
 
 <script type="text/javascript">
-    //<![CDATA[
     var couponWin = null, prepareWin = null;
     var subscribe = null;
     var scrollY;
 
     var strUserId = "";
     $(function() {
-
-        Main.load();
 
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
             $("#login_iframe_1").show();
@@ -172,7 +151,6 @@
             $("#member_reg1_1").hide();
             $("#logOut").show();
         }
-
 
         init();
     });
@@ -189,19 +167,6 @@
         scrollY = $(window).scrollTop();
     });
 
-    var subscribeWin = function(click_id) {
-        var popupWidth = 527;
-        var popupHeight = 484;
-
-        var popupX = (window.screen.width / 2) - (popupWidth / 2);
-        var popupY= scrollY + 400;
-
-        openIframeDetail('subscribe_iframe', click_id);
-        $("#subscribe_iframe").css("top",popupY);
-        $("#subscribe_iframe").css("z-index", 1100);
-        $("#iframeList").find("#index_iframe-bg").addClass("modal-backdrop");
-    };
-	
 	$(function(){
 		//Keep track of last scroll
 		var lastScroll = 0;
@@ -232,5 +197,9 @@
         });
     });
 
-    //]]>
+    // 기본보고서 페이지로 이동
+    function fn_analysisFree(){
+        window.location="/bizmap/analysis/analysisFree";
+    }
+
 </script>

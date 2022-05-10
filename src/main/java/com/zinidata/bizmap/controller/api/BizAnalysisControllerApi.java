@@ -22,7 +22,6 @@ public class BizAnalysisControllerApi {
 
     private final BizAnalysisService bizAnalysisService;
 
-
     @ResponseBody
     @PostMapping(value="/admiFeatures")
     @ApiOperation(value="마우스 오버 구역 표시")

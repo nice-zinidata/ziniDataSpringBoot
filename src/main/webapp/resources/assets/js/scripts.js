@@ -41,10 +41,10 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, as
     $('#fade').hide();
     $('#loading').hide();
     if (successFunc != null){
-      console.log("[ajax 통신 결과] url:", dst_url);
-      console.log("dst_id:", dst_id);
-      console.log("data:", data);
+      // console.log("[ajax 통신 결과] url:", dst_url);
+      // console.log("dst_id:", dst_id);
       console.log("dst_params:", dst_params);
+      console.log("data:", data);
       successFunc(dst_id, data, dst_params);
     }
   }).fail(function (data, textStatus, jqXHR) {

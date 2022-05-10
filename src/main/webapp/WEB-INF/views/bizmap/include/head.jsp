@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    String scriptRandom = Integer.toString((int) (Math.random() * 1000000));
+    String version = "1.0";
 %>
 <!-- BEGIN: Head-->
 <div id="fade" class="black_background"></div>
@@ -14,9 +14,9 @@
     <!-- lib (변동 없는 js)-->
 
     <!-- lib (변동 있는 css)-->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/reset.css?<%=scriptRandom%>">
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style.css?<%=scriptRandom%>">
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style_m.css?<%=scriptRandom%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/reset.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style_m.css?<%=version%>">
 
 </head>
 <!-- END: Head-->

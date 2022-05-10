@@ -23,13 +23,18 @@ $(function(){
 function fn_error(response) {
 	console.log(response);
 	console.log('error');
+	alert(response.message);
 }
 
 function fn_succ_features(id, response, param){
 	if(!common.isEmpty(strGeoJson)) map.data.removeGeoJson(strGeoJson);
 
+	if(response.result != "success"){
+		alert(response.message);
+		return;
+	}
 	// geomjson 데이터로 변경하기
-	var result = getFeature("test", "FeatureCollection", response);
+	var result = getFeature("test", "FeatureCollection", response.data);
 
 	strGeoJson = result;
 	map.data.addGeoJson(result);
@@ -81,8 +86,12 @@ function setFreeReport(data){
 
 // 보고서 파일 생성 완료
 function fn_succ_setFreeReport(id, response, param){
+	if(response.result != "success"){
+		alert(response.message);
+		return;
+	}
 	//보고서 파일 가져오기
-	getFreeReport(response);
+	getFreeReport(response.data);
 
 }
 
@@ -93,5 +102,9 @@ function getFreeReport(data){
 
 // 보고서 데이터 출력
 function fn_succ_getFreeReport(id, response, param){
-
+	if(response.result != "success"){
+		alert(response.message);
+		return;
+	}
+	console.log(response.data);
 }

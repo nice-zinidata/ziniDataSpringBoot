@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class BizMainVO {
 
+    // input
     private int memNo;
     private String loginId;
     private String pwd;
@@ -17,6 +18,8 @@ public class BizMainVO {
     private String smsYn;
     private String emailYn;
     private String alarmYn;
+
+    //output
     private String subsDt;
     private String leaveDt;
     private String leaveReasonCd;
@@ -54,4 +57,5 @@ public class BizMainVO {
     private String resAuthCd;
     private int loginAutnSeq;
     private String ipAddr;
+
 }

@@ -13,5 +13,4 @@ public interface BizMainMapper {
     int getLogAuthSeq(BizMainVO bizMainVO);
     int setLogAuthSeq(BizMainVO bizMainVO);
 
-
 }

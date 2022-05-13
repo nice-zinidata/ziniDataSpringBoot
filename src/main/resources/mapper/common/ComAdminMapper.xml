@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.common.mapper.ComAdminMapper">
+
+    <select id="getArea" resultType="com.zinidata.common.vo.ComAreaVO">
+        <if test="megaCd == null">
+            select mega_cd
+                , mega_nm
+            from tbshp_mega
+            order by mega_cd
+        </if>
+        <if test="megaCd != null">
+            select a.mega_cd
+                , a.cty_cd
+                , a.cty_nm
+                , a.reg_date
+            from tbadm_cty a
+            where a.scss_date is null
+            and a.mega_cd=#{megaCd}
+        </if>
+    </select>
+
+    <select id="getUpjong" resultType="com.zinidata.common.vo.ComUpjongVO">
+
+    </select>
+
+</mapper>

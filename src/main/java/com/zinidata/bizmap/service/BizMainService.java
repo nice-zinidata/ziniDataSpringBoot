@@ -1,10 +1,8 @@
 package com.zinidata.bizmap.service;
 
-import com.google.gson.Gson;
 import com.zinidata.bizmap.mapper.BizMainMapper;
 import com.zinidata.bizmap.vo.BizMainVO;
 import com.zinidata.config.SecureHashAlgorithm;
-import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
 import com.zinidata.util.Status;
@@ -23,12 +21,10 @@ import java.util.ArrayList;
 @Service
 public class BizMainService {
 
-
     @Autowired
     GsonUtil gsonUtil;
 
     private final BizMainMapper bizMainMapper;
-
 
     public String login(HttpServletRequest request, BizMainVO bizMainVO) throws NoSuchAlgorithmException {
         String result = "";
@@ -67,4 +63,5 @@ public class BizMainService {
 
         return result;
     }
+
 }

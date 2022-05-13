@@ -1,17 +1,15 @@
 package com.zinidata.api.controller;
 
+import com.zinidata.api.service.ApiService;
 import com.zinidata.api.vo.ApiVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.zinidata.api.service.ApiService;
 
 @RequiredArgsConstructor
 @Controller

@@ -38,3 +38,4 @@ build/
 ### test ###
 /src/test
 
+/src/main/resources/reports

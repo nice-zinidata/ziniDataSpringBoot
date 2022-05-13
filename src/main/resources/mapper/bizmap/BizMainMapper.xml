@@ -42,4 +42,12 @@
         values (#{loginAutnSeq}, #{memNo}, #{loginSession}, now(), #{ipAddr})
     </insert>
 
+    <select id="getArea" resultType="com.zinidata.common.vo.ComAreaVO">
+
+    </select>
+
+    <select id="getUpjong" resultType="com.zinidata.common.vo.ComUpjongVO">
+
+    </select>
+
 </mapper>

@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 public class BizmapUtil {
@@ -22,7 +23,6 @@ public class BizmapUtil {
 
     @PostConstruct
     private void init () {
-        System.out.println("-----------------------     2222222222222222222222");
         environment = this.activeEnvironment;
     }
 
@@ -120,5 +120,9 @@ public class BizmapUtil {
         }
 
         return rtnStr;
+    }
+
+    public static int certNumber(){
+        return ThreadLocalRandom.current().nextInt(100000, 1000000);
     }
 }

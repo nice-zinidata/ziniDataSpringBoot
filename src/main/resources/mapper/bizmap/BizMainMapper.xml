@@ -2,52 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizMainMapper">
 
-    <select id="getMember" resultType="com.zinidata.bizmap.vo.BizMainVO">
-        select vno as ssn
-             , FN_GETADMINM(interest_areacd1) AS interest_areacd1_str
-             , FN_GETADMINM(interest_areacd2) AS interest_areacd2_str
-             , FN_GETADMINM(interest_areacd3) AS interest_areacd3_str
-             , FN_GETUPJONG(a.interest_upjong1) AS interest_upjong1_str
-             , FN_GETUPJONG(a.interest_upjong2) AS interest_upjong2_str
-             , FN_GETUPJONG(a.interest_upjong3) AS interest_upjong3_str
-             , a.*
-             , b.res_flag_yn
-             , b.req_auth_cd
-             , b.cj_code as code
-             , b.res_auth_cd
-        from TB_MEMBER a, cj_member b
-        where end_dt = '99991231'
-          and mem_stat = '2'
-          and login_id = #{loginId}
-          and pwd = #{pwd}
-          and b.cj_code = 'DAE1'
-          and a.mem_no = b.mem_no
-    </select>
-
-    <update id="setSession">
-        update tb_member
-        set login_session = #{loginSession}
-            , login_timestemp = coalesce(#{loginTimestemp}, null)
-        where end_dt = '99991231'
-        and login_id = #{loginId}
-        and pwd = #{pwd}
-    </update>
-
-    <select id="getLogAuthSeq" resultType="integer">
-        select nextval('tb_log_auth_seq') as logAuthNo
-    </select>
-
-    <insert id="setLogAuthSeq" >
-        insert into tb_log_auth(log_auth_no, mem_no, session_id, login_dt, ip_addr)
-        values (#{loginAutnSeq}, #{memNo}, #{loginSession}, now(), #{ipAddr})
+    <insert id="setCert">
+        insert into em_tran (tran_pr, tran_phone, tran_callback, tran_status, tran_date, tran_msg, tran_type)
+        values((select nextval('em_tran_pr')), #{mobileNo}, #{tranCallback}, '1', now(), #{tranMsg}, 4)
     </insert>
 
-    <select id="getArea" resultType="com.zinidata.common.vo.ComAreaVO">
-
+    <select id="getSubscribe" resultType="integer">
+        select count(*) as cnt
+        from tb_subscribe_info
+        where mobile_no =#{mobileNo} and mem_nm=#{memNm}
     </select>
 
-    <select id="getUpjong" resultType="com.zinidata.common.vo.ComUpjongVO">
+    <insert id="setSubscribeIns">
+        insert into tb_subscribe_info
+            (mobile_no,mem_nm,mem_type,interest_areacd,interest_upjong,personal_info,marketing_info)
+        values (#{mobileNo},#{memNm},#{memType},#{interestAreacd},#{interestUpjong},#{personalInfo},#{marketingInfo})
+    </insert>
 
-    </select>
-
+    <update id="setSubscribeUpd">
+        update tb_subscribe_info
+        set mem_type = #{memType}
+        , interest_areacd = #{interestAreacd}
+        , interest_upjong = #{interestUpjong}
+        , update_date = now()
+        , personal_info = #{personalInfo}
+        , marketing_info = #{marketingInfo}
+    </update>
 </mapper>

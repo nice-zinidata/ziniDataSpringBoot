@@ -1,8 +1,11 @@
 package com.zinidata.common.service;
 
+import com.zinidata.bizmap.vo.BizMainVO;
 import com.zinidata.common.mapper.ComAdminMapper;
 import com.zinidata.common.vo.ComAreaVO;
+import com.zinidata.common.vo.ComLoginVO;
 import com.zinidata.common.vo.ComUpjongVO;
+import com.zinidata.config.SecureHashAlgorithm;
 import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
@@ -13,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +30,44 @@ public class ComAdminService {
     GsonUtil gsonUtil;
 
     private final ComAdminMapper comAdminMapper;
+
+    public String login(HttpServletRequest request, ComLoginVO comLoginVO) throws NoSuchAlgorithmException {
+        String result = "";
+
+//        System.out.println(SecureHashAlgorithm.encryptSHA256(bizMainVO.getPwd()));
+        comLoginVO.setPwd(SecureHashAlgorithm.encryptSHA256(comLoginVO.getPwd()));
+
+        ArrayList<ComLoginVO> outVo = comAdminMapper.getMember(comLoginVO);
+
+        // session update
+        HttpSession session = request.getSession(true);
+
+        comLoginVO.setMemNo(outVo.get(0).getMemNo());
+        comLoginVO.setLoginSession(session.getId());
+        comLoginVO.setLoginTimestemp(System.currentTimeMillis());
+        int sessionUpdate = comAdminMapper.setSession(comLoginVO);
+
+        // session update 성공
+        if(sessionUpdate > 0){
+            int loginAutnSeq = comAdminMapper.getLogAuthSeq(comLoginVO);
+            comLoginVO.setLoginAutnSeq(loginAutnSeq);
+            comLoginVO.setIpAddr("::1");
+            int setLogAuthResult = comAdminMapper.setLogAuthSeq(comLoginVO);
+
+            if(setLogAuthResult > 0){
+                // 로그인 성공
+                result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+            }else{
+                // 로그인 실패
+                result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+            }
+        }else{
+            // session update 실패
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+        }
+
+        return result;
+    }
 
     public String getArea(HttpServletRequest request, ComAreaVO comAreaVO){
         String result = "";

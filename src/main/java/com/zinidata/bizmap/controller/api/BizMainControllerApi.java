@@ -35,6 +35,17 @@ public class BizMainControllerApi {
     }
 
     @ResponseBody
+    @PostMapping(value=" /getCert")
+    @ApiOperation(value="인증번호 확인")
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message = "인증번호 확인")
+    })
+    public String getCert(HttpServletRequest request, BizCertVO bizCertVO){
+        String result = bizMainService.getCert(request, bizCertVO);
+        return result;
+    }
+
+    @ResponseBody
     @PostMapping(value="/subscribe")
     @ApiOperation(value="구독하기")
     @ApiResponses(value = {

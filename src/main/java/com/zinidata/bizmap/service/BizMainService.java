@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Slf4j
@@ -32,14 +33,53 @@ public class BizMainService {
 
     public String setCert(HttpServletRequest request, BizCertVO bizCertVO){
         String result = "";
-        // 인증번호 발송
-        bizCertVO.setRandomStr(BizmapUtil.certNumber());
-        bizCertVO.setTranCallback(tranCallback);
-        bizCertVO.setTranMsg("[나이스비즈맵]고객님의SMS인증번호는 " + BizmapUtil.certNumber() + " 입니다.\n정확히 입력해 주세요");
-        bizMainMapper.setCert(bizCertVO);
-        result = gsonUtil.toJson(new JsonOutputVo(Status.생성));
+
+        // 여러번 발송한 ip인지 확인
+        bizCertVO.setIpAddr(request.getRemoteAddr());
+        int certCnt = bizMainMapper.getCertCnt(bizCertVO);
+
+        // 동일한 IP 에서 최근 1시간 내 전송 횟수 10건 초화 잠시뒤 요청
+        if(certCnt > 10){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+
+        }else{
+            // 인증번호 발송
+            bizCertVO.setRandomStr(BizmapUtil.certNumber());
+            bizCertVO.setTranCallback(tranCallback);
+            bizCertVO.setTranMsg("[나이스비즈맵]고객님의SMS인증번호는 " + BizmapUtil.certNumber() + " 입니다.\n정확히 입력해 주세요");
+
+            // 인증번호 seqNo 가져오기
+            BizCertVO outVo = bizMainMapper.getCertSeqNo(bizCertVO);
+            bizCertVO.setSeqNo(outVo.getSeqNo());
+
+            // em_tran set
+            bizMainMapper.setCert(bizCertVO);
+            // tb_cellphone_cert set
+            bizMainMapper.setCellPhoneCert(bizCertVO);
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생성, outVo));
+
+        }
+        return result;
+
+    }
+
+    public String getCert(HttpServletRequest request, BizCertVO bizCertVO){
+        String result = "";
+
+        // 날짜 업데이트
+        bizMainMapper.setCertCrtDateUpdate(bizCertVO);
+        // 인증번호 정보 가져오기
+        BizCertVO outVo = bizMainMapper.getCertInfo(bizCertVO);
+
+        if(bizCertVO.getCertNo().equals(outVo.getCertNo())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+        }
 
         return result;
+
     }
 
     public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO){

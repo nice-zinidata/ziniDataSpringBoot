@@ -4,19 +4,18 @@ var strGeoJson = "";
 var strAdmiCd = "11140520";
 var strUpjongCd = "O04001";
 
-
 $(function(){
 
-	naver.maps.Event.addListener(map, 'click', function (e){
+	/*naver.maps.Event.addListener(map, 'click', function (e){
 		var data={
-			xAxis: 126.975221181947
-			, yAxis: 37.5661485287594
+			xAxis: e.latlng.x
+			, yAxis: e.latlng.y
 			, admiCd : strAdmiCd
 			, upjongCd : strUpjongCd
 		}
 
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
-	});
+	});*/
 
 });
 
@@ -34,7 +33,7 @@ function fn_succ_features(id, response, param){
 		return;
 	}
 	// geomjson 데이터로 변경하기
-	var result = getFeature("test", "FeatureCollection", response.data);
+	var result = getFeature("admiFeatures", "FeatureCollection", response.data);
 
 	strGeoJson = result;
 	map.data.addGeoJson(result);
@@ -59,8 +58,6 @@ function fn_succ_features(id, response, param){
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
 			if(confirm("보고서를 생성하시겠습니까?")){
-				// setFreeReport(e);
-
 				var data = {
 					analNo : "80366"
 				}
@@ -71,40 +68,27 @@ function fn_succ_features(id, response, param){
 }
 
 // 보고서 파일 생성
-function setFreeReport(data){
+function getFreeReport(data){
 	// 상권이 3개 이상인 곳만
-	if(data.feature.getProperty("admiCd") > 3){
-		var data={
-			admiCd : strAdmiCd
-			, upjongCd : strUpjongCd
-		}
-		getAjax("features", "/bizmap/analysis/setFreeReport", data, fn_succ_setFreeReport, fn_error, "POST", false);
-	}else{
-		alert("분석할 상권이 3개 이하 입니다.")
-	}
-}
-
-// 보고서 파일 생성 완료
-function fn_succ_setFreeReport(id, response, param){
-	if(response.result != "success"){
-		alert(response.message);
+	if(data.feature.getProperty("admiCd") < 3) {
+		alert("분석할 상권이 3개 이하 입니다.");
 		return;
 	}
-	//보고서 파일 가져오기
-	getFreeReport(response.data);
-
-}
-
-// 보고서 파일 가져오기
-function getFreeReport(data){
+	// 보고서 json 생성하기
+	var data={
+		admiCd : strAdmiCd
+		, upjongCd : strUpjongCd
+	}
 	getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
 }
 
-// 보고서 데이터 출력
+// 보고서 정보 가져오기
 function fn_succ_getFreeReport(id, response, param){
 	if(response.result != "success"){
 		alert(response.message);
 		return;
 	}
+	//보고서 파일 가져오기
 	console.log(response.data);
+
 }

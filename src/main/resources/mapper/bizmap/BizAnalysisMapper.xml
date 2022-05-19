@@ -4,7 +4,17 @@
 
     <sql id="tmp_table">
         with tmp_table as (
-            select cty_cd, admi_cd as id, admi_cd, admi_nm, minx, miny, maxx, maxy, centerx, centery, geom
+            select cty_cd
+                , admi_cd as id
+                , admi_cd
+                , admi_nm
+                , minx
+                , miny
+                , maxx
+                , maxy
+                , centerx
+                , centery
+                , st_setsrid(geom,4326) as geom
             from tbshp_admi_features
         )
     </sql>

@@ -12,7 +12,7 @@ public class BizCertVO {
     private String tranCallback;
     private String tranMsg;
     private String ipAddr;
-    private String seqNo;
+    private int seqNo;
     private String certNo;
 
     //output

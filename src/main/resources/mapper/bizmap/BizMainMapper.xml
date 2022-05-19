@@ -30,7 +30,7 @@
     </update>
 
     <select id="getCertInfo" resultType="com.zinidata.bizmap.vo.BizCertVO">
-        select name as nameNm
+        select name as mem_nm
             , mobile_no
             , cert_no
         from tb_cellphone_cert

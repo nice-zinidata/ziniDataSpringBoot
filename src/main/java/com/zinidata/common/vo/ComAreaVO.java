@@ -14,5 +14,7 @@ public class ComAreaVO {
     private String ctyNm;
     private String admiNm;
     private String regDate;
+    private String cd;
+    private String nm;
 
 }

@@ -35,7 +35,7 @@ public class BizMainControllerApi {
     }
 
     @ResponseBody
-    @PostMapping(value=" /getCert")
+    @PostMapping(value="/getCert")
     @ApiOperation(value="인증번호 확인")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "인증번호 확인")

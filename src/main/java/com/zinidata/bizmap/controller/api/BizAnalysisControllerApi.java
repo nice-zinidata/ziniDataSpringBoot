@@ -33,16 +33,6 @@ public class BizAnalysisControllerApi {
         return result;
     }
 
-    @ResponseBody
-    @PostMapping(value="/setFreeReport")
-    @ApiOperation(value="기본보고서 생성")
-    @ApiResponses(value = {
-            @ApiResponse(code=200, message = "기본보고서 생성")
-    })
-    public String setFreeReport(BizAnalysisVO bizAnalysisVO) throws IOException {
-        String result = bizAnalysisService.setFreeReport(bizAnalysisVO);
-        return result;
-    }
 
     @ResponseBody
     @PostMapping(value="/getFreeReport")

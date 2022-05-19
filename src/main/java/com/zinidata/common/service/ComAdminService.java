@@ -86,10 +86,23 @@ public class ComAdminService {
     public String getUpjong(HttpServletRequest request, ComUpjongVO comUpjongVO){
         String result = "";
 
+        HashMap<String, ArrayList<ComUpjongVO>> map = new HashMap<>();
         ArrayList<ComUpjongVO> outVo = comAdminMapper.getUpjong(comUpjongVO);
+        if(comUpjongVO.getGubun().equals("upjong2")){
 
-        if(!BizmapUtil.isEmpty(outVo)){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+            ComUpjongVO inputVo = new ComUpjongVO();
+            inputVo.setGubun("upjong3");
+            inputVo.setUpjong1Cd(comUpjongVO.getUpjong1Cd());
+
+            ArrayList<ComUpjongVO> outVo2 = comAdminMapper.getUpjong(inputVo);
+            map.put("upjong2", outVo);
+            map.put("upjong3", outVo2);
+        }else{
+            map.put("upjong1", outVo);
+        }
+
+        if(!BizmapUtil.isEmpty(map)){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
         }

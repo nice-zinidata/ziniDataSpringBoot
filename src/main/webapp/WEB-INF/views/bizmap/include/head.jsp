@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/reset.css?<%=version%>">
     <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style.css?<%=version%>">
     <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style_m.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style2.css?<%=version%>">
 
 </head>
 <!-- END: Head-->

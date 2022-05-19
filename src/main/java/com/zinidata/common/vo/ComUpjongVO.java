@@ -1,17 +1,20 @@
 package com.zinidata.common.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 public class ComUpjongVO {
     // input
-    private String upjongCd1;
-    private String upjongCd2;
-    private String upjongCd3;
+    private String upjong1Cd;
+    private String upjong2Cd;
+    private String upjong3Cd;
+    private String gubun;
 
     // output
-    private String upjongNm1;
-    private String upjongNm2;
-    private String upjongNm3;
+    private String upjong1Nm;
+    private String upjong2Nm;
+    private String upjong3Nm;
+    private String crt_dt;
+    private String upd_dt;
+    private String status;
 }

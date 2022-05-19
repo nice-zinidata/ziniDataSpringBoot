@@ -43,8 +43,8 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, as
     if (successFunc != null){
       // console.log("[ajax 통신 결과] url:", dst_url);
       // console.log("dst_id:", dst_id);
-      console.log("dst_params:", dst_params);
-      console.log("data:", data);
+      // console.log("dst_params:", dst_params);
+      // console.log("data:", data);
       successFunc(dst_id, data, dst_params);
     }
   }).fail(function (data, textStatus, jqXHR) {
@@ -66,7 +66,7 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, as
 
 function commonAjaxError(data, textStatus, jqXHR) {
   try {
-    console.log(data);
+    // console.log(data);
     if (textStatus == 'parsererror' && 0 < data.responseText.indexOf('로그인')) {
       alert('세션이 만료되어 로그인 페이지로 이동합니다.');
       location.href = '/index.html';

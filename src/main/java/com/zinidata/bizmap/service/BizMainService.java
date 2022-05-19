@@ -72,7 +72,7 @@ public class BizMainService {
         // 인증번호 정보 가져오기
         BizCertVO outVo = bizMainMapper.getCertInfo(bizCertVO);
 
-        if(bizCertVO.getCertNo().equals(outVo.getCertNo())){
+        if(outVo.getCertNo().length() > 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.실패));

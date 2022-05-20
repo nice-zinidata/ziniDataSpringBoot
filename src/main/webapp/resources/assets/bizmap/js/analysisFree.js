@@ -1,21 +1,28 @@
 
 
 var strGeoJson = "";
-var strAdmiCd = "11140520";
-var strUpjongCd = "O04001";
+var strAdmiCd = "";
+var strAreaNm = "";
+var strUpjongCd = "";
+var strUpjongNm = "";
+
+
+var mapOptions = {
+	center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
+	zoom: 14
+};
+var map = new naver.maps.Map('map', mapOptions);
 
 $(function(){
 
-	/*naver.maps.Event.addListener(map, 'click', function (e){
+	naver.maps.Event.addListener(map, 'click', function (e){
 		var data={
 			xAxis: e.latlng.x
 			, yAxis: e.latlng.y
-			, admiCd : strAdmiCd
-			, upjongCd : strUpjongCd
 		}
 
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
-	});*/
+	});
 
 });
 
@@ -27,6 +34,20 @@ function fn_error(response) {
 
 function fn_succ_features(id, response, param){
 	if(!common.isEmpty(strGeoJson)) map.data.removeGeoJson(strGeoJson);
+
+	strAdmiCd = response.data[0].admiCd;
+	strAreaNm = response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm;
+
+	// 메뉴 눌러서 지역선택시 해당 지역으로 이동
+	if(!common.isEmpty(param.admiCd)){
+		var bounds = new naver.maps.LatLngBounds(
+			new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
+			new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));
+
+		map.fitBounds(bounds);
+	}
+
+	$('.search').text(strAreaNm + " " + strUpjongNm);
 
 	if(response.result != "success"){
 		alert(response.message);
@@ -58,27 +79,28 @@ function fn_succ_features(id, response, param){
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
 			if(confirm("보고서를 생성하시겠습니까?")){
-				var data = {
-					analNo : "80366"
-				}
-				getFreeReport(analNo);
+				getFreeReport();
 			}
 		});
 	}
 }
 
 // 보고서 파일 생성
-function getFreeReport(data){
+function getFreeReport(){
+
+	alert(strAdmiCd + " " + strUpjongCd);
+
 	// 상권이 3개 이상인 곳만
-	if(data.feature.getProperty("admiCd") < 3) {
+	/*if(data.feature.getProperty("admiCd") < 3) {
 		alert("분석할 상권이 3개 이하 입니다.");
 		return;
-	}
-	// 보고서 json 생성하기
-	var data={
+	}*/
+
+	var data = {
 		admiCd : strAdmiCd
 		, upjongCd : strUpjongCd
 	}
+	console.log(data);
 	getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
 }
 

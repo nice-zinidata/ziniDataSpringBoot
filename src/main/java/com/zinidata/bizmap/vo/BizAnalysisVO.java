@@ -8,14 +8,17 @@ public class BizAnalysisVO {
     // input
     private double xAxis;
     private double yAxis;
+    private String admiCd;
     private String upjongCd;
 
     //output
-    private String geometry;
+    private String megaCd;
+    private String megaNm;
     private String ctyCd;
-    private String admiCd;
-    private String id;
+    private String ctyNm;
     private String admiNm;
+    private String geometry;
+    private String id;
     private String minx;
     private String miny;
     private String maxx;

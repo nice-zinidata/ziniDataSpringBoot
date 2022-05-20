@@ -31,7 +31,7 @@
 </head>
 
 <body>
-<%--    <div class="map" id="map" style="width:100%;height:100%;"></div>--%>
+    <div class="map" id="map" style="width:100%;height:100%;"></div>
     <div class="pop_up module">
         <div class="pop_header">
             <div class="inner in1">
@@ -110,11 +110,11 @@
     <!--pop_up-->
 
     <div class="float-float">
-        <a href="">현 지도에서 상권 분석</a>
+        <a href="" id="reSearch" onclick="">현 지도에서 상권 분석</a>
     </div>
     <!--float-top end-->
     <!--top start-->
-    <div class="top_section">
+    <div class="top_section" style="position: fixed;top: 0px;width: 100%;">
         <div class="menu_top">
             <div class="menu_left">
                 <div class="logo_box"></div>
@@ -138,7 +138,7 @@
             </ul>
         </div>
         <div class="float-top">
-            <div class="search">
+            <div class="search" style="font-size: 14px">
                 <a href="#">지역/업종 검색하여 상권 분석하기</a>
             </div>
         </div>
@@ -165,13 +165,6 @@
         $('.table_box').css('height', height - 261);
     });
 
-    /*var mapOptions = {
-        center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
-        zoom: 14
-    };
-
-    var map = new naver.maps.Map('map', mapOptions);
-*/
     var megaCd;
     var ctyCd;
     var admiCd;
@@ -188,12 +181,28 @@
         //검색창 클릭하여 카테고리 열기
         $('.search').click(function () {
             $('.pop_up').css('display', 'block');
-            getArea($(this).data(), '');
+            $('.map').css('display', 'none');
+
+            console.log(strUpjongCd);
+
+            if(strAdmiCd == "" || strUpjongCd != ""){
+                $('.reset').click();
+            }else if(strUpjongCd == ""){
+                $('.confirm').removeClass('on');
+                $('.body1').css('display', 'none');
+                $('.in2').css('display', 'flex');
+                $('.in1').css('display', 'none');
+                var data = {
+                    gubun : "upjong1"
+                };
+                getUpjong(data);
+            }
         });
 
         //뒤로가기 클릭하여 홈화면으로 이동
         $('.inner.in1').find('.before').click(function () {
             $('.pop_up.module').css('display', 'none');
+            $('.map').css('display', '');
         });
 
         //뒤로가기 클릭 초기화 기능
@@ -213,14 +222,18 @@
                 };
                 getUpjong(data);
             }else{
-                if(confirm("분석하시겠습니까?")){
-                    $('.confirm').removeClass('on');
-                    $('.pop_up.module').css('display', 'none');
-                }
+                $('.search').text(strAreaNm);
+                $('.map').css('display', '');
+                $('.confirm').removeClass('on');
+                $('.pop_up.module').css('display', 'none');
+                getAdmiFeatures();
             }
         });
 
         $('.reset').click(function (){
+            strAdmiCd = "";
+            strUpjongCd = "";
+            strAreaNm = "";
             $('#_cty').hide();
             $('#_admi').hide();
             $('#_upjong2').hide();
@@ -303,7 +316,10 @@
                 $('.confirm').addClass('on');
                 admiCd = $(this).data().cd;
                 admiNm = $(this).text();
+
+                strAdmiCd = $(this).data().cd;
                 $('.label1 .chosen').text(megaNm +" "+ ctyNm +" "+ admiNm);
+                strAreaNm = megaNm +" "+ ctyNm +" "+ admiNm;
             });
         }
     }
@@ -374,17 +390,31 @@
         });
         // 업종 선택 3
         $('.cate3 > li > a').click(function(){
+            $('.cate3 > li > a').removeClass("on");
             upjong3Cd = $(this).data().upjong3cd;
+            strUpjongCd = $(this).data().upjong3cd;
+            strUpjongNm = $(this).text();
+
+            strAreaNm = strAreaNm + " " + strUpjongNm;
 
             $('.label2 .place_holder').css('display', 'none');
             $('.label2 .chosen').show();
             $('.label2 .chosen').text($(this).text());
 
+            $(this).addClass('on');
             $('.confirm').addClass('on');
 
-            alert(admiCd + " " + upjong3Cd);
             final = true;
         });
+    }
+
+    function getAdmiFeatures(){
+        var data={
+            admiCd : strAdmiCd
+            , upjongCd : strUpjongCd
+        }
+
+        getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
     }
 </script>
 

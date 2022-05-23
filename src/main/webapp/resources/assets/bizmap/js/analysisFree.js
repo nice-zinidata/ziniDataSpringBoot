@@ -21,7 +21,7 @@ $(function(){
 			, yAxis: e.latlng.y
 		}
 
-		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
+		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
 	});
 
 });

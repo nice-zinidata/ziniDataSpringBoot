@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.zinidata.bizmap.mapper.BizAnalysisMapper;
 import com.zinidata.bizmap.vo.BizAnalysisVO;
 import com.zinidata.bizmap.vo.BizAnalysisVO;
+import com.zinidata.bizmap.vo.output.BizAnalysisOutVO;
 import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
@@ -36,8 +37,8 @@ public class BizAnalysisService {
     private String repotsDir;
 
     public String admiFeatures(BizAnalysisVO bizAnalysisVO){
-        ArrayList<BizAnalysisVO> outVo = bizAnalysisMapper.getAdmiFeatures(bizAnalysisVO);
-        ArrayList<BizAnalysisVO> outVo2 = bizAnalysisMapper.getStoreCnt(bizAnalysisVO);
+        ArrayList<BizAnalysisOutVO> outVo = bizAnalysisMapper.getAdmiFeatures(bizAnalysisVO);
+        ArrayList<BizAnalysisOutVO> outVo2 = bizAnalysisMapper.getStoreCnt(bizAnalysisVO);
 
         // 상가 데이터
         outVo.get(0).setStoreCnt(BizmapUtil.isEmpty(outVo2.get(0).getStoreCnt()) ? 0 : outVo2.get(0).getStoreCnt());
@@ -59,7 +60,7 @@ public class BizAnalysisService {
     // 보고서 정보 가져오기
     public String getFreeReport(BizAnalysisVO bizAnalysisVO) throws IOException {
         // 보고서 정보 json 데이터로 저장하기
-        ArrayList<BizAnalysisVO> outVo = bizAnalysisMapper.getFreeReport(bizAnalysisVO);
+        ArrayList<BizAnalysisOutVO> outVo = bizAnalysisMapper.getFreeReport(bizAnalysisVO);
         Gson gson = new Gson();
         String result = gson.toJson(outVo);
 

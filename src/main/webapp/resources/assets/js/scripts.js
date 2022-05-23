@@ -76,7 +76,7 @@ function commonAjaxError(data, textStatus, jqXHR) {
   }
 }
 
-function getFeature(name, type, response){
+function getGeomJson(name, type, response){
 
   var list = [];
 

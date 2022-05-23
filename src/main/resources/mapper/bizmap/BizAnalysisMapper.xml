@@ -21,7 +21,7 @@
         )
     </sql>
 
-    <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+    <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         <include refid="tmp_table"/>
         select a.*
             , a.admi_cd as id
@@ -36,7 +36,7 @@
         </if>
     </select>
 
-    <select id="getStoreCnt" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+    <select id="getStoreCnt" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         select coalesce(sum(store_cnt), 0) as store_cnt
         from tbss_sum_sales_v2 a
            , tbshp_block_new b
@@ -49,7 +49,7 @@
         select nextval('tb_usage_zone_sql') as anal_no
     </select>
 
-    <select id="getFreeReport" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+    <select id="getFreeReport" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
 
     </select>
 

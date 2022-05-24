@@ -17,7 +17,7 @@ $(function(){
 
 	naver.maps.Event.addListener(map, 'mousemove', function (e){
 		var data={
-			xAxis: e.latlng.x
+			xAxis: e.latlng
 			, yAxis: e.latlng.y
 			, admiCd : strAdmiCd
 		}

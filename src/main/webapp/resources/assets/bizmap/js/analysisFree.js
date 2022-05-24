@@ -17,7 +17,7 @@ $(function(){
 
 	naver.maps.Event.addListener(map, 'mousemove', function (e){
 		var data={
-			xAxis: e.latlng
+			xAxis: e.latlng.x
 			, yAxis: e.latlng.y
 			, admiCd : strAdmiCd
 		}
@@ -65,11 +65,10 @@ function fn_succ_features(id, response, param){
 	}
 
 	// console.log(response.data[0].feature);
-	var result = JSON.parse(response.data[0].feature.replace(/$#34;/g,"'"));
+	// var result = JSON.parse(response.data[0].feature.replace(/$#34;/g,"'"));
 	// geomjson 데이터로 변경하기
-	// var result = getGeomJson("admiFeatures", "FeatureCollection", response.data);
+	var result = getGeomJson("admiFeatures", "FeatureCollection", response.data);
 	//
-
 	strGeoJson = result;
 	map.data.addGeoJson(result);
 

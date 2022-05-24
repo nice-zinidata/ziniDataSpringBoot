@@ -38,13 +38,8 @@ public class BizAnalysisService {
 
     public String admiFeatures(BizAnalysisVO bizAnalysisVO){
         ArrayList<BizAnalysisOutVO> outVo = bizAnalysisMapper.getAdmiFeatures(bizAnalysisVO);
-        ArrayList<BizAnalysisOutVO> outVo2 = bizAnalysisMapper.getStoreCnt(bizAnalysisVO);
-
-        // 상가 데이터
-        outVo.get(0).setStoreCnt(BizmapUtil.isEmpty(outVo2.get(0).getStoreCnt()) ? 0 : outVo2.get(0).getStoreCnt());
 
         String result = "";
-
         if(!BizmapUtil.isEmpty(outVo)){
             // 로그인 성공
             result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));

@@ -15,6 +15,16 @@ var map = new naver.maps.Map('map', mapOptions);
 
 $(function(){
 
+	naver.maps.Event.addListener(map, 'mousemove', function (e){
+		var data={
+			xAxis: e.latlng.x
+			, yAxis: e.latlng.y
+			, admiCd : strAdmiCd
+		}
+		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
+	});
+
+
 	naver.maps.Event.addListener(map, 'click', function (e){
 		var data={
 			xAxis: e.latlng.x
@@ -39,13 +49,13 @@ function fn_succ_features(id, response, param){
 	strAreaNm = response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm;
 
 	// 메뉴 눌러서 지역선택시 해당 지역으로 이동
-	if(!common.isEmpty(param.admiCd)){
-		var bounds = new naver.maps.LatLngBounds(
-			new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
-			new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));
-
-		map.fitBounds(bounds);
-	}
+	// if(!common.isEmpty(param.admiCd)){
+	// 	var bounds = new naver.maps.LatLngBounds(
+	// 		new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
+	// 		new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));
+	//
+	// 	map.fitBounds(bounds);
+	// }
 
 	$('.search').text(strAreaNm + " " + strUpjongNm);
 
@@ -53,8 +63,12 @@ function fn_succ_features(id, response, param){
 		alert(response.message);
 		return;
 	}
+
+	// console.log(response.data[0].feature);
+	var result = JSON.parse(response.data[0].feature.replace(/$#34;/g,"'"));
 	// geomjson 데이터로 변경하기
-	var result = getFeature("admiFeatures", "FeatureCollection", response.data);
+	// var result = getGeomJson("admiFeatures", "FeatureCollection", response.data);
+	//
 
 	strGeoJson = result;
 	map.data.addGeoJson(result);

@@ -11,8 +11,6 @@ public interface BizAnalysisMapper {
 
     ArrayList<BizAnalysisOutVO> getAdmiFeatures(BizAnalysisVO bizAnalysisVO);
 
-    ArrayList<BizAnalysisOutVO> getStoreCnt(BizAnalysisVO bizAnalysisVO);
-
     int setReportAnalNo(BizAnalysisVO bizAnalysisVO);
 
     ArrayList<BizAnalysisOutVO> getFreeReport(BizAnalysisVO bizAnalysisVO);

@@ -13,6 +13,7 @@ public class BizAnalysisOutVO {
     private String ctyCd;
     private String ctyNm;
     private String admiNm;
+    private String feature;
     private String geometry;
     private String id;
     private String minx;
@@ -22,7 +23,6 @@ public class BizAnalysisOutVO {
     private String centerx;
     private String centery;
     private String geom;
-    private String feature;
     private String blkCd;
     private String blkNm;
     private String blkNm1;

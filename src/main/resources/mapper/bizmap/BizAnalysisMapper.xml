@@ -14,7 +14,8 @@
                 , a.maxy
                 , a.centerx
                 , a.centery
-                , st_setsrid(a.geom,4326) as geom
+                , a.geom
+                , a.feature
             from tbshp_admi_features a
         left join tbadm_cty b on a.cty_cd = b.cty_cd
         left join tbshp_mega c on b.mega_cd = c.mega_cd
@@ -23,26 +24,26 @@
 
     <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         <include refid="tmp_table"/>
-        select a.*
-            , a.admi_cd as id
-            , ST_AsGeoJSON(a.geom)::jsonb as geometry
-        from tmp_table a
+        select a1.*
+            , a1.admi_cd as id
+            , ST_AsGeoJSON(a1.geom)::jsonb as geometry
+            , (select coalesce(sum(store_cnt), 0) as store_cnt
+                from tbss_sum_sales_v2 a
+                , tbshp_block_new b
+                where a.block_cd_v2= b.blk_cd
+                and b.admi_cd like concat(a1.admi_cd,'%')
+                <if test='upjongCd != null'>
+                    and a.upjong3_cd like concat(#{upjongCd},'%')
+                </if>
+                ) as store_cnt
+        from tmp_table a1
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>
             and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
         </if>
         <if test='admiCd != null'>
-            and a.admi_cd =#{admiCd}
+            and a1.admi_cd != #{admiCd}
         </if>
-    </select>
-
-    <select id="getStoreCnt" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
-        select coalesce(sum(store_cnt), 0) as store_cnt
-        from tbss_sum_sales_v2 a
-           , tbshp_block_new b
-        where a.block_cd_v2= b.blk_cd
-          and b.admi_cd like concat(#{admiCd},'%')
-          and a.upjong3_cd like concat(#{upjongCd},'%')
     </select>
 
     <select id="setReportAnalNo" resultType="integer">

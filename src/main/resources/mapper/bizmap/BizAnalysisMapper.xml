@@ -41,8 +41,11 @@
         <if test='xAxis != null and xAxis != "0.0"'>
             and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
         </if>
-        <if test='admiCd != null'>
+        <if test='admiCd != null and upjongCd == null'>
             and a1.admi_cd != #{admiCd}
+        </if>
+        <if test='admiCd != null and upjongCd != null'>
+            and a1.admi_cd = #{admiCd}
         </if>
     </select>
 

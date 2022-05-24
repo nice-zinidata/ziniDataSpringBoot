@@ -45,17 +45,21 @@ function fn_error(response) {
 function fn_succ_features(id, response, param){
 	if(!common.isEmpty(strGeoJson)) map.data.removeGeoJson(strGeoJson);
 
+	if(common.isEmpty(response.data[0])){
+		return;
+	}
 	strAdmiCd = response.data[0].admiCd;
 	strAreaNm = response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm;
 
 	// 메뉴 눌러서 지역선택시 해당 지역으로 이동
-	// if(!common.isEmpty(param.admiCd)){
-	// 	var bounds = new naver.maps.LatLngBounds(
-	// 		new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
-	// 		new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));
-	//
-	// 	map.fitBounds(bounds);
-	// }
+	if(!common.isEmpty(param.upjongCd)){
+		console.log('-----------------');
+		var bounds = new naver.maps.LatLngBounds(
+			new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
+			new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));
+
+		map.fitBounds(bounds);
+	}
 
 	$('.search').text(strAreaNm + " " + strUpjongNm);
 
@@ -89,6 +93,11 @@ function fn_succ_features(id, response, param){
 		return styleOptions;
 	});
 
+	// 메뉴 눌러서 지역선택시 바로 보고서 생성
+	if(!common.isEmpty(param.upjongCd)){
+		getFreeReport();
+	}
+
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
 			if(confirm("보고서를 생성하시겠습니까?")){
@@ -96,6 +105,7 @@ function fn_succ_features(id, response, param){
 			}
 		});
 	}
+
 }
 
 // 보고서 파일 생성

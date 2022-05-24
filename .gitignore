@@ -33,7 +33,7 @@ build/
 .vscode/
 
 ### memo ###
-.memo
+/.memo
 
 ### test ###
 /src/test

@@ -100,8 +100,24 @@ function fn_succ_features(id, response, param){
 
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
-			if(confirm("보고서를 생성하시겠습니까?")){
-				getFreeReport();
+			console.log(strUpjongCd);
+			if(!common.isEmpty(strUpjongCd)){
+				if(confirm("보고서를 생성하시겠습니까?")){
+					getFreeReport();
+				}
+			}else{
+				if(confirm("업종을 선택 하시겠습니까?")){
+					$('.pop_up').css('display', 'block');
+					$('.map').css('display', 'none');
+					$('.confirm').removeClass('on');
+					$('.body1').css('display', 'none');
+					$('.in2').css('display', 'flex');
+					$('.in1').css('display', 'none');
+					var data = {
+						gubun : "upjong1"
+					};
+					getUpjong(data);
+				}
 			}
 		});
 	}

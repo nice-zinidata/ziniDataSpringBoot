@@ -182,21 +182,21 @@
         $('.search').click(function () {
             $('.pop_up').css('display', 'block');
             $('.map').css('display', 'none');
+            $('.reset').click();
 
             console.log(strUpjongCd);
 
-            if(strAdmiCd == "" || strUpjongCd != ""){
-                $('.reset').click();
-            }else if(strUpjongCd == ""){
-                $('.confirm').removeClass('on');
-                $('.body1').css('display', 'none');
-                $('.in2').css('display', 'flex');
-                $('.in1').css('display', 'none');
-                var data = {
-                    gubun : "upjong1"
-                };
-                getUpjong(data);
-            }
+            // if(strAdmiCd == "" || strUpjongCd != ""){
+            // }else if(strUpjongCd == ""){
+            //     $('.confirm').removeClass('on');
+            //     $('.body1').css('display', 'none');
+            //     $('.in2').css('display', 'flex');
+            //     $('.in1').css('display', 'none');
+            //     var data = {
+            //         gubun : "upjong1"
+            //     };
+            //     getUpjong(data);
+            // }
         });
 
         //뒤로가기 클릭하여 홈화면으로 이동

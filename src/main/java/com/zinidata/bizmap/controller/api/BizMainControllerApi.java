@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,7 +30,7 @@ public class BizMainControllerApi {
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "인증번호 발송")
     })
-    public String setCert(HttpServletRequest request, BizCertVO bizCertVO){
+    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException {
         String result = bizMainService.setCert(request, bizCertVO);
         return result;
     }

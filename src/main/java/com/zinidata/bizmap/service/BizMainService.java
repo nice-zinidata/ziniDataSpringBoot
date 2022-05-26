@@ -8,6 +8,7 @@ import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
 import com.zinidata.util.Status;
+import com.zinidata.util.db.ConnFactorySms;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.*;
 import java.util.ArrayList;
 
 @Slf4j
@@ -31,7 +33,9 @@ public class BizMainService {
 
     private final BizMainMapper bizMainMapper;
 
-    public String setCert(HttpServletRequest request, BizCertVO bizCertVO){
+    PreparedStatement pstmt = null;
+
+    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException {
         String result = "";
 
         // 여러번 발송한 ip인지 확인
@@ -56,6 +60,20 @@ public class BizMainService {
             bizMainMapper.setCert(bizCertVO);
             // tb_cellphone_cert set
             bizMainMapper.setCellPhoneCert(bizCertVO);
+
+
+            // 인증번호 sms 발송
+            ConnFactorySms smsSql = new ConnFactorySms();
+            Connection conn = smsSql.createConnection();
+            Statement state = conn.createStatement();
+            conn.setAutoCommit(false);
+            String query = "SELECT user_id FROM tb_user";
+            pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                System.out.println(rs.getString("user_id"));
+            }
+
 
             result = gsonUtil.toJson(new JsonOutputVo(Status.생성, outVo));
 
@@ -95,7 +113,6 @@ public class BizMainService {
         }
         // 구독정보 들어갔는지 체크
         subscribeCnt = bizMainMapper.getSubscribe(bizSubscribeVO);
-        // sms 발송 넣기
 
         if(subscribeCnt > 0){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생성));

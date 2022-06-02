@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.bizmap.mapper.BizYouTubeMapper">
+
+
+    <select id="getYouTube" resultType="com.zinidata.bizmap.vo.BizYouTubeVO">
+        select *
+        from tb_contents_youtube
+        where 1=1
+        <if test='youtubeNo != null and youtubeNo != "0.0"'>
+            and youtube_no = #{youtubeNo}
+        </if>
+    </select>
+
+
+</mapper>

@@ -1,13 +1,13 @@
 package com.zinidata.bizmap.mapper;
 
-import com.zinidata.bizmap.vo.BizDensityVO;
+import com.zinidata.bizmap.vo.BizFaqVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
 
 @Mapper
-public interface BizDensityMapper {
+public interface BizFaqMapper {
 
-    ArrayList<BizDensityVO> getDensity(BizDensityVO bizDensityVO);
+    ArrayList<BizFaqVO> getFaq(BizFaqVO bizFaqVO);
 
 }

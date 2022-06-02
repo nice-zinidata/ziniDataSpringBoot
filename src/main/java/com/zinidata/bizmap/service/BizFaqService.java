@@ -1,7 +1,7 @@
 package com.zinidata.bizmap.service;
 
-import com.zinidata.bizmap.mapper.BizDensityMapper;
-import com.zinidata.bizmap.vo.BizDensityVO;
+import com.zinidata.bizmap.mapper.BizFaqMapper;
+import com.zinidata.bizmap.vo.BizFaqVO;
 import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
@@ -16,17 +16,17 @@ import java.util.ArrayList;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class BizDensityService {
+public class BizFaqService {
 
 
     @Autowired
     GsonUtil gsonUtil;
 
-    private final BizDensityMapper bizDensityMapper;
+    private final BizFaqMapper bizFaqMapper;
 
 
-    public String getDensity(BizDensityVO bizDensityVO){
-        ArrayList<BizDensityVO> outVo = bizDensityMapper.getDensity(bizDensityVO);
+    public String getFaq(BizFaqVO bizFaqVO){
+        ArrayList<BizFaqVO> outVo = bizFaqMapper.getFaq(bizFaqVO);
 
         String result = "";
         if(!BizmapUtil.isEmpty(outVo)){

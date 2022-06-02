@@ -1,7 +1,7 @@
 package com.zinidata.bizmap.controller.api;
 
-import com.zinidata.bizmap.service.BizDensityService;
-import com.zinidata.bizmap.vo.BizDensityVO;
+import com.zinidata.bizmap.service.BizFaqService;
+import com.zinidata.bizmap.vo.BizFaqVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,20 +16,20 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/bizmap/density")
-public class BizDensityControllerApi {
+@RequestMapping("/bizmap/faq")
+public class BizFaqControllerApi {
 
-    private final BizDensityService bizDensityService;
+    private final BizFaqService bizFaqService;
 
 
     @ResponseBody
-    @PostMapping(value="/getDensity")
-    @ApiOperation(value="밀집도 출력 (42만 블록)\n")
+    @PostMapping(value="/getFaq")
+    @ApiOperation(value="Faq")
     @ApiResponses(value = {
-            @ApiResponse(code=200, message = "밀집도 출력 (42만 블록)\n")
+            @ApiResponse(code=200, message = "Faq")
     })
-    public String getDensity(BizDensityVO bizDensityVO) throws IOException {
-        String result = bizDensityService.getDensity(bizDensityVO);
+    public String getFaq(BizFaqVO bizFaqVO) throws IOException {
+        String result = bizFaqService.getFaq(bizFaqVO);
         return result;
     }
 

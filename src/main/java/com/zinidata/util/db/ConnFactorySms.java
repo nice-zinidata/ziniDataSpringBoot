@@ -1,10 +1,5 @@
 package com.zinidata.util.db;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

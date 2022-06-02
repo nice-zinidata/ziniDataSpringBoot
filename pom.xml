@@ -16,6 +16,9 @@
     <description>bizmap</description>
     <properties>
         <java.version>11</java.version>
+
+        <spring-boot-version>2.5.4</spring-boot-version>
+        <project.lib.path>${project.basedir}/src/main/webapp/WEB-INF/lib</project.lib.path>
     </properties>
     <dependencies>
         <dependency>
@@ -231,6 +234,15 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20220320</version>
+        </dependency>
+
+        <!-- add lib -->
+        <dependency>
+            <groupId>email</groupId>
+            <artifactId>email1</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/javax.mail.jar</systemPath>
         </dependency>
     </dependencies>
 

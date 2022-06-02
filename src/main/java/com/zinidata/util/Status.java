@@ -10,6 +10,7 @@ public enum Status {
     수정("C002", "update.success", "수정"),
     생성("C003", "insert.success", "생성"),
     삭제("C004", "delete.success", "삭제"),
+    성공("C005", "success", "성공"),
     실패("C999", "fail", "실패"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),

@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -124,5 +125,57 @@ public class BizmapUtil {
 
     public static int certNumber(){
         return ThreadLocalRandom.current().nextInt(100000, 1000000);
+    }
+
+    public static String randomValue(String type, int cnt) {
+        type = type.toLowerCase();
+
+        StringBuffer strPwd = new StringBuffer();
+        char[] str = new char[1];
+        int i;
+        if (type.equals("p")) {
+            for(i = 0; i < cnt; ++i) {
+                str[0] = (char)((int)(Math.random() * 94.0D + 33.0D));
+                strPwd.append(str);
+            }
+        } else if (type.equals("a")) {
+            for(i = 0; i < cnt; ++i) {
+                str[0] = (char)((int)(Math.random() * 26.0D + 65.0D));
+                strPwd.append(str);
+            }
+        } else if (type.equals("string")) {
+            for(i = 0; i < cnt; ++i) {
+                str[0] = (char)((int)(Math.random() * 26.0D + 97.0D));
+                strPwd.append(str);
+            }
+        } else {
+            //int i;
+            if (type.equals("number")) {
+                int[] strs = new int[1];
+
+                for(i = 0; i < cnt; ++i) {
+                    strs[0] = (int)(Math.random() * 9.0D);
+                    strPwd.append(strs[0]);
+                }
+            } else if (type.equals("c")) {
+                Random rnd = new Random();
+
+                for(i = 0; i < cnt; ++i) {
+                    if (rnd.nextBoolean()) {
+                        strPwd.append((char)(rnd.nextInt(26) + 97));
+                    } else {
+                        strPwd.append(rnd.nextInt(10));
+                    }
+                }
+            } else if(type.equals("e")){
+                char[] passwordTable =  {'!', '@', '#', '$', '%', '^', '&', '*','(', ')'};
+                Random random = new Random(System.currentTimeMillis());
+                for(i = 0; i < cnt; i++) {
+                    strPwd.append(Character.toString(passwordTable[random.nextInt(passwordTable.length)]));
+                }
+            }
+        }
+
+        return strPwd.toString();
     }
 }

@@ -41,6 +41,19 @@ class ComEmailControllerApi {
     @Autowired
     GsonUtil gsonUtil;
 
+
+    /***
+     * title        : 제목
+     * fromName     : 보내는 사람 이름
+     * toAddr       : 받는사람 메일
+     * message      : 내용
+     * @param request
+     * @param comEmailVO
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     * @throws MessagingException
+     */
     @ResponseBody
     @PostMapping(value="/send")
     @ApiOperation(value="메일전송")

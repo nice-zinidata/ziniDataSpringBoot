@@ -24,6 +24,14 @@ public class BizMainControllerApi {
 
     private final BizMainService bizMainService;
 
+    /***
+     * mobileNo         : 휴대폰 번호
+     * memNm            : 이름
+     * @param request
+     * @param bizCertVO
+     * @return : seqNo : 인증번호 sequence
+     * @throws SQLException
+     */
     @ResponseBody
     @PostMapping(value="/setCert")
     @ApiOperation(value="인증번호 발송")
@@ -35,6 +43,14 @@ public class BizMainControllerApi {
         return result;
     }
 
+    /***
+     * mobileNo     : 휴대폰번호
+     * memNm        : 이름
+     * seqNo        : 인증번호 sequence
+     * @param request
+     * @param bizCertVO
+     * @return
+     */
     @ResponseBody
     @PostMapping(value="/getCert")
     @ApiOperation(value="인증번호 확인")
@@ -46,6 +62,18 @@ public class BizMainControllerApi {
         return result;
     }
 
+    /***
+     * mobileNo         : 전화번호
+     * memNm            : 이름
+     * memType          : 유형
+     * interestAreacd   : 지역
+     * interestUpjong   : 업종
+     * personalInfo     : 개인정보 동의
+     * marketingInfo    : 마케팅동의
+     * @param request
+     * @param bizSubscribeVO
+     * @return
+     */
     @ResponseBody
     @PostMapping(value="/subscribe")
     @ApiOperation(value="구독하기")

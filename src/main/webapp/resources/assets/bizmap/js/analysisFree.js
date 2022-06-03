@@ -76,11 +76,9 @@ function fn_succ_features(id, response, param){
 		return;
 	}
 
-	// console.log(response.data[0].feature);
-	// var result = JSON.parse(response.data[0].feature.replace(/$#34;/g,"'"));
 	// geomjson 데이터로 변경하기
 	var result = getGeomJson("admiFeatures", "FeatureCollection", response.data);
-	//
+
 	strGeoJson = result;
 	map.data.addGeoJson(result);
 
@@ -103,16 +101,13 @@ function fn_succ_features(id, response, param){
 
 	// 메뉴 눌러서 지역선택시 바로 보고서 생성
 	if(!common.isEmpty(param.upjongCd)){
-		getFreeReport();
+		getFreeReport(response.data[0].storeCnt);
 	}
 
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
-			console.log(strUpjongCd);
 			if(!common.isEmpty(strUpjongCd)){
-				if(confirm("보고서를 생성하시겠습니까?")){
-					getFreeReport();
-				}
+				getFreeReport(e.feature.getProperty("storeCnt"));
 			}else{
 				if(confirm("업종을 선택 하시겠습니까?")){
 					$('.pop_up').css('display', 'block');
@@ -129,33 +124,31 @@ function fn_succ_features(id, response, param){
 			}
 		});
 	}
-
 }
 
 // 보고서 파일 생성
-function getFreeReport(){
-
-	// 상권이 3개 이상인 곳만
-	/*if(data.feature.getProperty("admiCd") < 3) {
-		alert("분석할 상권이 3개 이하 입니다.");
-		return;
-	}*/
-
-	var data = {
-		admiCd : strAdmiCd
-		, upjongCd : strUpjongCd
+function getFreeReport(storeCnt){
+	// if(storeCnt < 3){
+	// 	alert("분석할 상권이 3개 이하 입니다.");
+	// 	return;
+	// }
+	if(confirm("보고서를 생성하시겠습니까?")){
+		var data = {
+			admiCd : strAdmiCd
+			, upjongCd : strUpjongCd
+			, memNo : ""				// 나중에 로그인들어오면 아이디 넣기
+		}
+		getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
 	}
-	console.log(data);
-	getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
 }
 
 // 보고서 정보 가져오기
 function fn_succ_getFreeReport(id, response, param){
-	console.log(response);
 	if(response.result != "success"){
 		alert(response.message);
 		return;
 	}
-	//보고서 파일 가져오기
+	//보고서 팝업 생성하기
+	console.log(response.data);
 
 }

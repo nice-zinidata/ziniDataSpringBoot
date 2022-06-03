@@ -407,13 +407,11 @@
     }
 
     function getAdmiFeatures(){
-        if(confirm("보고서를 생성하시겠습니까?")){
-            var data={
-                admiCd : strAdmiCd
-                , upjongCd : strUpjongCd
-            }
-            getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
+        var data={
+            admiCd : strAdmiCd
+            , upjongCd : strUpjongCd
         }
+        getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
     }
 </script>
 

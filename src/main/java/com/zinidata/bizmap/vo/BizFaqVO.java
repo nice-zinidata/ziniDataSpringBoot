@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BizFaqVO {
     private String boardDtlNo;
-    private String boardNo;
+    private int boardNo;
     private String memNo;
     private String tBoardDtlNo;
     private String pBoardDtlNo;

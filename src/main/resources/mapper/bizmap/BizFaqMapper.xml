@@ -16,7 +16,7 @@
                     from tb_board_dtl a
                     left join tb_board b on a.board_no = b.board_no
                     left join tb_admin_info c on a.mem_no = c.admin_no
-                    where a.board_no = 1
+                    where a.board_no = #{boardNo}
                     and a.del_yn = 'N'
                     and c.end_dt = '99991231'
                 ) a

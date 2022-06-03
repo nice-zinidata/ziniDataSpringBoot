@@ -10,5 +10,8 @@ public class BizAnalysisVO {
     private double yAxis;
     private String admiCd;
     private String upjongCd;
+    private String blockCd;
+    private String memNo;
+    private String jsonData;
 
 }

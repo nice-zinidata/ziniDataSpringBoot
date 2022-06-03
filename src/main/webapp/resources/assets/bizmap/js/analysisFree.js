@@ -5,7 +5,7 @@ var strAdmiCd = "";
 var strAreaNm = "";
 var strUpjongCd = "";
 var strUpjongNm = "";
-
+var strMenuGugun = "1"; //1:기본보고서, 2:유동인구, 3:밀집도, 4:뜨는업종, 5:영상콘텐츠
 
 var mapOptions = {
 	center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
@@ -15,6 +15,7 @@ var map = new naver.maps.Map('map', mapOptions);
 
 $(function(){
 
+	// 지도 마우스 이동
 	naver.maps.Event.addListener(map, 'mousemove', function (e){
 		var data={
 			xAxis: e.latlng.x
@@ -24,7 +25,7 @@ $(function(){
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
 	});
 
-
+	// 지도 클릭
 	naver.maps.Event.addListener(map, 'click', function (e){
 		var data={
 			xAxis: e.latlng.x
@@ -32,6 +33,14 @@ $(function(){
 		}
 
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
+	});
+
+	// 지도 드레그 종료
+	naver.maps.Event.addListener(map, 'dragend', function (e){
+		//유동인구, 밀집도, 뜨는업종, 영상콘텐츠에서만 버튼 보이도록
+		if(strMenuGugun != 1){
+			$("#reSearch").parent().css('display','');
+		}
 	});
 
 });
@@ -53,7 +62,6 @@ function fn_succ_features(id, response, param){
 
 	// 메뉴 눌러서 지역선택시 해당 지역으로 이동
 	if(!common.isEmpty(param.upjongCd)){
-		console.log('-----------------');
 		var bounds = new naver.maps.LatLngBounds(
 			new naver.maps.LatLng(response.data[0].miny, response.data[0].minx),
 			new naver.maps.LatLng(response.data[0].maxy, response.data[0].maxx));

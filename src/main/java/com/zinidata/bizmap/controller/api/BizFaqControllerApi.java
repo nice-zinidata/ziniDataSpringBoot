@@ -22,6 +22,12 @@ public class BizFaqControllerApi {
     private final BizFaqService bizFaqService;
 
 
+    /***
+     * boardNo : 게시판 번호 (1,2,3 ~)
+     * @param bizFaqVO
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @PostMapping(value="/getFaq")
     @ApiOperation(value="Faq")

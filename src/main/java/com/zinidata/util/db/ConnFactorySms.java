@@ -15,10 +15,6 @@ public class ConnFactorySms {
         Connection con = null;
 
         try{
-            System.out.println(DRIVER);
-            System.out.println(URL);
-            System.out.println(USER);
-            System.out.println(PASSWORD);
             Class.forName(DRIVER);
             con = DriverManager.getConnection(URL, USER, PASSWORD);
         }catch(Exception e){

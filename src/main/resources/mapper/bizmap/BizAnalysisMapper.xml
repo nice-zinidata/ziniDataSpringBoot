@@ -53,8 +53,23 @@
         select nextval('tb_usage_zone_sql') as anal_no
     </select>
 
-    <select id="getFreeReport" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
-
+    <select id="getFreeReport" parameterType="com.zinidata.bizmap.vo.BizAnalysisVO" resultType="com.zinidata.bizmap.vo.output.BizFreeReportOutVO">
+        select *
+        from tb_bizmap_report
+        where upjong_cd = #{upjongCd}
+        and (admi_cd = #{admiCd} or block_cd = #{blockCd})
     </select>
+
+    <insert id="setFreeReport">
+        insert into tb_bizmap_report (admi_cd,block_cd,upjong_cd,json_data,crt_no,crt_dt,cnt)
+        values (#{admiCd},#{blockCd},#{upjongCd},#{jsonData},#{memNo},now(),1)
+    </insert>
+
+    <update id="setFreeReportCnt">
+        update tb_bizmap_report
+        set cnt = cnt+1
+        where upjong_cd = #{upjongCd}
+          and (admi_cd = #{admiCd} or block_cd = #{blockCd})
+    </update>
 
 </mapper>

@@ -109,7 +109,7 @@
     </div>
     <!--pop_up-->
 
-    <div class="float-float">
+    <div class="float-float" style="display: none">
         <a href="" id="reSearch" onclick="">현 지도에서 상권 분석</a>
     </div>
     <!--float-top end-->
@@ -183,8 +183,6 @@
             $('.pop_up').css('display', 'block');
             $('.map').css('display', 'none');
             $('.reset').click();
-
-            console.log(strUpjongCd);
 
             // if(strAdmiCd == "" || strUpjongCd != ""){
             // }else if(strUpjongCd == ""){

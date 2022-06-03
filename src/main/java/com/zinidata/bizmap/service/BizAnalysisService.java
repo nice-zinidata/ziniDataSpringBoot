@@ -5,6 +5,7 @@ import com.zinidata.bizmap.mapper.BizAnalysisMapper;
 import com.zinidata.bizmap.vo.BizAnalysisVO;
 import com.zinidata.bizmap.vo.BizAnalysisVO;
 import com.zinidata.bizmap.vo.output.BizAnalysisOutVO;
+import com.zinidata.bizmap.vo.output.BizFreeReportOutVO;
 import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
@@ -54,13 +55,24 @@ public class BizAnalysisService {
 
     // 보고서 정보 가져오기
     public String getFreeReport(BizAnalysisVO bizAnalysisVO) throws IOException {
-        // 보고서 정보 json 데이터로 저장하기
-        ArrayList<BizAnalysisOutVO> outVo = bizAnalysisMapper.getFreeReport(bizAnalysisVO);
-        Gson gson = new Gson();
-        String result = gson.toJson(outVo);
+        String result = "";
+                // 보고서가 있는지 체크
+        BizFreeReportOutVO outVo = bizAnalysisMapper.getFreeReport(bizAnalysisVO);
+        // 보고서가 없는경우 생성
+        if(BizmapUtil.isEmpty(outVo)){
+            // 1. 보고서 정보 조회
+            ArrayList<BizAnalysisOutVO> reportOutVo = bizAnalysisMapper.getAdmiFeatures(bizAnalysisVO);
+            Gson gson = new Gson();
+            result = gson.toJson(reportOutVo);
 
-
-
+            // 2. 보고서 정보 저장
+            bizAnalysisVO.setJsonData(result);
+            int setReport = bizAnalysisMapper.setFreeReport(bizAnalysisVO);
+        }else{
+            bizAnalysisMapper.setFreeReportCnt(bizAnalysisVO);
+            // json data바로 보내기
+            result = outVo.getJsonData();
+        }
 
         return result;
     }

@@ -62,8 +62,7 @@ public class BizAnalysisService {
         if(BizmapUtil.isEmpty(outVo)){
             // 1. 보고서 정보 조회
             ArrayList<BizAnalysisOutVO> reportOutVo = bizAnalysisMapper.getAdmiFeatures(bizAnalysisVO);
-            Gson gson = new Gson();
-            result = gson.toJson(reportOutVo);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, reportOutVo));
 
             // 2. 보고서 정보 저장
             bizAnalysisVO.setJsonData(result);

@@ -135,8 +135,6 @@ function fn_succ_features(id, response, param){
 // 보고서 파일 생성
 function getFreeReport(){
 
-	alert(strAdmiCd + " " + strUpjongCd);
-
 	// 상권이 3개 이상인 곳만
 	/*if(data.feature.getProperty("admiCd") < 3) {
 		alert("분석할 상권이 3개 이하 입니다.");
@@ -153,11 +151,11 @@ function getFreeReport(){
 
 // 보고서 정보 가져오기
 function fn_succ_getFreeReport(id, response, param){
+	console.log(response);
 	if(response.result != "success"){
 		alert(response.message);
 		return;
 	}
 	//보고서 파일 가져오기
-	console.log(response.data);
 
 }

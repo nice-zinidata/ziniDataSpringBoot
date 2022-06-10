@@ -22,7 +22,7 @@
     <meta charset="euc-kr" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>NICEbizmap 상권분석서비스aaa</title>
+    <title>NICEbizmap 상권분석서비스</title>
     <!-- Favicon -->
     <link href="/resources/assets/bizmap/images/favicon.png" rel="icon" type="image/png" />
 

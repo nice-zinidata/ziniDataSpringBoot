@@ -31,13 +31,6 @@
 </head>
 
 <body>
-
-<div id="main">
-</div>
-
-<div id="map" style="width:100%;height:100%;"></div>
-
-<!-- //dialog -->
     <div class="map" id="map" style="width:100%;height:100%;"></div>
     <div class="pop_up module">
         <div class="pop_header">
@@ -161,18 +154,6 @@
 
 <!-- js 모읍 -->
 <%@ include file="/WEB-INF/views/bizmap/include/script.jsp" %>
-
-<script type="text/javascript">
-    var mapOptions = {
-        center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
-        zoom: 14
-    };
-
-    var map = new naver.maps.Map('map', mapOptions);
-
-    $(function() {
-
-    });
 
 
 

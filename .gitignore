@@ -33,8 +33,9 @@ build/
 .vscode/
 
 ### memo ###
-.memo
+/.memo
 
 ### test ###
 /src/test
 
+/src/main/resources/reports

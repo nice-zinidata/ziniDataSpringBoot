@@ -3,6 +3,7 @@ package com.zinidata.bizmap.service;
 import com.google.gson.Gson;
 import com.zinidata.bizmap.mapper.BizAnalysisMapper;
 import com.zinidata.bizmap.vo.BizAnalysisVO;
+import com.zinidata.bizmap.vo.BizAnalysisVO;
 import com.zinidata.bizmap.vo.output.BizAnalysisOutVO;
 import com.zinidata.bizmap.vo.output.BizFreeReportOutVO;
 import com.zinidata.util.BizmapUtil;

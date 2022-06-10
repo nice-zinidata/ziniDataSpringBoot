@@ -1,7 +1,7 @@
 <%--
     PageName    :
-    FileName    : index_m.jsp
-    Description : 나이스비즈맵 인터넷 환경 모바일 메인페이지
+    FileName    : index.jsp
+    Description : 나이스비즈맵 관리자 페이지
     Author      : 
     Make DT     :
     Modify DT   :
@@ -22,12 +22,12 @@
     <meta charset="euc-kr" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>NICEbizmap 상권분석서비스</title>
+    <title>NICEbizmap 어드민</title>
     <!-- Favicon -->
-    <link href="/resources/assets/bizmap/images/favicon.png" rel="icon" type="image/png" />
+    <link href="/resources/assets/bizmapAdmin/images/favicon.png" rel="icon" type="image/png" />
 
     <!-- css 모음 -->
-    <%@ include file="/WEB-INF/views/bizmap/include/head.jsp" %>
+    <%@ include file="/WEB-INF/views/bizmapAdmin/include/head.jsp" %>
 
 	<script>
 	</script>
@@ -44,82 +44,82 @@
 </dl>
 
 <div id="main">
-    <div id="nav_box">
-        <div>
-            <div id="logo_box">
-                <img src="/resources/assets/bizmap/images/logo.svg" alt="나이스비즈맵" height="100%" width="auto">
-            </div>
-        </div>
-    </div>
+    <%@ include file="/WEB-INF/views/bizmapAdmin/include/navbar.jsp" %>
+
+    <%@ include file="/WEB-INF/views/bizmapAdmin/include/side.jsp" %>
     <div id="contents">
-        <div class="top">
-            <div class="inner">
-                <div class="msg slide-top">
-                    <h1>우리동네 상권을<br/>한눈에</h1>
-                    <p>나이스비즈맵을 통해 우리동네 상권을 한눈에 알아보세요.</p>
-                </div>
+        <div class="inner">
+            <div class="header">
+                <h2>회원현황</h2>
             </div>
-        </div>
-        <div id="s3" class="section">
-            <div class="inner2">
-                <div class="msg_s">
-                    <p class="tag">My Report</p>
-                    <h2>나만의 상권보고서</h2>
-                    <p class="sub">원하시는 업종과 지역의 상권보고서<br>를 매월 받아보세요.</p>
-                    <div class="btn_box">
-<%--                        <a class="btn" tabindex="0" id="subscribe_1" onclick="subscribeWin(this.id);" onkeydown="enterCheck(event, this.id);" title="보고서 생성">보고서 생성</a>--%>
-                        <a class="btn" tabindex="0" id="subscribe_1" onclick="fn_analysisFree();" title="보고서 생성">보고서 생성</a>
-                    </div>
-                </div>
-                <div class="img_grp">
-                    <div class="img_grp_wrap">
-                        <div class="surf_deco">
-                            <img class="bling1" src="/resources/assets/bizmap/images/s3_back_bling1.svg" alt="데코레이션">
-                            <img class="bling2" src="/resources/assets/bizmap/images/s3_back_bling2.svg" alt="데코레이션">
-                            <img class="card" src="/resources/assets/bizmap/images/s3_back_card.svg" alt="데코레이션">
-                            <img class="chart" src="/resources/assets/bizmap/images/s3_back_chart.svg" alt="데코레이션">
-                            <img class="check" src="/resources/assets/bizmap/images/s3_back_check.svg" alt="데코레이션">
-                        </div>
-                        <div class="phone_inner">
-                            <div class="phone_inner_wrap">
-                                <img src="/resources/assets/bizmap/images/slider.svg" alt="기본보고서 요약본 예시">
+            <div class="main">
+                <div class="card">
+                    <ul class="d-flex">
+                        <li>
+                            <form class="form-floating">
+                                <input type="text" class="form-control" id="inputId" placeholder="test" value="test">
+                                <label for="inputId">아이디</label>
+                            </form>
+                        </li>
+                        <li>
+                            <form class="form-floating">
+                                <input type="text" class="form-control" id="inputName" placeholder="test" value="test">
+                                <label for="inputName">이름</label>
+                            </form>
+                        </li>
+                        <li></li>
+                    </ul>
+                    <ul class="d-flex">
+                        <li>
+                            <form class="form-floating">
+                                <input type="number" class="form-control" id="inputPhone" placeholder="test" value="test">
+                                <label for="inputPhone">휴대전화</label>
+                            </form>
+                        </li>
+                        <li>
+                            <form class="form-floating">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="test" value="test">
+                                <label for="inputEmail">이메일</label>
+                            </form>
+                        </li>
+                        <li>
+                            <div class="form-floating">
+                                <select class="form-select" id="selectStatus" aria-label="status">
+                                    <option selected>전체</option>
+                                    <option value="1">탈퇴</option>
+                                    <option value="2">회원</option>
+                                </select>
+                                <label for="selectStatus">상태</label>
                             </div>
-                        </div>
-                        <div class="phone_box">
-                        </div>
-                        <!--<div class="phone_shadow"></div>-->
-                        <div class="bg_small">
-                            <img src="/resources/assets/bizmap/images/s3_back_circle1.svg" alt="데코레이션">
-                        </div>
-                        <div class="bg_small2">
-                            <img src="/resources/assets/bizmap/images/s3_back_circle2.svg" alt="데코레이션">
-                        </div>
-                        <div class="bg_img">
-                            <img src="/resources/assets/bizmap/images/s3_back_big.svg" alt="데코레이션">
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="footer">
-    <div class="inner">
-        <div class="d-flex justify-content-around">
-            <div class="left">
-                <ul class="link">
-                    <li><a tabindex="0" id="service_promise_1" title="서비스약관 팝업 열림">서비스약관</a></li>
-                    <li><a tabindex="0" id="personal_privacy_1" title="개인정보처리방침 팝업 열림">개인정보처리방침</a></li>
-                </ul>
-                <ul class="info">
-                    <li>NICE지니데이타(주)</li>
-                    <li>대표 정선동</li>
-                    <li class="br">사업자번호 216-81-16917</li>
-                    <li>통신판매업번호 제2015-서울영등포-1289호</li>
-                    <li>서울특별시 영등포구 은행로 30, 중소기업회관 신관 7층<li>
-                    <li>대표번호 02-3215-2828</li>
-                    <li class="br">Copyright (c) NICE ZiniData Co., Ltd. All rights reserved.</li>
-                </ul>
+                <div class="d-flex justify-content-end mt-1">
+                    <button id="con_reset" class="btn-secondary">조건초기화</button>
+                    <button id="search" class="btn-first">검색</button>
+                </div>
+                <div class="table-responsive my-3">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">아이디</th>
+                                <th scope="col">가입일자</th>
+                                <th scope="col">사용자유형</th>
+                                <th scope="col">휴대전화</th>
+                                <th scope="col">이메일</th>
+                                <th scope="col">상태</th>
+                                <th scope="col">탈퇴일자</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr>
+                                <td colspan="9">검색된 결과가 없습니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -131,8 +131,8 @@
 
 </html>
 
-<!-- js 모읍 -->
-<%@ include file="/WEB-INF/views/bizmap/include/script.jsp" %>
+<!-- js 모음 -->
+<%@ include file="/WEB-INF/views/bizmapAdmin/include/script.jsp" %>
 
 <script type="text/javascript">
     var couponWin = null, prepareWin = null;
@@ -199,7 +199,7 @@
 
     // 기본보고서 페이지로 이동
     function fn_analysisFree(){
-        window.location="/bizmap/analysis/analysisFree";
+        window.location="/bizmapAdmin/analysis/analysisFree";
     }
 
 </script>

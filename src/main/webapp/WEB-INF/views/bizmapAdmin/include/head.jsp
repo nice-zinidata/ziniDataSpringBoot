@@ -15,12 +15,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- lib (변동 있는 css)-->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/reset.css?<%=version%>">
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style.css?<%=version%>">
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style_m.css?<%=version%>">
-    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmap/css/style2.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmapAdmin/css/reset.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmapAdmin/css/style.css?<%=version%>">
+<%--    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmapAdmin/css/style_m.css?<%=version%>">--%>
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bizmapAdmin/css/style2.css?<%=version%>">
 
 </head>
 <!-- END: Head-->

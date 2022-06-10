@@ -9,7 +9,6 @@
 		SELECT
 			now() as currentTime
 		, #{id} as id
-		FROM dual
 	</select>
 
 </mapper>

@@ -4,38 +4,72 @@
 
     <sql id="tmp_table">
         with tmp_table as (
-            select cty_cd, admi_cd as id, admi_cd, admi_nm, minx, miny, maxx, maxy, centerx, centery, geom
-            from tbshp_admi_features
+            select c.mega_cd, c.mega_nm, a.cty_cd, b.cty_nm
+                , a.admi_cd as id
+                , a.admi_cd
+                , a.admi_nm
+                , a.minx
+                , a.miny
+                , a.maxx
+                , a.maxy
+                , a.centerx
+                , a.centery
+                , a.geom
+                , a.feature
+            from tbshp_admi_features a
+        left join tbadm_cty b on a.cty_cd = b.cty_cd
+        left join tbshp_mega c on b.mega_cd = c.mega_cd
         )
     </sql>
 
-    <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
+    <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         <include refid="tmp_table"/>
-        select a.*
-            , a.admi_cd as id
-            , ST_AsGeoJSON(a.geom)::jsonb as geometry
-        from tmp_table a
+        select a1.*
+            , a1.admi_cd as id
+            , ST_AsGeoJSON(a1.geom)::jsonb as geometry
+            , (select coalesce(sum(store_cnt), 0) as store_cnt
+                from tbss_sum_sales_v2 a
+                , tbshp_block_new b
+                where a.block_cd_v2= b.blk_cd
+                and b.admi_cd like concat(a1.admi_cd,'%')
+                <if test='upjongCd != null'>
+                    and a.upjong3_cd like concat(#{upjongCd},'%')
+                </if>
+                ) as store_cnt
+        from tmp_table a1
         where 1=1
-        <if test="xAxis != null">
+        <if test='xAxis != null and xAxis != "0.0"'>
             and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
         </if>
-    </select>
-
-    <select id="getStoreCnt" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
-        select sum(store_cnt) as store_cnt
-        from cmapbatch.tbss_sum_sales_v2 a
-           , tbshp_block_new b
-        where a.block_cd_v2= b.blk_cd
-          and b.admi_cd like concat(#{admiCd},'%')
-          and a.upjong3_cd like concat(#{upjongCd},'%')
+        <if test='admiCd != null and upjongCd == null'>
+            and a1.admi_cd != #{admiCd}
+        </if>
+        <if test='admiCd != null and upjongCd != null'>
+            and a1.admi_cd = #{admiCd}
+        </if>
     </select>
 
     <select id="setReportAnalNo" resultType="integer">
         select nextval('tb_usage_zone_sql') as anal_no
     </select>
 
-    <select id="getFreeReport" resultType="com.zinidata.bizmap.vo.BizAnalysisVO">
-
+    <select id="getFreeReport" parameterType="com.zinidata.bizmap.vo.BizAnalysisVO" resultType="com.zinidata.bizmap.vo.output.BizFreeReportOutVO">
+        select *
+        from tb_bizmap_report
+        where upjong_cd = #{upjongCd}
+        and (admi_cd = #{admiCd} or block_cd = #{blockCd})
     </select>
+
+    <insert id="setFreeReport">
+        insert into tb_bizmap_report (admi_cd,block_cd,upjong_cd,json_data,crt_no,crt_dt,cnt)
+        values (#{admiCd},#{blockCd},#{upjongCd},#{jsonData},#{memNo},now(),1)
+    </insert>
+
+    <update id="setFreeReportCnt">
+        update tb_bizmap_report
+        set cnt = cnt+1
+        where upjong_cd = #{upjongCd}
+          and (admi_cd = #{admiCd} or block_cd = #{blockCd})
+    </update>
 
 </mapper>

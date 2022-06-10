@@ -22,6 +22,15 @@ public class BizAnalysisControllerApi {
 
     private final BizAnalysisService bizAnalysisService;
 
+    /***
+     * 4326 형식
+     * xAxis        : x 좌표
+     * yAxis        : y 좌표
+     * upjongCd     : upjong3Cd
+     * @param bizAnalysisVO
+     * @return
+     * @throws JsonProcessingException
+     */
     @ResponseBody
     @PostMapping(value="/admiFeatures")
     @ApiOperation(value="마우스 오버 구역 표시")

@@ -1,0 +1,8 @@
+package com.zinidata.bizmap.vo;
+
+import lombok.Data;
+
+@Data
+public class BizRisingUpjongVO {
+
+}

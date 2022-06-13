@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="nav_box">
-    <div id="logo_box"></div>
+    <a href=""><div id="logo_box"></div></a>
     <div id="menu_btn">
         <ul class="menu_btn_ul">
             <button class="navbar member" data-url="/bizmapAdmin/member/member">회원관리</button>

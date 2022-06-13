@@ -4,12 +4,12 @@
     <div id="logo_box"></div>
     <div id="menu_btn">
         <ul class="menu_btn_ul">
-            <button class="topMenu" id="topMenu1">회원관리</button>
-            <button class="topMenu" id="topMenu2">컨텐츠관리</button>
-            <button class="topMenu" id="topMenu3">고객지원</button>
-            <button class="topMenu" id="topMenu4">통계관리</button>
-            <button class="topMenu" id="topMenu5">사용자관리</button>
-            <button class="topMenu" id="topMenu6">상품관리</button>
+            <button class="navbar member" data-url="/bizmapAdmin/member/member">회원관리</button>
+            <button class="navbar contents" data-url="/bizmapAdmin/contents/report">컨텐츠관리</button>
+            <button class="navbar customer">고객지원</button>
+            <button class="navbar statisticsManagement">통계관리</button>
+            <button class="navbar memberManagement">사용자관리</button>
+            <button class="navbar productManagement">상품관리</button>
         </ul>
     </div>
 </div>

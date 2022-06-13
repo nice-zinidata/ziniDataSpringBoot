@@ -21,72 +21,46 @@
 <div id="contents">
     <div class="inner">
         <div class="header">
-            <h2>서비스 신청내역</h2>
+            <h2>회원현황</h2>
         </div>
         <div class="main">
             <div class="card">
                 <ul class="d-flex">
                     <li>
                         <form class="form-floating">
-                            <input type="text" class="form-control" id="datefrom" placeholder="test" value="test">
-                            <label for="datefrom">구입일자 시작</label>
+                            <input type="text" class="form-control" id="inputId" placeholder="test" value="test">
+                            <label for="inputId">아이디</label>
                         </form>
                     </li>
                     <li>
                         <form class="form-floating">
-                            <input type="text" class="form-control" id="dateto" placeholder="test" value="test">
-                            <label for="dateto">구입일자 끝</label>
+                            <input type="text" class="form-control" id="inputName" placeholder="test" value="test">
+                            <label for="inputName">이름</label>
                         </form>
                     </li>
-                    <li>
-                        <div class="form-floating">
-                            <select class="form-select" id="pay_method" aria-label="status">
-                                <option selected>전체</option>
-                                <option value="1">유료</option>
-                                <option value="2">무료</option>
-                            </select>
-                            <label for="pay_method">결제방식</label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="form-floating">
-                            <select class="form-select" id="prod_type" aria-label="status">
-                                <option selected>전체</option>
-                                <option value="1">선불이용권</option>
-                                <option value="2">FRAN</option>
-                                <option value="3">전문가보고서</option>
-                                <option value="4">쿠폰</option>
-                                <option value="5">관리자쿠폰</option>
-                                <option value="6">패키지</option>
-                                <option value="7">단품</option>
-                            </select>
-                            <label for="prod_type">상품종류</label>
-                        </div>
-                    </li>
+                    <li></li>
                 </ul>
                 <ul class="d-flex">
                     <li>
                         <form class="form-floating">
-                            <input type="text" class="form-control" id="login_id" placeholder="test" value="test">
-                            <label for="login_id">아이디</label>
+                            <input type="number" class="form-control" id="inputPhone" placeholder="test" value="test">
+                            <label for="inputPhone">휴대전화</label>
                         </form>
                     </li>
                     <li>
                         <form class="form-floating">
-                            <input type="text" class="form-control" id="mem_nm" placeholder="test" value="test">
-                            <label for="mem_nm">이름</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="test" value="test">
+                            <label for="inputEmail">이메일</label>
                         </form>
                     </li>
-                </ul>
-                <ul class="d-flex">
                     <li>
                         <div class="form-floating">
-                            <select class="form-select" id="mem_stat" aria-label="status">
+                            <select class="form-select" id="selectStatus" aria-label="status">
                                 <option selected>전체</option>
                                 <option value="1">탈퇴</option>
                                 <option value="2">회원</option>
                             </select>
-                            <label for="mem_stat">회원구분</label>
+                            <label for="selectStatus">상태</label>
                         </div>
                     </li>
                 </ul>
@@ -102,14 +76,12 @@
                         <th scope="col">번호</th>
                         <th scope="col">이름</th>
                         <th scope="col">아이디</th>
-                        <th scope="col">상품구분</th>
-                        <th scope="col">상품명</th>
-                        <th scope="col">결제일시</th>
-                        <th scope="col">잔여/구매횟수</th>
-                        <th scope="col">결제금액</th>
-                        <th scope="col">결제방식</th>
-                        <th scope="col">서비스유효기간</th>
-                        <th scope="col">결제여부</th>
+                        <th scope="col">가입일자</th>
+                        <th scope="col">사용자유형</th>
+                        <th scope="col">휴대전화</th>
+                        <th scope="col">이메일</th>
+                        <th scope="col">상태</th>
+                        <th scope="col">탈퇴일자</th>
                     </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -123,18 +95,19 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     var couponWin = null, prepareWin = null;
     var subscribe = null;
     var scrollY;
 
     var strUserId = "";
+
+
     $(function() {
 
-        console.log("service.jsp 다시 load");
+        console.log("report.jsp 다시 load");
 
-        menuActive("member", "sideService");
+        menuActive("contents", "sideReport");
 
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
             $("#login_iframe_1").show();

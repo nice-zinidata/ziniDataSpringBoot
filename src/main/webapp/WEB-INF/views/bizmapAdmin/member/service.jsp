@@ -170,6 +170,8 @@
     var strUserId = "";
     $(function() {
 
+        menuActive("topMenu1", "sideService");
+
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
             $("#login_iframe_1").show();
             $("#member_reg1_1").show();

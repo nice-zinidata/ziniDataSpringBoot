@@ -8,6 +8,13 @@ $(function() {
    });
 });
 
+function menuActive(top, side){
+    $(".topMenu").removeClass("on");
+    $(".sidemenu").removeClass("on");
+    $("#" + top).addClass("on");
+    $("#" + side).addClass("on");
+}
+
 // Navbar의 메뉴 클릭 이벤트
 function menuClickedFunc(clickedMenu) {
     $('#menu_btn > ul > button').removeAttr('class');

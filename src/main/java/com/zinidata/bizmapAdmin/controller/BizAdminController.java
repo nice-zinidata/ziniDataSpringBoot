@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/bizmapAdmin")
+@RequestMapping("/bizmapAdmin/member")
 public class BizAdminController {
 
 //    @GetMapping("/index")
@@ -19,8 +19,13 @@ public class BizAdminController {
 //    }
 
     @GetMapping("/member")
-    public String member() {
-        return "bizmapAdmin/member/member1";
+    public String member()   {
+        return "bizmapAdmin/member/member";
+    }
+
+    @GetMapping("/service")
+    public String serivce()   {
+        return "bizmapAdmin/member/service";
     }
 
 //    @GetMapping("/contents")

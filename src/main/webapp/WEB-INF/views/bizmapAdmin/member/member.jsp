@@ -140,7 +140,11 @@
     var scrollY;
 
     var strUserId = "";
+
+
     $(function() {
+
+        menuActive("topMenu1", "sideMember");
 
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
             $("#login_iframe_1").show();
@@ -154,7 +158,6 @@
 
         init();
     });
-
 
     function init(){
         cookiedata = document.cookie;

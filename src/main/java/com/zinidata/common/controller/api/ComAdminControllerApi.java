@@ -23,6 +23,18 @@ class ComAdminControllerApi {
 
     private final ComAdminService comAdminService;
 
+
+    @ResponseBody
+    @PostMapping(value="/registProc")
+    @ApiOperation(value="회원가입")
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message = "회원가입")
+    })
+    public String registProc(HttpServletRequest request, ComLoginVO comLoginVO) throws NoSuchAlgorithmException {
+        String result = comAdminService.registProc(request, comLoginVO);
+        return result;
+    }
+
     /***
      * loginId      : 아이디
      * pwd          : 비밀번호

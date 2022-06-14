@@ -58,4 +58,5 @@ public class ComLoginVO {
     private int loginAutnSeq;
     private String ipAddr;
 
+
 }

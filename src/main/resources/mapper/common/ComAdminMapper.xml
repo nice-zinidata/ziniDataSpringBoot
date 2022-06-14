@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.common.mapper.ComAdminMapper">
 
+    <insert id="setMember" parameterType="com.zinidata.common.vo.ComLoginVO">
+        insert into tb_member(mem_no, login_id, pwd, mem_stat, mem_nm,vno, mobile_no, email_addr, mem_type, sms_yn ,email_yn ,alarm_yn ,subs_dt ,start_dt
+                        ,end_dt,temp_pwd_yn,interest_areacd1,interest_areacd2,interest_areacd3,interest_upjong1,interest_upjong2,interest_upjong3
+                        ,crt_dt,crt_id,joinsite_corp_cd,svc_yn)
+            values(nextval('tb_member_seq'), #{loginId},#{pwd}, #{memStat}, #{memNm}, #{vno}, #{mobileNo}, #{emailAddr}, #{memType}, #{smsYn}, #{emailYn}, #{alarmYn}, to_char(now(),'yyyymmdd'), to_char(now(),'yyyymmddHH24MMDD')
+                    , '99991231','N',  #{interestAreacd1}, #{interestAreacd2}, #{interestAreacd3}, #{interestUpjong1}, #{interestUpjong2}, #{interestUpjong3}
+                    , now(), #{loginId}, #{joinsiteCorpCd}, 'N')
+    </insert>
+
     <select id="getMember" resultType="com.zinidata.common.vo.ComLoginVO">
         select vno as ssn
              , FN_GETADMINM(interest_areacd1) AS interest_areacd1_str

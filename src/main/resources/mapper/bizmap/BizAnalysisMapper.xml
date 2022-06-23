@@ -8,7 +8,7 @@
         from tbshp_mega_features
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>
-            and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
+        and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
         </if>
     </select>
 
@@ -17,7 +17,7 @@
         from tbshp_cty_features
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>
-            and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
+        and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}), 4326)) = 'TRUE'
         </if>
     </select>
 
@@ -51,16 +51,16 @@
                 where a.block_cd_v2= b.blk_cd
                 and b.admi_cd like concat(a1.admi_cd,'%')
                 <if test='upjongCd != null'>
-                    and a.upjong3_cd like concat(#{upjongCd},'%')
+                and a.upjong3_cd like concat(#{upjongCd},'%')
                 </if>
                 ) as store_cnt
         from tmp_table a1
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>
-            and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
+        and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
         </if>
         <if test='admiCd != null and upjongCd != null'>
-            and a1.admi_cd = #{admiCd}
+        and a1.admi_cd = #{admiCd}
         </if>
     </select>
 

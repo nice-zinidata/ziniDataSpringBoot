@@ -9,6 +9,7 @@ var strMenuGugun = "1"; //1:기본보고서, 2:유동인구, 3:밀집도, 4:뜨�
 
 var fileInfo = {};
 
+var CENTER = new naver.maps.LatLng(37.5661485287594, 126.975221181947);
 var mapOptions = {
 	center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
 	zoom: 14
@@ -33,7 +34,7 @@ $(function(){
 		var data={
 			xAxis: e.latlng.x
 			, yAxis: e.latlng.y
-			, zoomStatus : ( map.getZoom() > 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "")
+			, zoomStatus : ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "")
 		}
 
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
@@ -110,21 +111,29 @@ function fn_succ_features(id, response, param){
 
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
-			if(!common.isEmpty(strUpjongCd)){
-				getFreeReport(e.feature.getProperty("storeCnt"));
-			}else{
-				if(confirm("업종을 선택 하시겠습니까?")){
-					$('.pop_up').css('display', 'block');
-					$('.map').css('display', 'none');
-					$('.confirm').removeClass('on');
-					$('.body1').css('display', 'none');
-					$('.in2').css('display', 'flex');
-					$('.in1').css('display', 'none');
-					var data = {
-						gubun : "upjong1"
-					};
-					getUpjong(data);
+			console.log(map.getZoom());
+			if( map.getZoom() >= 14 ) {
+				if(!common.isEmpty(strUpjongCd)){
+					getFreeReport(e.feature.getProperty("storeCnt"));
+				}else{
+					if(confirm("업종을 선택 하시겠습니까?")){
+						$('.pop_up').css('display', 'block');
+						$('.map').css('display', 'none');
+						$('.confirm').removeClass('on');
+						$('.body1').css('display', 'none');
+						$('.in2').css('display', 'flex');
+						$('.in1').css('display', 'none');
+						var data = {
+							gubun : "upjong1"
+						};
+						getUpjong(data);
+					}
 				}
+			}else{
+				CENTER = new naver.maps.LatLng(e.feature.getProperty("centery"), e.feature.getProperty("centerx"));
+				map.setCenter(CENTER);
+				map.setZoom(14);
+				map.data.removeGeoJson(strGeoJson);
 			}
 		});
 	}

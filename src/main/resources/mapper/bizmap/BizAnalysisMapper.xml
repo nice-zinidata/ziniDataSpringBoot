@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizAnalysisMapper">
 
-
+<!--
     <select id="getMegaFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         select *, ST_AsGeoJSON(geom)::jsonb as geometry
         from tbshp_mega_features
@@ -10,7 +10,7 @@
         <if test='xAxis != null and xAxis != "0.0"'>
         and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
         </if>
-    </select>
+    </select>-->
 
     <select id="getCtyFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         select *, ST_AsGeoJSON(geom)::jsonb as geometry

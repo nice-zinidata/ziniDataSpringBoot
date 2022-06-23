@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Mapper
 public interface BizAnalysisMapper {
 
-    ArrayList<BizAnalysisOutVO> getMegaFeatures(BizAnalysisVO bizAnalysisVO);
+//    ArrayList<BizAnalysisOutVO> getMegaFeatures(BizAnalysisVO bizAnalysisVO);
     ArrayList<BizAnalysisOutVO> getCtyFeatures(BizAnalysisVO bizAnalysisVO);
 
     ArrayList<BizAnalysisOutVO> getAdmiFeatures(BizAnalysisVO bizAnalysisVO);

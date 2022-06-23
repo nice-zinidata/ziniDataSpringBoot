@@ -39,11 +39,12 @@ public class BizAnalysisService {
 
     public String admiFeatures(BizAnalysisVO bizAnalysisVO){
         ArrayList<BizAnalysisOutVO> outVo = new ArrayList<>();
-        if(bizAnalysisVO.getZoomStatus().equals("megaCd")){
+//        if(bizAnalysisVO.getZoomStatus().equals("megaCd")){
             // 특별시/광역시 등
-            outVo = bizAnalysisMapper.getMegaFeatures(bizAnalysisVO);
-        }else if(bizAnalysisVO.getZoomStatus().equals("ctyCd")){
-            // 시/군/구
+//            outVo = bizAnalysisMapper.getMegaFeatures(bizAnalysisVO);
+//        }else
+        if(bizAnalysisVO.getZoomStatus().equals("ctyCd") || bizAnalysisVO.getZoomStatus().equals("megaCd")){
+            // 특별시/광역시 , 시/군/구
             outVo = bizAnalysisMapper.getCtyFeatures(bizAnalysisVO);
         }else if(bizAnalysisVO.getZoomStatus().equals("admiCd")){
             // 읍/면/동

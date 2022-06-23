@@ -79,6 +79,7 @@ public class BizAnalysisService {
             bizAnalysisVO.setJsonData(result);
             int setReport = bizAnalysisMapper.setFreeReport(bizAnalysisVO);
         }else{
+            bizAnalysisVO.setReportNo(outVo.getReportNo());
             bizAnalysisMapper.setFreeReportCnt(bizAnalysisVO);
             // json data바로 보내기
             result = outVo.getJsonData();

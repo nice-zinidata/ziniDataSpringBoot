@@ -6,6 +6,7 @@ import lombok.Data;
 public class BizFreeReportOutVO {
 
     //output
+    private int reportNo;
     private String jsonData;
 
 }

@@ -73,18 +73,18 @@
         from tb_bizmap_report
         where upjong_cd = #{upjongCd}
         and (admi_cd = #{admiCd} or block_cd = #{blockCd})
+        and prj_gb='bizmap'
     </select>
 
     <insert id="setFreeReport">
-        insert into tb_bizmap_report (admi_cd,block_cd,upjong_cd,json_data,crt_no,crt_dt,cnt)
-        values (#{admiCd},#{blockCd},#{upjongCd},#{jsonData},#{memNo},now(),1)
+        insert into tb_bizmap_report (admi_cd,block_cd,upjong_cd,json_data,crt_no,crt_dt,cnt, prj_gb)
+        values (#{admiCd},#{blockCd},#{upjongCd},#{jsonData},#{memNo},now(),1, 'bizmap')
     </insert>
 
     <update id="setFreeReportCnt">
         update tb_bizmap_report
         set cnt = cnt+1
-        where upjong_cd = #{upjongCd}
-          and (admi_cd = #{admiCd} or block_cd = #{blockCd})
+        where report_no=#{reportNo}
     </update>
 
 </mapper>

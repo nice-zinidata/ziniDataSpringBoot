@@ -1,6 +1,5 @@
 package com.zinidata.common.service;
 
-import com.zinidata.bizmap.vo.BizMainVO;
 import com.zinidata.common.mapper.ComAdminMapper;
 import com.zinidata.common.vo.ComAreaVO;
 import com.zinidata.common.vo.ComLoginVO;
@@ -13,6 +12,7 @@ import com.zinidata.util.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +25,9 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @Service
 public class ComAdminService {
+
+    @Value("${bizmap.home.dir}")
+    private String homeDir;
 
     @Autowired
     GsonUtil gsonUtil;

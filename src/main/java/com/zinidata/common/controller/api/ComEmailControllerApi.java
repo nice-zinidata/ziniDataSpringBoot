@@ -35,7 +35,6 @@ import java.util.Properties;
 class ComEmailControllerApi {
 
     @Value("${bizmap.email.address}")
-
     private String emailAddress;
 
     @Autowired

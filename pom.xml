@@ -238,11 +238,32 @@
 
         <!-- add lib -->
         <dependency>
+            <groupId>eproject</groupId>
+            <artifactId>eproject</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/eproject.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration-1.2</groupId>
+            <artifactId>commons-configuration-1.2</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/commons-configuration-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>email</groupId>
             <artifactId>email1</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.lib.path}/javax.mail.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>file</groupId>
+            <artifactId>email1</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/cos.jar</systemPath>
         </dependency>
     </dependencies>
 

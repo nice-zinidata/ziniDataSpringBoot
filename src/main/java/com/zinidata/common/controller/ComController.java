@@ -17,4 +17,9 @@ public class ComController {
 		return "";
 	}
 
+	@GetMapping("/fileDownLoad")
+	public String fileDownLoad() {
+		return "fileDownLoad";
+	}
+
 }

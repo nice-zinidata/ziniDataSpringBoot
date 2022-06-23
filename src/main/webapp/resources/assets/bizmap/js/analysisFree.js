@@ -7,6 +7,8 @@ var strUpjongCd = "";
 var strUpjongNm = "";
 var strMenuGugun = "1"; //1:기본보고서, 2:유동인구, 3:밀집도, 4:뜨는업종, 5:영상콘텐츠
 
+var fileInfo = {};
+
 var mapOptions = {
 	center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
 	zoom: 14
@@ -150,5 +152,31 @@ function fn_succ_getFreeReport(id, response, param){
 	}
 	//보고서 팝업 생성하기
 	console.log(response.data);
+}
 
+function fileUpload(){
+	$.ajax({
+		url: "/common/file/upload",
+		type: "POST",
+		data: new FormData($("#fileUploadForm")[0]),
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+		cache: false,
+		success: function (response) {
+			response = JSON.parse(response);
+			fileInfo = {
+				fileName : response.data.fileName
+				, orgFileNm : response.data.original
+				, filePath : response.data.filePath
+			};
+		},
+		error: function (response) {
+			alert('File Upload Error\n\n' + response);
+		}
+	});
+}
+
+function fileDownLoad(){
+	$("#fileDownLoad").attr('href' , domainUrl + "common/fileDownLoad?fileName=" + fileInfo.fileName + "&orgFileNm=" + fileInfo.orgFileNm + "&filePath=" + fileInfo.filePath);
 }

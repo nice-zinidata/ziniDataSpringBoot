@@ -15,6 +15,9 @@
 
     request.setCharacterEncoding("euc-kr");
 
+    String http = request.getScheme();
+    StringBuffer url = request.getRequestURL();
+    String parameter = request.getQueryString();
 %>
 <!doctype html>
 <html lang="ko">
@@ -52,6 +55,15 @@
         </div>
     </div>
     <div id="contents">
+
+        <h1>file upload</h1>
+        <form name="fileUploadForm" id="fileUploadForm" method="post" action="/common/file/upload" enctype="multipart/form-data">
+            <input type="file" name="uploadFile" multiple="multiple">
+        </form>
+
+        <button class="btn" id="fileUpload" onclick="fileUpload();" title="파일 업로드">파일업로드</button>
+        <a href="javascript:;" id="fileDownLoad" onclick="fileDownLoad();">파일 다운로드</a>
+
         <div class="top">
             <div class="inner">
                 <div class="msg slide-top">
@@ -140,6 +152,12 @@
     var scrollY;
 
     var strUserId = "";
+
+    var strUrl = '<%= url%>';
+    console.log(strUrl);
+    var domainUrl = strUrl.substring(0,strUrl.indexOf('WEB-INF'));
+
+
     $(function() {
 
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
@@ -153,6 +171,10 @@
         }
 
         init();
+
+        // $("#fileDownLoad").on('click', function(){
+        //     fileDownLoad();
+        // });
     });
 
 

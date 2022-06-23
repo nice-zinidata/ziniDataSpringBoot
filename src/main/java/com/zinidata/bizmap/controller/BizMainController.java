@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BizMainController {
 
     @GetMapping("/index")
-    public String index_m() {
+    public String index() {
         return "bizmap/index";
     }
 

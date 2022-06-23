@@ -2,26 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizAnalysisMapper">
 
+
+    <select id="getMegaFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
+        select *, ST_AsGeoJSON(geom)::jsonb as geometry
+        from tbshp_mega_features
+        where 1=1
+        <if test='xAxis != null and xAxis != "0.0"'>
+            and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
+        </if>
+    </select>
+
+    <select id="getCtyFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
+        select *, ST_AsGeoJSON(geom)::jsonb as geometry
+        from tbshp_cty_features
+        where 1=1
+        <if test='xAxis != null and xAxis != "0.0"'>
+            and ST_Intersects(geom, ST_MakePoint(#{xAxis}, #{yAxis})) = 'TRUE'
+        </if>
+    </select>
+
     <sql id="tmp_table">
         with tmp_table as (
             select c.mega_cd, c.mega_nm, a.cty_cd, b.cty_nm
-                , a.admi_cd as id
-                , a.admi_cd
-                , a.admi_nm
-                , a.minx
-                , a.miny
-                , a.maxx
-                , a.maxy
-                , a.centerx
-                , a.centery
-                , a.geom
-                , a.feature
+                 , a.admi_cd as id
+                 , a.admi_cd
+                 , a.admi_nm
+                 , a.minx
+                 , a.miny
+                 , a.maxx
+                 , a.maxy
+                 , a.centerx
+                 , a.centery
+                 , a.geom
+                 , a.feature
             from tbshp_admi_features a
-        left join tbadm_cty b on a.cty_cd = b.cty_cd
-        left join tbshp_mega c on b.mega_cd = c.mega_cd
+            left join tbadm_cty b on a.cty_cd = b.cty_cd
+            left join tbshp_mega c on b.mega_cd = c.mega_cd
         )
     </sql>
-
     <select id="getAdmiFeatures" resultType="com.zinidata.bizmap.vo.output.BizAnalysisOutVO">
         <include refid="tmp_table"/>
         select a1.*
@@ -40,9 +58,6 @@
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>
             and ST_Intersects(geom, ST_SETSRID(ST_MakePoint(#{xAxis}, #{yAxis}),4326)) = 'TRUE'
-        </if>
-        <if test='admiCd != null and upjongCd == null'>
-            and a1.admi_cd != #{admiCd}
         </if>
         <if test='admiCd != null and upjongCd != null'>
             and a1.admi_cd = #{admiCd}

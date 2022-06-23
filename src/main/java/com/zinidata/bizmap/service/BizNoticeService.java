@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,12 +27,21 @@ public class BizNoticeService {
 
 
     public String getNotice(BizNoticeVO bizNoticeVO){
+        // 공지사항 목록
         ArrayList<BizNoticeVO> outVo = bizNoticeMapper.getNotice(bizNoticeVO);
+        HashMap <String, ArrayList<BizNoticeVO>> map = new HashMap<>();
+        map.put("notice",outVo);
+
+        // 상세 조회일때만 첨부문서 목록 보여지도록
+        if(bizNoticeVO.getBoardDtlNo() != 0){
+            ArrayList<BizNoticeVO> outVo2 = bizNoticeMapper.getAttach(bizNoticeVO);
+            map.put("attach",outVo2);
+        }
 
         String result = "";
-        if(!BizmapUtil.isEmpty(outVo)){
+        if(!BizmapUtil.isEmpty(map)){
             // 로그인 성공
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
         }else{
             // 로그인 실패
             result = gsonUtil.toJson(new JsonOutputVo(Status.실패));

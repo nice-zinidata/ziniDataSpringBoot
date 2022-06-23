@@ -13,5 +13,6 @@ public class BizAnalysisVO {
     private String blockCd;
     private String memNo;
     private String jsonData;
+    private String zoomStatus;
 
 }

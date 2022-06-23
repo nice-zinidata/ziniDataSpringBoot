@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizNoticeMapper">
 
-
     <select id="getNotice" resultType="com.zinidata.bizmap.vo.BizNoticeVO">
         select a.*
             from (
@@ -31,8 +30,23 @@
                     AND C.END_DT = '99991231' --
                 ) a
             ) a
-        where ((1 - 1) * 10) <![CDATA[<]]> rn
-        and rn <![CDATA[<=]]> (1 * 10)
+        where 1=1
+        <if test="searchText != null">
+            and subject like concat('%',#{searchText},'%') and contents like concat('%',#{searchText},'%')
+        </if>
+        <if test="boardDtlNo != 0">
+            and a.board_dtl_no = #{boardDtlNo}
+        </if>
+        <if test="pageCnt != 0">
+            limit #{pageCnt} offset #{pageNo}
+        </if>
+    </select>
+
+    <select id="getAttach" resultType="com.zinidata.bizmap.vo.BizNoticeVO">
+        select *
+        from tb_board_attach
+        where del_yn = 'N'
+        and board_dtl_no = #{boardDtlNo}
     </select>
 
 </mapper>

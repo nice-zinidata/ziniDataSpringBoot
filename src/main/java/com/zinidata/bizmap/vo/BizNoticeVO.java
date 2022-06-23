@@ -4,11 +4,17 @@ import lombok.Data;
 
 @Data
 public class BizNoticeVO {
-    private String boardDtlNo;
+    // input
+    private String searchText;
+    private int pageCnt;
+    private int pageNo;
+
+    // output
+    private int boardDtlNo;
     private int boardNo;
     private String memNo;
-    private String tBoardDtlNo;
-    private String pBoardDtlNo;
+    private int tBoardDtlNo;
+    private int pBoardDtlNo;
     private String subject;
     private String contents;
     private String dispOrder;
@@ -26,5 +32,11 @@ public class BizNoticeVO {
     private String passwordYn;
     private String adminNm;
     private String rn;
-    private String totalRowCount;
+    private int totalRowCount;
+
+    private int attachNo;
+    private String fileNm;
+    private String filePath;
+    private String orgFileNm;
+    private String fileSize;
 }

@@ -23,6 +23,7 @@ $(function(){
 			xAxis: e.latlng.x
 			, yAxis: e.latlng.y
 			, admiCd : strAdmiCd
+			, zoomStatus : ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() <= 11 ) ? "megaCd" : "admiCd")
 		}
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
 	});
@@ -32,6 +33,7 @@ $(function(){
 		var data={
 			xAxis: e.latlng.x
 			, yAxis: e.latlng.y
+			, zoomStatus : ( map.getZoom() > 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "")
 		}
 
 		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);

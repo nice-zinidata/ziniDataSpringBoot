@@ -9,5 +9,6 @@ import java.util.ArrayList;
 public interface BizNoticeMapper {
 
     ArrayList<BizNoticeVO> getNotice(BizNoticeVO bizNoticeVO);
+    ArrayList<BizNoticeVO> getAttach(BizNoticeVO bizNoticeVO);
 
 }

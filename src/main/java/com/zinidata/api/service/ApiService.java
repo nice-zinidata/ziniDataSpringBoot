@@ -17,7 +17,9 @@ public class ApiService {
 	//상품권 판매점 현황
 	public String getTime(ApiVO apiVO) {
 
-		ApiVO outVo = apiMapper.getTime(apiVO);
+		String outVo = apiMapper.getTime(apiVO);
+
+		System.out.println(outVo);
 
 		Gson gson = new Gson();
 		String result = gson.toJson(outVo);

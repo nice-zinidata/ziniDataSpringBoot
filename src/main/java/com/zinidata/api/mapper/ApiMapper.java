@@ -9,6 +9,6 @@ public interface ApiMapper {
 	//상품권 판매점 현황
 
 	@Transactional(readOnly = true)
-	ApiVO getTime(ApiVO apiVO);
+	String getTime(ApiVO apiVO);
 
 }

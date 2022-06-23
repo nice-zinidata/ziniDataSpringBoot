@@ -4,11 +4,9 @@
 
 <mapper namespace="com.zinidata.api.mapper.ApiMapper">
 
-	<select id="getTime" parameterType="com.zinidata.api.vo.ApiVO" resultType="com.zinidata.api.vo.ApiVO">
+	<select id="getTime" parameterType="com.zinidata.api.vo.ApiVO" resultType="string">
 		/* MainMapper.getDate */
-		SELECT
-			now() as currentTime
-		, #{id} as id
+		select batch_ym as batchYm from cmapap.tb_batch_log
 	</select>
 
 </mapper>

@@ -4,6 +4,32 @@
 
 
     <select id="getFlowpop" resultType="com.zinidata.bizmap.vo.BizFlowpopVO">
+        select 'BL_V2' as blk_type, 1 as blk_cd, '선택 폴리곤' as label
+            , ST_XMAX(ST_Union(geom)) as maxx
+            , ST_XMIN(ST_Union(geom)) as minx
+            , ST_YMAX(ST_Union(geom)) as maxy
+            , ST_YMIN(ST_Union(geom)) as miny
+            , (ST_XMAX(ST_Union(geom)) + ST_XMIN(ST_Union(geom))) / 2 as centerx
+            , (ST_YMAX(ST_Union(geom)) + ST_YMIN(ST_Union(geom))) / 2 as centery
+            , ST_Union(geom) as geom
+            , '#2a7cdd' as fill_color
+            , '0.5' as fill_opacity
+            , '#545656' as stroke_color
+            , '1' as stroke_width
+            , 'dash' as stroke_dash_style
+        from (
+                select c.blk_cd, c.blk_nm as label, c.geom
+                from tbshp_block_new_features c
+                where 1=1
+                and c.blk_cd in (
+                    select b.r_blk_cd_v2
+                    from tbshp_block_new_features a, tbblock_radius_v2 b
+                    where 1=1
+                    and ST_Intersects(a.geom, ST_SetSRID(ST_Point(#{xAxis}, #{yAxis}), 4326)) = true
+                    and a.blk_cd = b.blk_cd_v2
+                    and b.radius = #{radius}
+                )
+            ) a
     </select>
 
 

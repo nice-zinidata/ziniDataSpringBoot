@@ -29,7 +29,7 @@ public class BizNoticeControllerApi {
      * @throws IOException
      */
     @ResponseBody
-    @PostMapping(value="/getNotice")
+    @PostMapping(value="getNotice")
     @ApiOperation(value="공지")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "공지")

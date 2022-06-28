@@ -54,7 +54,7 @@ class ComEmailControllerApi {
      * @throws MessagingException
      */
     @ResponseBody
-    @PostMapping(value="/send")
+    @PostMapping(value="send")
     @ApiOperation(value="메일전송")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "메일전송")

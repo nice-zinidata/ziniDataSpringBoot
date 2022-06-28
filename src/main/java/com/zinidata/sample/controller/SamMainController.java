@@ -18,17 +18,17 @@ public class SamMainController {
 
     private final SamMainService samMainService;
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String login() {
         return "sample/login";
     }
 
-    @GetMapping("/signUp")
+    @GetMapping("signUp")
     public String signUp() {
         return "sample/signUp";
     }
 
-    @GetMapping("/main")
+    @GetMapping("main")
     public String main(Model model, HttpSession session) {
         if(com.zinidata.util.BizmapUtil.isEmpty(session.getAttribute("userId"))){
             return "sample/login";
@@ -37,7 +37,7 @@ public class SamMainController {
         return "sample/main";
     }
 
-    @GetMapping("/index")
+    @GetMapping("index")
     public String index(Model model, HttpSession session) {
         if(com.zinidata.util.BizmapUtil.isEmpty(session.getAttribute("userId"))){
             return "sample/login";

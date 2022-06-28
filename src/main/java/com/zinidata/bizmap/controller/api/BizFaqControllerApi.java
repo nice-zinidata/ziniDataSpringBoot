@@ -29,7 +29,7 @@ public class BizFaqControllerApi {
      * @throws IOException
      */
     @ResponseBody
-    @PostMapping(value="/getFaq")
+    @PostMapping(value="getFaq")
     @ApiOperation(value="Faq")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "Faq")

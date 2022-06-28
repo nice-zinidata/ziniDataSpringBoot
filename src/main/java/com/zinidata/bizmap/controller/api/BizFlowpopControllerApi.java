@@ -22,7 +22,7 @@ public class BizFlowpopControllerApi {
     private final BizFlowpopService bizFlowpopService;
 
     @ResponseBody
-    @PostMapping(value="/getFlowpop")
+    @PostMapping(value="getFlowpop")
     @ApiOperation(value="유동인구 출력(포인트)")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "유동인구 출력(포인트)")

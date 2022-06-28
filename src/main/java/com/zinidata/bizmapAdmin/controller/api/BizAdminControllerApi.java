@@ -29,7 +29,7 @@ public class BizAdminControllerApi {
      * @throws SQLException
      */
     @ResponseBody
-    @PostMapping(value="/setCert")
+    @PostMapping(value="setCert")
     @ApiOperation(value="인증번호 발송")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "인증번호 발송")
@@ -48,7 +48,7 @@ public class BizAdminControllerApi {
      * @return
      */
     @ResponseBody
-    @PostMapping(value="/getCert")
+    @PostMapping(value="getCert")
     @ApiOperation(value="인증번호 확인")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "인증번호 확인")
@@ -71,7 +71,7 @@ public class BizAdminControllerApi {
      * @return
      */
 //    @ResponseBody
-//    @PostMapping(value="/subscribe")
+//    @PostMapping(value="subscribe")
 //    @ApiOperation(value="구독하기")
 //    @ApiResponses(value = {
 //            @ApiResponse(code=200, message = "구독하기")

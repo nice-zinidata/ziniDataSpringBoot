@@ -45,7 +45,7 @@ class ComFileControllerApi {
     private String homePath;
 
     @ResponseBody
-    @PostMapping(value="/upload")
+    @PostMapping(value="upload")
     @ApiOperation(value="파일업로드")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "파일업로드")

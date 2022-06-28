@@ -30,7 +30,7 @@ public class BizYouTubeControllerApi {
      * @throws IOException
      */
     @ResponseBody
-    @PostMapping(value="/getYouTube")
+    @PostMapping(value="getYouTube")
     @ApiOperation(value="유튜브URL 가져오기")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "유튜브URL 가져오기")

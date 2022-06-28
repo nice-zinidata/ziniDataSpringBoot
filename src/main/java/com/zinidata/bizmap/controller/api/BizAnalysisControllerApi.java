@@ -32,7 +32,7 @@ public class BizAnalysisControllerApi {
      * @throws JsonProcessingException
      */
     @ResponseBody
-    @PostMapping(value="/admiFeatures")
+    @PostMapping(value="admiFeatures")
     @ApiOperation(value="마우스 오버 구역 표시")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "마우스 오버 구역 표시")
@@ -44,7 +44,7 @@ public class BizAnalysisControllerApi {
 
 
     @ResponseBody
-    @PostMapping(value="/getFreeReport")
+    @PostMapping(value="getFreeReport")
     @ApiOperation(value="기본보고서 가져오기")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "기본보고서 가져오기")

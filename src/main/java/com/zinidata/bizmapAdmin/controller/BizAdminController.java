@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bizmapAdmin")
 public class BizAdminController {
 
-//    @GetMapping("/index")
+//    @GetMapping("index")
 //    public String index() {
 //        return "bizmapAdmin/index";
 //    }
 
-    @GetMapping("/main")
+    @GetMapping("main")
     public String main()   {
         return "bizmapAdmin/main";
     }
 
-    @GetMapping("/member/member")
+    @GetMapping("member/member")
     public String member()   {
         return "bizmapAdmin/member/member";
     }
 
-    @GetMapping("/member/service")
+    @GetMapping("member/service")
     public String serivce()   {
         return "bizmapAdmin/member/service";
     }
 
-//    @GetMapping("/contents")
+//    @GetMapping("contents")
 //    public String contents() {
 //        return "bizmapAdmin/contents/contents1";
 //    }
 
-    @GetMapping("/contents/report")
+    @GetMapping("contents/report")
     public String report()   {
         return "bizmapAdmin/contents/report";
     }

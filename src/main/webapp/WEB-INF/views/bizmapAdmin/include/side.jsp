@@ -7,8 +7,8 @@
         </div>
         <div class="side-nav-body">
             <ul>
-                <li class="sideMenu" id="sideMember" data-url="/bizmapAdmin/member/member"><button>회원현황</button></li>
-                <li class="sideMenu" id="sideService" data-url="/bizmapAdmin/member/service"><button>서비스 신청내역</button></li>
+                <li class="sideMenu" id="sideMember" data-url="/bizmap/admin/member/member"><button>회원현황</button></li>
+                <li class="sideMenu" id="sideService" data-url="/bizmap/admin/member/service"><button>서비스 신청내역</button></li>
                 <li class="sideMenu"><button>상권분석 이용내역</button></li>
                 <li class="sideMenu"><button>입추/업추 이용내역</button></li>
                 <li class="sideMenu"><button>사업자 회원현황</button></li>
@@ -27,7 +27,7 @@
         </div>
         <div class="side-nav-body">
             <ul>
-                <li class="sideMenu" id="sideReport" data-url="/bizmapAdmin/contents/report"><button>전문가보고서</button></li>
+                <li class="sideMenu" id="sideReport" data-url="/bizmap/admin/contents/report"><button>전문가보고서</button></li>
                 <li class="">창업정보관리</li>
                     <ul>
                         <li class="sub" id="sideNews"><button>창업뉴스</button></li>

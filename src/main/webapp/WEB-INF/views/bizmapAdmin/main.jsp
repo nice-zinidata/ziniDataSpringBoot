@@ -63,7 +63,7 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#onlyBody").load("/bizmapAdmin/member/member");
+        $("#onlyBody").load("/bizmapAdmin/member/member1");
     });
 
 </script>

@@ -1,9 +1,11 @@
 package com.zinidata.bizmapAdmin.controller;
 
+import com.zinidata.bizmapAdmin.vo.output.BizAdminOutVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -13,34 +15,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bizmapAdmin")
 public class BizAdminController {
 
-//    @GetMapping("/index")
-//    public String index() {
-//        return "bizmapAdmin/index";
-//    }
-
     @GetMapping("/main")
     public String main()   {
         return "bizmapAdmin/main";
     }
 
-    @GetMapping("/member/member")
-    public String member()   {
-        return "bizmapAdmin/member/member";
+    @GetMapping("/member/member1")
+    public String member1()   {
+        return "bizmapAdmin/member/member1";
     }
 
-    @GetMapping("/member/service")
-    public String serivce()   {
-        return "bizmapAdmin/member/service";
+    @GetMapping("/member/member2")
+    public String member2()   {
+        return "bizmapAdmin/member/member2";
     }
 
-//    @GetMapping("/contents")
-//    public String contents() {
-//        return "bizmapAdmin/contents/contents1";
-//    }
 
-    @GetMapping("/contents/report")
-    public String report()   {
-        return "bizmapAdmin/contents/report";
+    @GetMapping("/contents/contents1")
+    public String contents1()   {
+        return "bizmapAdmin/contents/contents1";
+    }
+
+    @GetMapping("/contents/contents2")
+    public String contents2()   {
+        return "bizmapAdmin/contents/contents2";
     }
 
 }

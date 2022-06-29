@@ -21,7 +21,7 @@
 <div id="contents">
     <div class="inner">
         <div class="header">
-            <h2>회원현황</h2>
+            <h2>전문가보고서</h2>
         </div>
         <div class="main">
             <div class="card">
@@ -105,9 +105,9 @@
 
     $(function() {
 
-        console.log("report.jsp 다시 load");
+        console.log("contents1.jsp 다시 load");
 
-        menuActive("contents", "sideReport");
+        menuActive("contents", "sideContents1");
 
         if(strUserId == "" || strUserId == null || strUserId=='null'  || strUserId=='unknown' ){
             $("#login_iframe_1").show();

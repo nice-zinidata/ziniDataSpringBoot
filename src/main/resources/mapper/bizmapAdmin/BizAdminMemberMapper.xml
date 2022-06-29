@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.bizmapAdmin.mapper.BizAdminMapper">
+
+    <select id="rMemberList" resultType="com.zinidata.bizmapAdmin.vo.BizAdminVO">
+        select a.*
+        from (
+        select a.*
+        , row_number() over(order by A.SUBS_DT desc) rn
+        , count(*) over() total_row_count
+        from (
+        SELECT FN_GETADMINM(a.INTEREST_AREACD1) AS AREANM1
+        , FN_GETADMINM(a.INTEREST_AREACD2) AS AREANM2
+        , FN_GETADMINM(a.INTEREST_AREACD3) AS AREANM3
+        , FN_GETUPJONG(a.interest_upjong1) AS interest_upjong1_str
+        , FN_GETUPJONG(a.interest_upjong2) AS interest_upjong2_str
+        , FN_GETUPJONG(a.interest_upjong3) AS interest_upjong3_str
+        , vno AS dec_ssn
+        , TO_CHAR(TO_DATE(subs_dt, 'YYYYMMDD'), 'YYYY-MM-DD') AS subs_dt_str
+        , TO_CHAR(TO_DATE(leave_dt, 'YYYYMMDD'), 'YYYY-MM-DD') AS leave_dt_str
+        , a.*
+        FROM (
+        SELECT RANK() OVER(PARTITION BY MEM_NO ORDER BY END_DT DESC) RNK
+        , A.*
+        FROM cmapap.TB_MEMBER A
+        ) A
+        WHERE RNK = 1
+          <if test='gubun == "list"'>
+          and (
+              login_id like concat('%', #{loginId}, '%')
+              and email_addr like concat('%', #{emailAddr}, '%')
+              and mem_nm like concat('%', #{memNm}, '%')
+              and mobile_no like concat('%', #{mobileNo}, '%')
+              and mem_stat like concat('%', #{memStat}, '%')
+          )
+          </if>
+          <if test='gubun == "detail"'>
+            and mem_no = #{memNo}
+          </if>
+        ) a ) a
+        where ((1 - 1) * 10) <![CDATA[<]]> rn
+        and rn <![CDATA[<=]]> (1 * 10)
+    </select>
+    <select id="rMemberHstList" resultType="com.zinidata.bizmapAdmin.vo.BizAdminVO">
+        select mem_no, crt_id, upd_id, upd_dt, to_char(upd_dt, 'YYYY-MM-DD HH24:MI:SS') as upd_dt_str
+        from tb_member_history
+        where mem_no = #{memNo}
+        order by crt_dt desc
+    </select>
+    <select id="rFranMemberList" resultType="com.zinidata.bizmapAdmin.vo.BizAdminVO">
+        select
+            *
+        from(
+                SELECT A.MEM_NO
+                     , D.MEM_NM
+                     , D.LOGIN_ID
+                     , B.CORP_CD
+                     , B.CORP_NM
+                     , C.AUTH_TYPE
+                     , C.AUTH_NM
+                     , A.AUTH_FLAG
+                     , TO_CHAR(TO_DATE(B.CORP_STD_DT,'YYYYMMDD'), 'YYYY.MM.DD') AS CORP_STD_DT
+                     , TO_CHAR(TO_DATE(B.CORP_END_DT,'YYYYMMDD'), 'YYYY.MM.DD') AS CORP_END_DT
+                     , D.MEM_TYPE
+                     , D.MOBILE_NO
+                     , D.SMS_YN
+                     , TO_CHAR(A.CRT_DT, 'YYYY.MM.DD') AS CRT_DT
+                     , TO_CHAR(TO_DATE(D.SUBS_DT,'YYYYMMDD'), 'YYYY.MM.DD') AS SUBS_DT
+                     , A.UPJONG3_CD
+                     , D.EMAIL_ADDR
+                     , D.EMAIL_YN
+                     , D.MEM_STAT
+                FROM TB_JOINSITE_MEMBER A, TB_JOINSITE_FRAN B, TB_JOINSITE_AUTH_TYPE C, (
+                    SELECT MEM_NO, LOGIN_ID, MEM_NM, MEM_TYPE, MOBILE_NO, SMS_YN, EMAIL_ADDR, EMAIL_YN, SUBS_DT, MEM_STAT FROM TB_MEMBER
+                    UNION
+                    SELECT CORP_MEM_NO, CORP_ID, CORP_NM, '' AS MEM_TYPE, ADMIN_MOBILE_NO, SMS_YN, ADMIN_EMAIL_ADDR, EMAIL_YN, SUBS_DT, MEM_STAT FROM TB_MEMBER_CORP) D
+                WHERE A.CORP_CD = B.CORP_CD
+                  AND A.AUTH_TYPE = C.AUTH_TYPE
+                  AND A.MEM_NO = D.MEM_NO
+                  AND a.mem_no = #{memNo}
+            ) E left join TB_UPJONG3 F
+                on
+                E.UPJONG3_CD = F.UPJONG3_CD
+    </select>
+    <select id="rSvcList" resultType="com.zinidata.bizmapAdmin.vo.BizAdminVO">
+        SELECT A.*
+        FROM (
+        SELECT COUNT(*) OVER() TOTAL_ROW_COUNT
+        , SALE_NO
+        , MEM_NM
+        , LOGIN_ID
+        , ROW_NUMBER() OVER(ORDER BY UPD_DT DESC) RN
+        , PROD_TYPE_NM
+        , LAVE_MIN
+        , EXPIRATION_DATE
+        , PAY_DATE
+        , UPD_DT
+        , VALID_DT_TO
+        , PAY_AMT
+        , PAY_METHOD
+        , PAY_DTM
+        , TOT_LIMIT
+        , REMAIN_LIMIT
+        , PROD_TYPE
+        , PAY_STAT
+        , string_agg(PROD_NM, ',') AS PROD_NM
+        , USE_LIMIT
+        , TRADE_NO
+        FROM (
+        SELECT B.SALE_NO
+        , A.MEM_NM
+        , A.LOGIN_ID
+        , case when D.PROD_TYPE = '01' then '단품'
+            when D.PROD_TYPE = '02' then '패키지'
+            when D.PROD_TYPE = '03' then '관리자용'
+            when D.PROD_TYPE = '04' then '쿠폰'
+            when D.PROD_TYPE = '05' then '전문가보고서'
+            when D.PROD_TYPE = '06' then 'FRAN'
+            when D.PROD_TYPE = '08' then '선불이용권'
+            end AS PROD_TYPE_NM
+        , ROUND(extract(epoch from (to_date(B.PAY_DT || B.PAY_TM,'YYYYMMDDHH24MISS') + 1 - now())) / 60) AS LAVE_MIN
+        , TO_CHAR(B.VALID_DT_FROM, 'YYYY-MM-DD') || ' ~ ' || TO_CHAR(B.VALID_DT_TO, 'YYYY-MM-DD HH24:MI') AS EXPIRATION_DATE
+        , TO_CHAR(TO_DATE(B.PAY_DT || B.PAY_TM, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI') AS PAY_DATE
+        , TO_CHAR(B.UPD_DT, 'YYYY-MM-DD HH24:MI') AS UPD_DT
+        , B.VALID_DT_TO
+        , B.PAY_AMT
+        , B.PAY_METHOD
+        , B.PAY_DT || B.PAY_TM AS PAY_DTM
+        , B.TOT_LIMIT
+        , B.REMAIN_LIMIT
+        , D.PROD_TYPE
+        , B.PAY_STAT
+        , D.PROD_ID
+        , D.PROD_NM
+        , D.USE_LIMIT
+        , B.TRADE_NO
+        FROM TB_MEMBER A
+            , TB_SALES B
+            , TB_SALES_PROD C
+            , TB_PRODUCT D
+        WHERE 1 = 1
+        AND A.MEM_NO = B.MEM_NO
+        AND B.SALE_NO = C.SALE_NO
+        AND C.PROD_ID = D.PROD_ID
+        AND B.PAY_DT <![CDATA[>=]]> #{dateFrom}
+        and B.PAY_DT <![CDATA[<=]]> #{dateTo}
+        and A.LOGIN_ID like concat('%', #{loginId}, '%')
+        and A.MEM_NM like concat('%', #{memNm}, '%')
+        and D.PROD_TYPE like concat('%', #{prodType}, '%')
+        GROUP BY B.SALE_NO
+        , A.MEM_NM
+        , A.LOGIN_ID
+        , D.PROD_TYPE
+        , B.PAY_DT
+        , B.PAY_TM
+        , B.VALID_DT_FROM
+        , B.VALID_DT_TO
+        , B.UPD_DT
+        , B.PAY_AMT
+        , B.PAY_METHOD
+        , B.TOT_LIMIT
+        , B.REMAIN_LIMIT
+        , D.PROD_TYPE
+        , B.PAY_STAT
+        , D.PROD_ID
+        , D.PROD_NM
+        , D.USE_LIMIT
+        , B.TRADE_NO
+        ) as E
+        GROUP BY SALE_NO
+        , MEM_NM
+        , LOGIN_ID
+        , PROD_TYPE_NM
+        , LAVE_MIN
+        , EXPIRATION_DATE
+        , PAY_DATE
+        , UPD_DT
+        , VALID_DT_TO
+        , PAY_AMT
+        , PAY_METHOD
+        , PAY_DTM
+        , TOT_LIMIT
+        , REMAIN_LIMIT
+        , PROD_TYPE
+        , PAY_STAT
+        , USE_LIMIT
+        , TRADE_NO
+        ) A
+        WHERE ((1 - 1) * 10) <![CDATA[<]]> RN
+        AND RN <![CDATA[<=]]> (1 * 10)
+    </select>
+
+
+</mapper>

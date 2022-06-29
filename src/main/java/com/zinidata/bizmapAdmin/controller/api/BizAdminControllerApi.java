@@ -1,6 +1,10 @@
 package com.zinidata.bizmapAdmin.controller.api;
 
+import com.zinidata.bizmapAdmin.service.BizAdminService;
 import com.zinidata.bizmapAdmin.vo.BizAdminVO;
+import com.zinidata.bizmapAdmin.vo.output.BizAdminOutVO;
+import com.zinidata.sample.service.SamMainService;
+import com.zinidata.sample.vo.SamLoginVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 @RequiredArgsConstructor
@@ -18,67 +24,44 @@ import java.sql.SQLException;
 @RequestMapping("/bizmapAdmin")
 public class BizAdminControllerApi {
 
-    private final com.zinidata.bizmapAdmin.service.BizAdminService BizAdminService;
+    private final BizAdminService bizAdminService;
 
-    /***
-     * mobileNo         : 휴대폰 번호
-     * memNm            : 이름
-     * @param request
-     * @param bizCertVO
-     * @return : seqNo : 인증번호 sequence
-     * @throws SQLException
-     */
+    // 회원현황 검색 기능
     @ResponseBody
-    @PostMapping(value="/setCert")
-    @ApiOperation(value="인증번호 발송")
+    @PostMapping(value="/member/memList")
+    @ApiOperation(value="회원검색")
     @ApiResponses(value = {
-            @ApiResponse(code=200, message = "인증번호 발송")
+            @ApiResponse(code=200, message = "회원검색")
     })
-    public String setCert(HttpServletRequest request, BizAdminVO bizCertVO) throws SQLException {
-        String result = BizAdminService.setCert(request, bizCertVO);
+    public String memberList(HttpSession session, BizAdminVO bizAdminVO) {
+        String result="";
+        result = bizAdminService.memberList(session, bizAdminVO);
+        return result;
+    }
+    // 회원현황 검색 기능(변경일자를 얻기위한 히스토리 쿼리)
+    @ResponseBody
+    @PostMapping(value="/member/memHstList")
+    @ApiOperation(value="회원 히스토리 검색")
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message = "회원 히스토리 검색")
+    })
+    public String memberHstList(HttpSession session, BizAdminVO bizAdminVO) {
+        String result="";
+        result = bizAdminService.memberHstList(session, bizAdminVO);
         return result;
     }
 
-    /***
-     * mobileNo     : 휴대폰번호
-     * memNm        : 이름
-     * seqNo        : 인증번호 sequence
-     * @param request
-     * @param bizCertVO
-     * @return
-     */
+    // 서비스신청내역 검색 기능
     @ResponseBody
-    @PostMapping(value="/getCert")
-    @ApiOperation(value="인증번호 확인")
+    @PostMapping(value="/member/svcList")
+    @ApiOperation(value="서비스신청내역 검색")
     @ApiResponses(value = {
-            @ApiResponse(code=200, message = "인증번호 확인")
+            @ApiResponse(code=200, message = "서비스신청내역 검색")
     })
-    public String getCert(HttpServletRequest request, BizAdminVO bizCertVO){
-        String result = BizAdminService.getCert(request, bizCertVO);
+    public String svcList(HttpSession session, BizAdminVO bizAdminVO) {
+        String result="";
+        result = bizAdminService.svcList(session, bizAdminVO);
         return result;
     }
-
-    /***
-     * mobileNo         : 전화번호
-     * memNm            : 이름
-     * memType          : 유형
-     * interestAreacd   : 지역
-     * interestUpjong   : 업종
-     * personalInfo     : 개인정보 동의
-     * marketingInfo    : 마케팅동의
-     * @param request
-     * @param bizSubscribeVO
-     * @return
-     */
-//    @ResponseBody
-//    @PostMapping(value="/subscribe")
-//    @ApiOperation(value="구독하기")
-//    @ApiResponses(value = {
-//            @ApiResponse(code=200, message = "구독하기")
-//    })
-//    public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO){
-//        String result = BizAdminService.setSubscribe(request, bizSubscribeVO);
-//        return result;
-//    }
 
 }

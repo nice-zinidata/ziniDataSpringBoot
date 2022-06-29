@@ -31,7 +31,7 @@ import java.util.Properties;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/common/email")
+@RequestMapping("/bizmap/common/email")
 class ComEmailControllerApi {
 
     @Value("${bizmap.email.address}")

@@ -35,7 +35,7 @@ import java.util.Calendar;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/common/file")
+@RequestMapping("/bizmap/common/file")
 class ComFileControllerApi {
 
     @Autowired

@@ -57,7 +57,7 @@
     <div id="contents">
 
         <h1>file upload</h1>
-        <form name="fileUploadForm" id="fileUploadForm" method="post" action="/common/file/upload" enctype="multipart/form-data">
+        <form name="fileUploadForm" id="fileUploadForm" method="post" action="/bizmap/common/file/upload" enctype="multipart/form-data">
             <input type="file" name="uploadFile" multiple="multiple">
         </form>
 

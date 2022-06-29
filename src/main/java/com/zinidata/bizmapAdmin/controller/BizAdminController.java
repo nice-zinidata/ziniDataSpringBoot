@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/bizmapAdmin")
+@RequestMapping("/bizmap/admin")
 public class BizAdminController {
 
 //    @GetMapping("index")

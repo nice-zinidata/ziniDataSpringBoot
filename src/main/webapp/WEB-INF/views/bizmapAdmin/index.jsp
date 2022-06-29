@@ -199,7 +199,7 @@
 
     // 기본보고서 페이지로 이동
     function fn_analysisFree(){
-        window.location="/bizmapAdmin/analysis/analysisFree";
+        window.location="/bizmap/admin/analysis/analysisFree";
     }
 
 </script>

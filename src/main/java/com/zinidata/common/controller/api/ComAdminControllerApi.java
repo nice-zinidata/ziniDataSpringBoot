@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/common/admin")
+@RequestMapping("/bizmap/common/admin")
 class ComAdminControllerApi {
 
     private final ComAdminService comAdminService;

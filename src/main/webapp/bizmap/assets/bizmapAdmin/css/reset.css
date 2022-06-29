@@ -5,9 +5,9 @@
 	font-display: auto;
 	font-style:normal;
 	font-weight: 400;
-	src: url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Regular.woff2) format('woff2'),
-			 url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Regular.woff) format('woff'),
-			 url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype')
+	src: url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Regular.woff2) format('woff2'),
+			 url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Regular.woff) format('woff'),
+			 url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype')
 	}
 
 @font-face{ 
@@ -15,9 +15,9 @@
 	font-display: auto;
 	font-style: bold;
 	font-weight: 700;
-	src: url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Bold.woff2) format('woff2'),
-			 url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Bold.woff) format('woff'),
-			 url(/resources/assets/fonts/NotoSansKr/NotoSansKR-Bold.otf) format('opentype')
+	src: url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Bold.woff2) format('woff2'),
+			 url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Bold.woff) format('woff'),
+			 url(/bizmap/assets/fonts/NotoSansKr/NotoSansKR-Bold.otf) format('opentype')
 	}
 
 

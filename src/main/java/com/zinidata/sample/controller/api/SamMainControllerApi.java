@@ -23,7 +23,7 @@ public class SamMainControllerApi {
     private final SamMainService samMainService;
 
     @ResponseBody
-    @PostMapping(value="/loginProc")
+    @PostMapping(value="loginProc")
     @ApiOperation(value="로그인처리")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "로그인처리")

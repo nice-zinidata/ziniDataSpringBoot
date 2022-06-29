@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Slf4j
 public class SamThymeleafController {
 
-    @GetMapping("/test")
+    @GetMapping("test")
     public String thymetest(Model model) {
         ArrayList<HashMap<String,String>> list = new ArrayList<>();
         for(int i=0; i<6; i++){

@@ -24,7 +24,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>NICEbizmap 어드민</title>
     <!-- Favicon -->
-    <link href="/resources/assets/bizmapAdmin/images/favicon.png" rel="icon" type="image/png" />
+    <link href="/bizmap/assets/bizmapAdmin/images/favicon.png" rel="icon" type="image/png" />
 
     <!-- css 모음 -->
     <%@ include file="/WEB-INF/views/bizmapAdmin/include/head.jsp" %>
@@ -63,7 +63,7 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#onlyBody").load("/bizmapAdmin/member/member1");
+        $("#onlyBody").load("/bizmap/admin/member/member");
     });
 
 </script>

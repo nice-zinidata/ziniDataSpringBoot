@@ -21,7 +21,7 @@ import java.sql.SQLException;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/bizmapAdmin")
+@RequestMapping("/bizmap/admin")
 public class BizAdminControllerApi {
 
     private final BizAdminService bizAdminService;

@@ -264,7 +264,7 @@
             param.ctyCd = data.ctycd;
         }
 
-        getAjax("features", "/common/admin/getArea", param, fn_succ_getArea, fn_error);
+        getAjax("features", "/bizmap/common/admin/getArea", param, fn_succ_getArea, fn_error);
     }
 
     function fn_succ_getArea(id, response, param){
@@ -337,9 +337,9 @@
         data.admiCd = admiCd;
 
         if(data.gubun == "upjong1"){
-            getAjax("features", "/common/admin/getUpjong", data, fn_getUpjong1, fn_error);
+            getAjax("features", "/bizmap/common/admin/getUpjong", data, fn_getUpjong1, fn_error);
         }else if(data.gubun == "upjong2"){
-            getAjax("features", "/common/admin/getUpjong", data, fn_getUpjong2, fn_error);
+            getAjax("features", "/bizmap/common/admin/getUpjong", data, fn_getUpjong2, fn_error);
         }
     }
 

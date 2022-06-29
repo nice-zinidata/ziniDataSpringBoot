@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bizmap/analysis")
 public class BizAnalysisController {
 
-    @GetMapping("/analysisFree")
+    @GetMapping("analysisFree")
     public String analysisFree() {
         return "bizmap/analysis/analysisFree";
     }

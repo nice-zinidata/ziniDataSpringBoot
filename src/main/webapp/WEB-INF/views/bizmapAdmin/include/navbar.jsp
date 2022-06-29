@@ -8,8 +8,8 @@
         </button>
         <div class="collapse navbar-collapse h-100" id="menu_btn">
             <div class="navbar-nav h-100">
-                <button class="nav-link navbar active member" data-url="/bizmapAdmin/member/member1">회원관리</button>
-                <button class="nav-link navbar contents" data-url="/bizmapAdmin/contents/contents1">컨텐츠관리</button>
+                <button class="nav-link navbar active member" data-url="/bizmap/admin/member/member1">회원관리</button>
+                <button class="nav-link navbar contents" data-url="/bizmap/admin/contents/contents1">컨텐츠관리</button>
                 <button class="nav-link navbar customer">고객지원</button>
                 <button class="nav-link navbar statistics">통계관리</button>
                 <button class="nav-link navbar user">사용자관리</button>

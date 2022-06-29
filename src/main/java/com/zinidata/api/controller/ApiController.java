@@ -19,7 +19,7 @@ public class ApiController {
 	private final ApiService service;
 
 	
-	@PostMapping(value="/getTime")
+	@PostMapping(value="getTime")
 	@ResponseBody
 	@ApiOperation(value="테스트입니다.1")
     @ApiResponses(value = {

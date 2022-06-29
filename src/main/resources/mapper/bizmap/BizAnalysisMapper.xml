@@ -45,15 +45,18 @@
         select a1.*
             , a1.admi_cd as id
             , ST_AsGeoJSON(a1.geom)::jsonb as geometry
+            <if test='upjongCd != null'>
             , (select coalesce(sum(store_cnt), 0) as store_cnt
                 from tbss_sum_sales_v2 a
                 , tbshp_block_new b
                 where a.block_cd_v2= b.blk_cd
                 and b.admi_cd like concat(a1.admi_cd,'%')
-                <if test='upjongCd != null'>
                 and a.upjong3_cd like concat(#{upjongCd},'%')
-                </if>
                 ) as store_cnt
+            </if>
+            <if test='upjongCd == null'>
+            , 0 as store_cnt
+            </if>
         from tmp_table a1
         where 1=1
         <if test='xAxis != null and xAxis != "0.0"'>

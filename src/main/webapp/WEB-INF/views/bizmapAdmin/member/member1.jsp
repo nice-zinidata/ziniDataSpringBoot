@@ -155,7 +155,7 @@
         param.memNo = 0;
         param.gubun = "list";
 
-        getAjax("search", "/bizmapAdmin/member/memList", param, fn_succ_memList, fn_error);
+        getAjax("search", "/bizmap/admin/member/memList", param, fn_succ_memList, fn_error);
     }
 
     function fn_succ_memList(id, response, param) {
@@ -171,7 +171,7 @@
         var param = {};
         param.gubun = "detail";
         param.memNo = rowRn.memno;
-        getAjax("search", "/bizmapAdmin/member/memHstList", param, fn_succ_franMemList, fn_error);
+        getAjax("search", "/bizmap/admin/member/memHstList", param, fn_succ_franMemList, fn_error);
     }
 
     function fn_succ_franMemList(id, response, param) {

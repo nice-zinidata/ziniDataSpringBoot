@@ -176,7 +176,7 @@
         var memStat = $('#memStat').val();
         param.memStat = memStat == 'all' ? "" : (memStat == 'Y' ? "2" : "1");
 
-        getAjax("svcList", "/bizmapAdmin/member2/search", param, fn_succ_svcList, fn_error);
+        getAjax("svcList", "/bizmap/admin/member2/search", param, fn_succ_svcList, fn_error);
     }
 
     function fn_succ_svcList(id, response, param) {

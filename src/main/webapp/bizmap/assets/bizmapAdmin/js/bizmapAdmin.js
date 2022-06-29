@@ -32,6 +32,11 @@ function menuActive(navbar, side){
     $("#" + navbar).show();
 }
 
+function fn_error(response) {
+    console.log(response);
+    console.log('error');
+}
+
 // // Navbar의 메뉴 클릭 이벤트
 // function menuClickedFunc(clickedMenu) {
 //     $('#menu_btn > ul > button').removeAttr('class');

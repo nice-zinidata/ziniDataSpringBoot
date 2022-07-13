@@ -47,6 +47,7 @@
         var template = $('#tmp_table1_tbody').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
+        console.log(context);
         var html = templateScript(context);
         $('#table1_tbody').html(html);
     }

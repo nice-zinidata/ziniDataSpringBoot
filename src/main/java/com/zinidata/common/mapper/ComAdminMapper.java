@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 @Mapper
 public interface ComAdminMapper {
+
+    // 회원가입
+    int setMember(ComLoginVO comLoginVO);
+
     //로그인
     ArrayList<ComLoginVO> getMember(ComLoginVO comLoginVO);
     int setSession(ComLoginVO comLoginVO);

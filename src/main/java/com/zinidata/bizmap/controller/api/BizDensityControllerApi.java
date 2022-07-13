@@ -23,7 +23,7 @@ public class BizDensityControllerApi {
 
 
     @ResponseBody
-    @PostMapping(value="/getDensity")
+    @PostMapping(value="getDensity")
     @ApiOperation(value="밀집도 출력 (42만 블록)\n")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "밀집도 출력 (42만 블록)\n")

@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/common")
+@RequestMapping("/bizmap/common")
 public class ComController {
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String common() {
 		return "";
+	}
+
+	@GetMapping("fileDownLoad")
+	public String fileDownLoad() {
+		return "fileDownLoad";
 	}
 
 }

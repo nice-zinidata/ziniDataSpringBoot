@@ -20,7 +20,7 @@ public class BizRisingControllerApi {
     private final BizRisingService bizRisingService;
 
     @ResponseBody
-    @PostMapping(value="/getRisingUpjong")
+    @PostMapping(value="getRisingUpjong")
     @ApiOperation(value="뜨는업종")
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "유동인구 출력(포인트)")

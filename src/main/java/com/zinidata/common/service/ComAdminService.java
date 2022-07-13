@@ -1,6 +1,5 @@
 package com.zinidata.common.service;
 
-import com.zinidata.bizmap.vo.BizMainVO;
 import com.zinidata.common.mapper.ComAdminMapper;
 import com.zinidata.common.vo.ComAreaVO;
 import com.zinidata.common.vo.ComLoginVO;
@@ -13,6 +12,7 @@ import com.zinidata.util.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,15 +26,49 @@ import java.util.HashMap;
 @Service
 public class ComAdminService {
 
+    @Value("${bizmap.home.dir}")
+    private String homeDir;
+
     @Autowired
     GsonUtil gsonUtil;
 
     private final ComAdminMapper comAdminMapper;
 
+    public String registProc(HttpServletRequest request, ComLoginVO comLoginVO) throws NoSuchAlgorithmException {
+        String result = "";
+
+        // 비밀번호 sha256 변환
+        comLoginVO.setPwd(SecureHashAlgorithm.encryptSHA256(comLoginVO.getPwd()));
+
+        try{
+            comAdminMapper.setMember(comLoginVO);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.성공));
+        }catch (Exception e){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패, e));
+        }
+
+        return result;
+    }
+
+    public String registProc(HttpServletRequest request, ComLoginVO comLoginVO, String tmp) throws NoSuchAlgorithmException {
+        String result = "";
+
+        // 비밀번호 sha256 변환
+        comLoginVO.setPwd(SecureHashAlgorithm.encryptSHA256(comLoginVO.getPwd()));
+
+        try{
+            comAdminMapper.setMember(comLoginVO);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.성공));
+        }catch (Exception e){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패, e));
+        }
+
+        return result;
+    }
+
     public String login(HttpServletRequest request, ComLoginVO comLoginVO) throws NoSuchAlgorithmException {
         String result = "";
 
-//        System.out.println(SecureHashAlgorithm.encryptSHA256(bizMainVO.getPwd()));
         comLoginVO.setPwd(SecureHashAlgorithm.encryptSHA256(comLoginVO.getPwd()));
 
         ArrayList<ComLoginVO> outVo = comAdminMapper.getMember(comLoginVO);

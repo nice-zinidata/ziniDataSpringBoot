@@ -52,7 +52,7 @@
                             <li class="scrollable-container media-list"><a class="d-flex justify-content-between" href="javascript:void(0)">
                                     <div class="media d-flex align-items-center">
                                         <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../resources/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="39" width="39"></div>
+                                            <div class="avatar mr-1 m-0"><img src="../../../bizmap/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="39" width="39"></div>
                                         </div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><span class="text-bold-500">Congratulate Socrates Itumay</span> for work anniversaries</h6><small class="notification-text">Mar 15 12:32pm</small>
@@ -62,7 +62,7 @@
                                 <div class="d-flex justify-content-between read-notification cursor-pointer">
                                     <div class="media d-flex align-items-center">
                                         <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../resources/app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
+                                            <div class="avatar mr-1 m-0"><img src="../../../bizmap/app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
                                         </div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><span class="text-bold-500">New Message</span> received</h6><small class="notification-text">You have 18 unread messages</small>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between cursor-pointer">
                                     <div class="media d-flex align-items-center py-0">
-                                        <div class="media-left pr-0"><img class="mr-1" src="../../../resources/app-assets/images/icon/sketch-mac-icon.png" alt="avatar" height="39" width="39"></div>
+                                        <div class="media-left pr-0"><img class="mr-1" src="../../../bizmap/app-assets/images/icon/sketch-mac-icon.png" alt="avatar" height="39" width="39"></div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><span class="text-bold-500">Updates Available</span></h6><small class="notification-text">Sketch 50.2 is currently newly added</small>
                                         </div>
@@ -125,7 +125,7 @@
                                 <div class="d-flex justify-content-between read-notification cursor-pointer">
                                     <div class="media d-flex align-items-center">
                                         <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../resources/app-assets/images/portrait/small/avatar-s-4.jpg" alt="avatar" height="39" width="39"></div>
+                                            <div class="avatar mr-1 m-0"><img src="../../../bizmap/app-assets/images/portrait/small/avatar-s-4.jpg" alt="avatar" height="39" width="39"></div>
                                         </div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><span class="text-bold-500">New file</span> has been uploaded</h6><small class="notification-text">4 hrs ago</small>
@@ -147,7 +147,7 @@
                                 <div class="d-flex justify-content-between cursor-pointer">
                                     <div class="media d-flex align-items-center border-0">
                                         <div class="media-left pr-0">
-                                            <div class="avatar mr-1 m-0"><img src="../../../resources/app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
+                                            <div class="avatar mr-1 m-0"><img src="../../../bizmap/app-assets/images/portrait/small/avatar-s-16.jpg" alt="avatar" height="39" width="39"></div>
                                         </div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><span class="text-bold-500">New customer</span> comment recieved</h6><small class="notification-text">2 days ago</small>
@@ -159,7 +159,7 @@
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <div class="user-nav d-sm-flex d-none"><span class="user-name"><%= userName %></span><span class="user-status text-muted">Available</span></div><span><img class="round" src="../../../resources/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                            <div class="user-nav d-sm-flex d-none"><span class="user-name"><%= userName %></span><span class="user-status text-muted">Available</span></div><span><img class="round" src="../../../bizmap/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pb-0"><a class="dropdown-item" href="page-user-profile.html"><i class="bx bx-user mr-50"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="bx bx-envelope mr-50"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="bx bx-check-square mr-50"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="bx bx-message mr-50"></i> Chats</a>
                             <div class="dropdown-divider mb-0"></div><a class="dropdown-item" href="auth-login.html"><i class="bx bx-power-off mr-50"></i> Logout</a>

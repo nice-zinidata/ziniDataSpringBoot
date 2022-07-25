@@ -65,7 +65,7 @@
         </div>
 
         <!--사이드바 모달 modal START-->
-<%--        <div class="modal modal1"></div>--%>
+        <div class="modal modal1"></div>
         <!--modal END-->
         <!--bottom popup시 모달 modal START-->
         <div class="modal modal2"></div>
@@ -88,7 +88,8 @@
             <div class="tab_box">
                 <ul class="pd">
                     <li class="on"><a href="javascript:;">기본보고서</a></li>
-<%--                    <li class="onlypc"><a href="index1.html">상세보고서</a></li>--%>
+<%--                    <li class="onlypc" style="display: none"><a href="index1.html">상세보고서</a></li>--%>
+                    <li class="" style="display: none"><a href="index1.html">상세보고서</a></li>
                     <li><a href="javascript:;">유동인구</a></li>
                     <li><a href="javascript:;">밀집도</a></li>
                     <li><a href="javascript:;">뜨는업종</a></li>

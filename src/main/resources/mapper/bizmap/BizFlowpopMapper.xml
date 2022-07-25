@@ -34,7 +34,7 @@
             left join tbadm_mega e on d.mega_cd = e.mega_cd
                 , tmp_table g
                 where 1=1
-                and ST_Intersects(g.geom, a.geom) = true
+                and ST_Intersects(g.geom, st_setsrid(a.geom, 6645)) = true
             ) r
         ) a
     </select>

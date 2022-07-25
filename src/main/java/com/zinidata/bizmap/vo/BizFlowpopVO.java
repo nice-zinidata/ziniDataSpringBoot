@@ -24,4 +24,7 @@ public class BizFlowpopVO {
     private String maxx;
     private String miny;
     private String maxy;
+
+    private String megaNm;
+    private String ctyNm;
 }

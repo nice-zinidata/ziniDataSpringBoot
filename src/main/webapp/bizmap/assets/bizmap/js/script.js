@@ -44,12 +44,12 @@ $(document).ready(function(){
         //show_map 지도로 보기 숨기기
         $('.show_map').css('display','none');
 
-        if($(this).parents('.md_up').hasClass('up')){
+        /*if($(this).parents('.md_up').hasClass('up')){
             $('.sheet_body.has_mapshow').animate({scrollTop : 0});
             $(this).parents('.md_up').css("transform","translateY(0px)");
         }else{
             $(this).parents('.md_up').css("transform","translateY(-153px)");
-        }
+        }*/
 
     });
 
@@ -457,8 +457,6 @@ $(document).ready(function(){
             $('html').css('overflow-y','hidden');
         }    
     });
-
-
 });
 
 // 해상도 체크

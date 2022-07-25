@@ -16,15 +16,6 @@
 
 %>
 
-
-<style>
-  .md_up {
-    top: 100%;
-    z-index: 10;
-    transform: translateY(-153px);
-  }
-</style>
-
 <!--bottom_pop btp1 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
   <div class="pop_body">
@@ -260,6 +251,9 @@
     var html = templateScript(context);
     $('#videoContentList').html(html);
 
+
+    if(widthCheck() == "PC"){
+    }
   }
 
   function fn_succ_getVideoMega(id, response, param){

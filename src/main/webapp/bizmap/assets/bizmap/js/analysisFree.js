@@ -23,7 +23,7 @@ $( document ).ready(function() {
 	CENTER = new naver.maps.LatLng(37.56648, 126.97787);
 	mapOptions = {
 		center: new naver.maps.LatLng(37.56648, 126.97787),
-		zoom: 14
+		zoom: 14,
 	};
 
 	map = new naver.maps.Map('map', mapOptions);
@@ -52,6 +52,13 @@ function addListener(){
 		if(strMenuGugun == 1){
 			$(".float_loca.mobile").css('display','block');
 		}
+	});
+
+	// 지도 로딩 완료 이벤트
+	naver.maps.Event.addListener(map, 'tilesloaded', function (e){
+		// 네이버 로고
+		$(".map_section > div:nth-child(2)").css('display','none');
+		$(".map_section > div:nth-child(3)").css('display','none');
 	});
 }
 
@@ -237,6 +244,16 @@ function flowpop(drag_lng, drag_lat){
 	}
 	markers = [];
 
+	var data={
+		xAxis: drag_lng
+		, yAxis: drag_lat
+		, zoomStatus : "admiCd"
+	}
+
+	getAjax("features", "/bizmap/analysis/admiFeatures", data, function (id, response){
+		$(".map_place_box > a > input").val(response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm);
+	}, fn_error, false);
+
 	var data = {
 		xAxis : drag_lng
 		, yAxis : drag_lat
@@ -370,10 +387,6 @@ function videoMarkerClick(data){
 			fn_videoContentsList(response)
 		}
 		, fn_error, "POST", true);
-
-	if(!$('.md_up .pop_head > a').parents('.md_up').hasClass('up')){
-		$('.md_up .pop_head > a').click();
-	}
 
 	var offset = $("#video_"+data.youtubeno).offset();
 	setTimeout(function (){

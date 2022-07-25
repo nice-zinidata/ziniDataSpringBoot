@@ -1,7 +1,10 @@
 package com.zinidata.bizmap.service;
 
+import com.zinidata.bizmap.mapper.BizAnalysisMapper;
 import com.zinidata.bizmap.mapper.BizFlowpopMapper;
+import com.zinidata.bizmap.vo.BizAnalysisVO;
 import com.zinidata.bizmap.vo.BizFlowpopVO;
+import com.zinidata.bizmap.vo.output.BizAnalysisOutVO;
 import com.zinidata.util.BizmapUtil;
 import com.zinidata.util.GsonUtil;
 import com.zinidata.util.JsonOutputVo;
@@ -25,9 +28,15 @@ public class BizFlowpopService {
 
     private final BizFlowpopMapper bizFlowpopMapper;
 
+    private final BizAnalysisMapper bizAnalysisMapper;
+
 
     public String getFlowpop(BizFlowpopVO bizFlowpopVO){
         ArrayList<BizFlowpopVO> outVo = bizFlowpopMapper.getFlowpop(bizFlowpopVO);
+
+        BizAnalysisVO bizAnalysisVO = new BizAnalysisVO();
+        bizAnalysisVO.setXAxis(bizFlowpopVO.getXAxis());
+        bizAnalysisVO.setYAxis(bizFlowpopVO.getYAxis());
 
         String result = "";
         if(!BizmapUtil.isEmpty(outVo)){

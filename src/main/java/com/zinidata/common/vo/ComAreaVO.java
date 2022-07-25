@@ -16,5 +16,9 @@ public class ComAreaVO {
     private String regDate;
     private String cd;
     private String nm;
+    private String minx;
+    private String maxx;
+    private String miny;
+    private String maxy;
 
 }

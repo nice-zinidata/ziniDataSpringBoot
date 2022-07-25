@@ -17,10 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- lib (변동 있는 css)-->
-    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/reset.css?<%=version%>">
+    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/pretendard.css?<%=version%>">
+<%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/sly.min.css?<%=version%>">--%>
+<%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/reset.css?<%=version%>">--%>
     <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/style.css?<%=version%>">
-    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/style_m.css?<%=version%>">
-    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/style2.css?<%=version%>">
+<%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/style2.css?<%=version%>">--%>
+<%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/style_m.css?<%=version%>">--%>
 
 </head>
 <!-- END: Head-->

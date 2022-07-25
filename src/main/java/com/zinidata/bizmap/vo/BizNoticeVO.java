@@ -33,6 +33,8 @@ public class BizNoticeVO {
     private String adminNm;
     private String rn;
     private int totalRowCount;
+    private int rowNum;
+    private int attachCnt;
 
     private int attachNo;
     private String fileNm;

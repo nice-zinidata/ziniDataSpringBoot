@@ -16,6 +16,7 @@ public class BizCertVO {
     private String certNo;
 
     //output
+    private String checkYn;
 
 
 }

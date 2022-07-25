@@ -257,6 +257,15 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>-->
 
+        <!-- json to map -->
+        <!-- Map<String,Object> map2 = new ObjectMapper().readValue(tmp2, HashMap.class); -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.2</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- json lib -->
         <dependency>
             <groupId>org.json</groupId>

@@ -5,50 +5,71 @@ var strAdmiCd = "";
 var strAreaNm = "";
 var strUpjongCd = "";
 var strUpjongNm = "";
-var strMenuGugun = "1"; //1:기본보고서, 2:유동인구, 3:밀집도, 4:뜨는업종, 5:영상콘텐츠
+var strMenuGugun = "0"; //0:기본보고서, 1:유동인구, 2:밀집도, 3:뜨는업종, 4:영상콘텐츠
 
 var fileInfo = {};
 
-var CENTER = new naver.maps.LatLng(37.5661485287594, 126.975221181947);
-var mapOptions = {
-	center: new naver.maps.LatLng(37.5661485287594, 126.975221181947),
-	zoom: 14
-};
-var map = new naver.maps.Map('map', mapOptions);
+var CENTER
+var mapOptions = {};
+var map;
+var geoJsonArr = []; // 범위 목록
+var markers = [];	// 마커 목록
 
-$(function(){
+var mousemoveListener;
+var clickListener;
+var dragendListener;
 
+$( document ).ready(function() {
+	CENTER = new naver.maps.LatLng(37.56648, 126.97787);
+	mapOptions = {
+		center: new naver.maps.LatLng(37.56648, 126.97787),
+		zoom: 14
+	};
+
+	map = new naver.maps.Map('map', mapOptions);
+
+	addListener();
+});
+
+function addListener(){
 	// 지도 마우스 이동
-	naver.maps.Event.addListener(map, 'mousemove', function (e){
-		var data={
-			xAxis: e.latlng.x
-			, yAxis: e.latlng.y
-			, admiCd : strAdmiCd
-			, zoomStatus : ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() <= 11 ) ? "megaCd" : "admiCd")
-		}
-		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
+	mousemoveListener = naver.maps.Event.addListener(map, 'mousemove', function (e){
+		var zoomStatus = "admiCd";
+		// var zoomStatus = ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "");
+		setFeatures(e.latlng.x, e.latlng.y, zoomStatus, 'move');
 	});
 
 	// 지도 클릭
-	naver.maps.Event.addListener(map, 'click', function (e){
-		var data={
-			xAxis: e.latlng.x
-			, yAxis: e.latlng.y
-			, zoomStatus : ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "")
-		}
-
-		getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
+	clickListener = naver.maps.Event.addListener(map, 'click', function (e){
+		var zoomStatus = "admiCd";
+		// var zoomStatus = ( map.getZoom() >= 14 ) ? "admiCd" : (( map.getZoom() >= 12 && map.getZoom() <= 13 ) ? "ctyCd" : ( map.getZoom() < 11 ) ? "megaCd" : "");
+		setFeatures(e.latlng.x, e.latlng.y, zoomStatus, 'click');
 	});
 
 	// 지도 드레그 종료
-	naver.maps.Event.addListener(map, 'dragend', function (e){
+	dragendListener = naver.maps.Event.addListener(map, 'dragend', function (e){
 		//유동인구, 밀집도, 뜨는업종, 영상콘텐츠에서만 버튼 보이도록
-		if(strMenuGugun != 1){
-			$("#reSearch").parent().css('display','');
+		if(strMenuGugun == 1){
+			$(".float_loca.mobile").css('display','block');
 		}
 	});
+}
 
-});
+function setFeatures(centerx,centery, zoomStatus, gubun){
+	var data={
+		xAxis: centerx
+		, yAxis: centery
+		, zoomStatus : zoomStatus
+		, gubun : gubun
+	}
+
+	getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error, false);
+}
+function removeListener(){
+	naver.maps.Event.removeListener(mousemoveListener);
+	naver.maps.Event.removeListener(clickListener);
+	// naver.maps.Event.removeListener(dragendListener);
+}
 
 function fn_error(response) {
 	console.log(response);
@@ -74,7 +95,13 @@ function fn_succ_features(id, response, param){
 		map.fitBounds(bounds);
 	}
 
-	$('.search').text(strAreaNm + " " + strUpjongNm);
+	if(strUpjongNm != "" && strUpjongNm != null){
+		$('#search').val(strAreaNm + " / " + strUpjongNm);
+	}else{
+		$('#search').val(strAreaNm);
+	}
+
+	$(".map_place_box").find('input').val(strAreaNm);
 
 	if(response.result != "success"){
 		alert(response.message);
@@ -82,9 +109,15 @@ function fn_succ_features(id, response, param){
 	}
 
 	// geomjson 데이터로 변경하기
+	// 범위 데이터 삭제
+	geoJsonArr.forEach(function (val, idx){
+		map.data.removeGeoJson(val);
+	});
 	var result = getGeomJson("admiFeatures", "FeatureCollection", response.data);
 
 	strGeoJson = result;
+	geoJsonArr.push(strGeoJson);
+
 	map.data.addGeoJson(result);
 
 	map.data.setStyle(function(feature){
@@ -111,47 +144,62 @@ function fn_succ_features(id, response, param){
 
 	if(!map.data.hasListener('click')){
 		map.data.addListener('click', function(e){
-			console.log(map.getZoom());
-			if( map.getZoom() >= 14 ) {
+			// if( map.getZoom() >= 14 ) {
+				$('.pc_sheet .middle ul li:nth-child(1) > a').text(strAreaNm);
+
 				if(!common.isEmpty(strUpjongCd)){
 					getFreeReport(e.feature.getProperty("storeCnt"));
 				}else{
-					if(confirm("업종을 선택 하시겠습니까?")){
-						$('.pop_up').css('display', 'block');
-						$('.map').css('display', 'none');
-						$('.confirm').removeClass('on');
-						$('.body1').css('display', 'none');
-						$('.in2').css('display', 'flex');
-						$('.in1').css('display', 'none');
-						var data = {
-							gubun : "upjong1"
-						};
-						getUpjong(data);
+					if(strUpjongCd.length < 1) {
+						if (confirm("업종을 선택 하시겠습니까?")) {
+							if (widthCheck() == "MO") {
+								$('.sheet_02').show();
+								$('.loca').text(strAreaNm);
+							} else if (widthCheck() == "PC") {
+								var list = $('.sheet.md_sheet.sheet_02').attr('class').split(' ');
+								var sw = true;
+								list.forEach(function (val, idx){
+									if(val == "on"){
+										sw = false;
+									}
+								});
+								if(sw){
+									$('.sheet.md_sheet.sheet_02').toggleClass('on');
+									$('.pc_sheet .middle ul li:nth-child(2) > a').parents().toggleClass('on')
+								}
+							}
+							upjongReset();
+						}
 					}
 				}
-			}else{
-				CENTER = new naver.maps.LatLng(e.feature.getProperty("centery"), e.feature.getProperty("centerx"));
-				map.setCenter(CENTER);
-				map.setZoom(14);
-				map.data.removeGeoJson(strGeoJson);
-			}
+			// }else{
+			// 	CENTER = new naver.maps.LatLng(e.feature.getProperty("centery"), e.feature.getProperty("centerx"));
+			// 	map.setCenter(CENTER);
+			// 	map.setZoom(14);
+			// 	map.data.removeGeoJson(strGeoJson);
+			// }
 		});
 	}
 }
 
 // 보고서 파일 생성
 function getFreeReport(storeCnt){
-	// if(storeCnt < 3){
-	// 	alert("분석할 상권이 3개 이하 입니다.");
-	// 	return;
-	// }
-	if(confirm("보고서를 생성하시겠습니까?")){
-		var data = {
-			admiCd : strAdmiCd
-			, upjongCd : strUpjongCd
-			, memNo : ""				// 나중에 로그인들어오면 아이디 넣기
+	if(strUpjongCd == "" && strUpjongCd == null){
+		alert("업종을 선택해주세요.");
+	}else{
+		if(storeCnt < 3){
+			alert("분석할 상권이 3개 이하 입니다.");
+			return;
 		}
-		getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
+
+		if(confirm("보고서를 생성하시겠습니까?")){
+			var data = {
+				admiCd : strAdmiCd
+				, upjongCd : strUpjongCd
+				, memNo : ""				// 나중에 로그인들어오면 아이디 넣기
+			}
+			getAjax("features", "/bizmap/analysis/getFreeReport", data, fn_succ_getFreeReport, fn_error, "POST", false);
+		}
 	}
 }
 
@@ -165,7 +213,187 @@ function fn_succ_getFreeReport(id, response, param){
 	console.log(response.data);
 }
 
-function fileUpload(){
+
+function reSearch(){
+	var mapCenter = map.getCenter();
+	var drag_lng = mapCenter.lng();	// x
+	var drag_lat = mapCenter.lat();	// y
+
+	$(".float_loca.mobile").css('display','none');
+
+	// 유동인구
+	if(strMenuGugun == 1){
+		flowpop(drag_lng, drag_lat);
+	}else if(strMenuGugun == 4){
+		videoContents(0.0);
+	}
+}
+
+// 유동인구
+function flowpop(drag_lng, drag_lat){
+	for(var i=0; i< markers.length; i++) {
+		marker = markers[i];
+		marker.setMap(null);
+	}
+	markers = [];
+
+	var data = {
+		xAxis : drag_lng
+		, yAxis : drag_lat
+		, admiCd : strAdmiCd
+		, radius : 500
+	}
+	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getFlowpop, fn_error, "POST", false);
+}
+
+function fn_succ_getFlowpop(id, response, param){
+
+	var content;
+	for(var i=0; i<response.data.length;i++){
+		var tmp = response.data[i];
+
+		var image = "/bizmap/assets/bizmap/images/icons/popul" + tmp.flowLv + "_tag.svg"
+		content = '<img src="' + image + '">';
+
+		let flowmarker = new naver.maps.Marker({
+			position: new naver.maps.LatLng(tmp.yAxis,tmp.xAxis),
+			map: dMap,
+			icon: {
+				content : content,
+				size: new naver.maps.Size(8,7),
+				origin: new naver.maps.Point(0,0),
+				anchor: new naver.maps.Point(4,7),
+			}
+		});
+
+		markers.push(flowmarker);
+
+	}
+
+	for(var i=0; i< markers.length; i++){
+		marker = markers[i];
+		var mapBounds = map.getBounds();
+		var position = marker.getPosition();
+		if(mapBounds.hasLatLng(position)){
+			if(marker.setMap()) return;
+			marker.setMap(map);
+		}else{
+			if(!marker.setMap()) return;
+			if(marker != null) marker.setMap(null);
+		}
+	}
+
+	map.setZoom(15);
+}
+
+
+// 영상콘텐츠
+function videoContents(youtubeNo){
+	var data = {
+		youtubeNo : youtubeNo
+	}
+	getAjax("getFlowpop", "/bizmap/youTube/getYouTube", data, fn_succ_getVideoContents, fn_error, "POST", false);
+}
+
+function fn_succ_getVideoContents(id, response, param){
+
+	var maxy = response.data[0].maxy;
+	var maxx = response.data[0].maxx;
+	var miny = response.data[0].miny;
+	var minx = response.data[0].minx;
+
+	var content;
+	for(var i=0; i<response.data.length;i++){
+		var tmp = response.data[i];
+
+		var image = "/bizmap/assets/bizmap/images/icons/ico_play_pic.svg"
+		content = '<a href="javascript:;" ' +
+			'data-centerx="' + tmp.centerx + '" ' +
+			'data-centery="' + tmp.centery + '" ' +
+			'data-admiCd="admiCd" ' +
+			'data-youtubeNo="'+ tmp.youtubeNo +'" ' +
+			'onclick=videoMarkerClick($(this).data());><img src="' + image + '"></a>';
+
+		let marker = new naver.maps.Marker({
+			position: new naver.maps.LatLng(tmp.centery,tmp.centerx),
+			map: dMap,
+			icon: {
+				content : content,
+				size: new naver.maps.Size(8,7),
+				origin: new naver.maps.Point(0,0),
+				anchor: new naver.maps.Point(4,7),
+			}
+		});
+		markers.push(marker);
+	}
+
+	// timeout 안해주면 안그려짐
+	setTimeout(function (){
+		var bounds = new naver.maps.LatLngBounds(
+			new naver.maps.LatLng(miny, minx),
+			new naver.maps.LatLng(maxy, maxx));
+		map.fitBounds(bounds);
+
+
+		for(var i=0; i< markers.length; i++){
+			marker = markers[i];
+			var mapBounds = map.getBounds();
+			var position = marker.getPosition();
+			if(mapBounds.hasLatLng(position)){
+				if(marker.setMap()) return;
+				marker.setMap(map);
+			}else{
+				if(!marker.setMap()) return;
+				if(marker != null) marker.setMap(null);
+			}
+		}
+	}, 100);
+
+	fn_videoContentsList(response);
+
+}
+
+function videoMarkerClick(data){
+	setFeatures(data.centerx, data.centery, data.admicd);
+	CENTER = new naver.maps.LatLng(data.centery,data.centerx);
+	map.setCenter(CENTER);
+	map.setZoom(12);
+
+
+	var param = {
+		filter1 : '0'
+		,filter2 : '0'
+		,filter3 : '0'
+	}
+	getAjax("getYouTube", "/bizmap/youTube/getYouTube", param,
+		function (id, response, param){
+			fn_videoContentsList(response)
+		}
+		, fn_error, "POST", true);
+
+	if(!$('.md_up .pop_head > a').parents('.md_up').hasClass('up')){
+		$('.md_up .pop_head > a').click();
+	}
+
+	var offset = $("#video_"+data.youtubeno).offset();
+	setTimeout(function (){
+		$('#videoContentList').animate({scrollTop : offset.top-180});
+	}, 200);
+
+}
+
+
+function removeMarkers(){
+	for(var i=0; i< markers.length; i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+}
+
+
+
+
+/*function fileUpload(){
 	$.ajax({
 		url: "/common/file/upload",
 		type: "POST",
@@ -190,4 +418,5 @@ function fileUpload(){
 
 function fileDownLoad(){
 	$("#fileDownLoad").attr('href' , domainUrl + "common/fileDownLoad?fileName=" + fileInfo.fileName + "&orgFileNm=" + fileInfo.orgFileNm + "&filePath=" + fileInfo.filePath);
-}
+}*/
+

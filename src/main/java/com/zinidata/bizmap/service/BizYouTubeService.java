@@ -28,6 +28,21 @@ public class BizYouTubeService {
     @Value("${bizmap.youtube.url}")
     private String youtubeUrl;
 
+    public String getArea(BizYouTubeVO bizYouTubeVO){
+        ArrayList<BizYouTubeVO> outVo = bizYouTubeMapper.getArea(bizYouTubeVO);
+
+        String result = "";
+        if(!BizmapUtil.isEmpty(outVo)){
+            // 로그인 성공
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, outVo));
+        }else{
+            // 로그인 실패
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+        }
+
+        return result;
+    }
+
     public String getYouTube(BizYouTubeVO bizYouTubeVO){
         ArrayList<BizYouTubeVO> outVo = bizYouTubeMapper.getYouTube(bizYouTubeVO);
 

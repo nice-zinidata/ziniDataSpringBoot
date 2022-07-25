@@ -48,9 +48,10 @@ public class BizMainService {
 
         }else{
             // 인증번호 발송
-            bizCertVO.setRandomStr(BizmapUtil.certNumber());
+            int randomStr = BizmapUtil.certNumber();
+            bizCertVO.setRandomStr(randomStr);
             bizCertVO.setTranCallback(tranCallback);
-            bizCertVO.setTranMsg("[나이스비즈맵]고객님의SMS인증번호는 " + BizmapUtil.certNumber() + " 입니다.\n정확히 입력해 주세요");
+            bizCertVO.setTranMsg("[나이스비즈맵]고객님의SMS인증번호는 " + randomStr + " 입니다.\n정확히 입력해 주세요");
 
             // 인증번호 seqNo 가져오기
             BizCertVO outVo = bizMainMapper.getCertSeqNo(bizCertVO);
@@ -75,7 +76,7 @@ public class BizMainService {
             }
 
 
-            result = gsonUtil.toJson(new JsonOutputVo(Status.생성, outVo));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생성, bizCertVO));
 
         }
         return result;

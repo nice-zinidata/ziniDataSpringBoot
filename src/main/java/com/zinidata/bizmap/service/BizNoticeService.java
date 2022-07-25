@@ -30,13 +30,13 @@ public class BizNoticeService {
         // 공지사항 목록
         ArrayList<BizNoticeVO> outVo = bizNoticeMapper.getNotice(bizNoticeVO);
         HashMap <String, ArrayList<BizNoticeVO>> map = new HashMap<>();
-        map.put("notice",outVo);
 
         // 상세 조회일때만 첨부문서 목록 보여지도록
         if(bizNoticeVO.getBoardDtlNo() != 0){
             ArrayList<BizNoticeVO> outVo2 = bizNoticeMapper.getAttach(bizNoticeVO);
             map.put("attach",outVo2);
         }
+        map.put("notice",outVo);
 
         String result = "";
         if(!BizmapUtil.isEmpty(map)){

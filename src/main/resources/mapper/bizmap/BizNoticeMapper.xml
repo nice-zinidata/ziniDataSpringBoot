@@ -3,7 +3,7 @@
 <mapper namespace="com.zinidata.bizmap.mapper.BizNoticeMapper">
 
     <select id="getNotice" resultType="com.zinidata.bizmap.vo.BizNoticeVO">
-        select a.*
+        select a.*, (a.total_row_count - a.rn + 1) as rowNum
             from (
                 select a.*
                     , row_number() over(order by A.BOARD_DTL_NO desc) rn

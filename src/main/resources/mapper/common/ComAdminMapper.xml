@@ -57,32 +57,39 @@
                 , mega_nm
                 , mega_cd as cd
                 , mega_nm as nm
-            from tbshp_mega
+                , minx
+                , maxx
+                , miny
+                , maxy
+            from tbshp_mega_features
             order by mega_cd
         </if>
-        <if test="megaCd != null and ctyCd == null">
+        <if test='megaCd != "" and ctyCd == "" and megaCd != null and ctyCd != null'>
             select a.mega_cd
                 , a.cty_cd
                 , a.cty_nm
-                , a.reg_date
                 , a.cty_cd as cd
                 , a.cty_nm as nm
-            from tbadm_cty a
-            where a.scss_date is null
-            and a.mega_cd=#{megaCd}
+                , minx
+                , maxx
+                , miny
+                , maxy
+            from tbshp_cty_features a
+            where mega_cd = #{megaCd}
         </if>
-        <if test="megaCd != null and ctyCd !=null">
-            select c.admi_cd
-            , c.admi_nm
-            , c.cty_cd
-            , c.reg_date
-            , c.admi_cd as cd
-            , c.admi_nm as nm
-            from tbadm_cty a, tbadm_admi c
-            where a.scss_date is null
-            and a.cty_cd = c.cty_cd
-            and a.mega_cd=#{megaCd}
-            and c.cty_cd =#{ctyCd}
+        <if test='megaCd != "" and ctyCd != "" and megaCd != null and ctyCd != null'>
+            select a.admi_cd
+                , a.admi_nm
+                , a.cty_cd
+                , a.admi_cd as cd
+                , a.admi_nm as nm
+                , minx
+                , maxx
+                , miny
+                , maxy
+            from tbshp_admi_features a
+            where 1=1
+            and a.cty_cd =#{ctyCd}
         </if>
     </select>
 

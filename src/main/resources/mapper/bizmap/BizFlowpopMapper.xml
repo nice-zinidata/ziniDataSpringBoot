@@ -2,35 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizFlowpopMapper">
 
-
     <select id="getFlowpop" resultType="com.zinidata.bizmap.vo.BizFlowpopVO">
-        select 'BL_V2' as blk_type, 1 as blk_cd, '선택 폴리곤' as label
-            , ST_XMAX(ST_Union(geom)) as maxx
-            , ST_XMIN(ST_Union(geom)) as minx
-            , ST_YMAX(ST_Union(geom)) as maxy
-            , ST_YMIN(ST_Union(geom)) as miny
-            , (ST_XMAX(ST_Union(geom)) + ST_XMIN(ST_Union(geom))) / 2 as centerx
-            , (ST_YMAX(ST_Union(geom)) + ST_YMIN(ST_Union(geom))) / 2 as centery
-            , ST_Union(geom) as geom
-            , '#2a7cdd' as fill_color
-            , '0.5' as fill_opacity
-            , '#545656' as stroke_color
-            , '1' as stroke_width
-            , 'dash' as stroke_dash_style
+        with tmp_table as (
+            select ST_Buffer(ST_Transform(ST_SetSRID(ST_Point(#{xAxis}, #{yAxis}), 4326), 6645), #{radius}, 'quad_segs=333') geom
+        )
+        select id, x_axis, y_axis, flow_pop, blk_cd, label, round(cumedist::numeric, 1) as cumedist, flow_lv, admi_nm
+            , min(flow_pop) over(partition by flow_lv) as min_flowpop
+            , max(flow_pop) over(partition by flow_lv) as max_flowpop
+            , min(x_axis) over() as minx
+            , max(x_axis) over() as maxx
+            , min(y_axis) over() as miny
+            , max(y_axis) over() as maxy
         from (
-                select c.blk_cd, c.blk_nm as label, c.geom
-                from tbshp_block_new_features c
+            select id, x_axis, y_axis, flow_pop, blk_cd, blk_nm as label, admi_nm
+                , cume_dist() over(order by flow_pop desc) * 100 as cumedist
+                , case when cume_dist() over(order by flow_pop desc) between 0.0 and 0.2 then 1
+                when cume_dist() over(order by flow_pop desc) between 0.2 and 0.4 then 2
+                when cume_dist() over(order by flow_pop desc) between 0.4 and 0.6 then 3
+                when cume_dist() over(order by flow_pop desc) between 0.6 and 0.8 then 4
+                when cume_dist() over(order by flow_pop desc) between 0.8 and 1.0 then 5
+                end as flow_lv
+            from (
+                select b.id, a.blk_cd, a.blk_nm, concat(e.mega_nm,' ',d.cty_nm,' ',c.admi_nm) as admi_nm
+                    , round((mon_pop + tue_pop + wde_pop + thu_pop + fri_pop + sat_pop + sun_pop) / 7) as flow_pop
+                    , ST_XMax(ST_Transform(ST_SetSRID(ST_MakePoint(b.center_x, b.center_y), 6645), 4326)) as x_axis
+                    , ST_YMax(ST_Transform(ST_SetSRID(ST_MakePoint(b.center_x, b.center_y), 6645), 4326)) as y_axis
+                from SPC_INDEX b
+            left join tbshp_block_v3 a on a.blk_cd = b.blk_cd
+            left join tbadm_admi c on a.admi_cd = c.admi_cd
+            left join tbadm_cty d on c.cty_cd = d.cty_cd
+            left join tbadm_mega e on d.mega_cd = e.mega_cd
+                , tmp_table g
                 where 1=1
-                and c.blk_cd in (
-                    select b.r_blk_cd_v2
-                    from tbshp_block_new_features a, tbblock_radius_v2 b
-                    where 1=1
-                    and ST_Intersects(a.geom, ST_SetSRID(ST_Point(#{xAxis}, #{yAxis}), 4326)) = true
-                    and a.blk_cd = b.blk_cd_v2
-                    and b.radius = #{radius}
-                )
-            ) a
+                and ST_Intersects(g.geom, a.geom) = true
+            ) r
+        ) a
     </select>
-
-
 </mapper>

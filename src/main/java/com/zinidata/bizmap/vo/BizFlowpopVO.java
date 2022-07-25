@@ -8,22 +8,20 @@ public class BizFlowpopVO {
     //input
     private double xAxis;
     private double yAxis;
-    private String radius;
+    private int radius;
 
     //output
-    private String blkType;
+    private String id;
+    private String flowPop;
     private String blkCd;
     private String label;
-    private String maxx;
+    private String cumedist;
+    private String flowLv;
+    private String admiNm;
+    private String minFlowpop;
+    private String maxFlowpop;
     private String minx;
-    private String maxy;
+    private String maxx;
     private String miny;
-    private String centerx;
-    private String centery;
-    private String geom;
-    private String fillColor;
-    private String fillOpacity;
-    private String strokeColor;
-    private String strokeWidth;
-    private String strokeDashStyle;
+    private String maxy;
 }

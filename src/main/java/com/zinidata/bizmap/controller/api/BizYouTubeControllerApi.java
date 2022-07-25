@@ -30,6 +30,24 @@ public class BizYouTubeControllerApi {
      * @throws IOException
      */
     @ResponseBody
+    @PostMapping(value="getArea")
+    @ApiOperation(value="유튜브URL 등록된 megaCd")
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message = "유튜브URL 등록된 megaCd")
+    })
+    public String getArea(BizYouTubeVO bizYouTubeVO) throws IOException {
+        String result = bizYouTubeService.getArea(bizYouTubeVO);
+        return result;
+    }
+
+    /***
+     * 없으면 전체
+     * youtubeNo    : 11
+     * @param bizYouTubeVO
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
     @PostMapping(value="getYouTube")
     @ApiOperation(value="유튜브URL 가져오기")
     @ApiResponses(value = {

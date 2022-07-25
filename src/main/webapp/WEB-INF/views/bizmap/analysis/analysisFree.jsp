@@ -17,433 +17,392 @@
     String STR_USER_ID = "unknown";
     String STR_USER_NO = "999999999";
 %>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="euc-kr" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>NICEbizmap 상권분석서비스</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+        <!-- css 모음 -->
+        <%@ include file="/WEB-INF/views/bizmap/include/head.jsp" %>
 
-    <!-- css 모음 -->
-    <%@ include file="/WEB-INF/views/bizmap/include/head.jsp" %>
+        <!-- echart -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
 
-</head>
+        <!-- analysis 에서만 -->
+        <%@ include file="/WEB-INF/views/bizmap/include/script.jsp" %>
+        <script type="text/javascript" src="/bizmap/assets/bizmap/js/analysisFree.js?<%=version%>"></script>
 
-<body>
-    <div class="map" id="map" style="width:100%;height:100%;"></div>
-    <div class="pop_up module">
-        <div class="pop_header">
-            <div class="inner in1">
-                <div class="button_box">
-                    <button class="before"></button>
-                </div>
-                <p class="pop_tag">지역선택</p>
-            </div>
-            <!--inner in1-->
-            <div class="inner in2" style="display:none">
-                <div class="button_box">
-                    <button class="before"></button>
-                </div>
-                <p class="pop_tag">업종선택</p>
-            </div>
-            <!--inner in2-->
-        </div>
-        <!--pop_header-->
-        <div class="pop_body">
-            <div class="body_inner in1">
-                <div class="label_box label1">
-                    <p class="label_tag" style="display: none;"><span>어떤 지역</span>의<br />
-                        상권분석을 원하시나요?</p>
-                    <div class="label_inner">
-                        <div class="place_holder">지역을 선택해 주세요</div>
-                        <div class="chosen">서울시 영등포구 여의동</div>
-                    </div>
-                    <div class="wheel">
-                        <div class="table_label">
-                            <div class="lb1">시/도</div>
-                            <div class="lb2">시/구/군</div>
-                            <div class="lb3">동/읍/면</div>
-                        </div>
-                        <!--table_label-->
-                        <div class="table_box">
-                            <dl class="list1"  id="_mega">
-                                <dd></dd>
-                            </dl><!-- list3 -->
-                            <dl class="list2" id="_cty">
-                                <dd></dd>
-                            </dl><!-- list2 -->
-                            <dl class="list3" id="_admi">
-                                <dd></dd>
-                            </dl><!-- list3 -->
-                        </div>
-                    </div>
-                    <!--wheel-->
-                </div>
-                <!--label_box label1-->
-            </div>
-            <!--body_inner in1-->
-            <div class="body_inner in2" style="display: none;">
-                <div class="label_box label2">
-                    <p class="label_tag" style="display: none;">서울시 영등포구 여의동의 <br /><span>어떤 업종</span>을
-                        분석하고 싶으신가요?</p>
-                    <div class="label_inner">
-                        <div class="place_holder">업종을 선택해 주세요</div>
-                        <div class="chosen">호프/맥주</div>
-                    </div>
-                    <div class="cate1" id="_upjong1">
-                    </div>
+        <title>기본보고서</title>
+    </head>
 
-                    <div class="wheel2" id="_upjong2">
-                    </div>
-                    <!-- wheel2 -->
-                </div><!-- label_box label2 -->
-            </div>
-            <div class="bottom_btn_box">
-                <div class="state"><span>여의동 호프/맥주 </span>분석하기</div>
-                <div class="reset">초기화</div>
-                <div class="confirm">확인</div>
-            </div>
-        </div>
-        <!--pop_body-->
-    </div>
-    <!--pop_up-->
+    <body>
 
-    <div class="float-float" style="display: none">
-        <a href="" id="reSearch" onclick="">현 지도에서 상권 분석</a>
-    </div>
-    <!--float-top end-->
-    <!--top start-->
-    <div class="top_section" style="position: fixed;top: 0px;width: 100%;">
-        <div class="menu_top">
-            <div class="menu_left">
-                <div class="logo_box"></div>
-            </div>
-            <div class="menu_right">
-                <div class="comm_box">
-                    <div id="menuToggle">
-                        <input type="checkbox" />
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+        <div class="snb_box">
+            <div class="snb_header cb">
+                <div id="menuToggle2">
+                    <a href="#"></a>
                 </div>
             </div>
-        </div>
-        <div class="tab_box">
-            <ul>
-                <li class="on"><a href="#">기본보고서</a></li>
-                <li><a href="#">유동인구</a></li>
-                <li><a href="#">밀집도</a></li>
+            <ul class="snb_ul snb1">
+                <li><a href="#">나이스비즈맵</a></li>
+                <li><a href="/analysis/analysisFree">상권분석</a></li>
+                <li><a href="#">상세보고서</a></li>
+                <li><a href="/bizmap/subscribe">구독서비스</a></li>
+                <li><a href="/bizmap/support">고객지원</a></li>
+            </ul>
+            <ul class="snb_ul snb2">
+                <li>
+                    <p>퀵링크</p>
+                    <ul>
+                        <li><a href="http://nicezinidata.com">나이스지니데이타</a></li>
+                        <li><a href="http://www.nicebizmap.co.kr">슬기로운외식사업 (교육과정)</a></li>
+                        <li><a href="https://www.posplatform.co.kr">POS 데이터 플랫폼</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
-        <div class="float-top">
-            <div class="search" style="font-size: 14px">
-                <a href="#">지역/업종 검색하여 상권 분석하기</a>
+
+        <!--사이드바 모달 modal START-->
+<%--        <div class="modal modal1"></div>--%>
+        <!--modal END-->
+        <!--bottom popup시 모달 modal START-->
+        <div class="modal modal2"></div>
+        <!--modal END-->
+
+        <!--top_section START-->
+        <div class="top_section">
+            <div class="menu_top pd">
+                <div class="menu_left">
+                    <div class="logo_box">
+                        <a href="/bizmap/index"></a>
+                    </div>
+                </div>
+                <div class="menu_right">
+                    <div id="menuToggle">
+                        <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab_box">
+                <ul class="pd">
+                    <li class="on"><a href="javascript:;">기본보고서</a></li>
+<%--                    <li class="onlypc"><a href="index1.html">상세보고서</a></li>--%>
+                    <li><a href="javascript:;">유동인구</a></li>
+                    <li><a href="javascript:;">밀집도</a></li>
+                    <li><a href="javascript:;">뜨는업종</a></li>
+                    <li style="margin-bottom:80px;"><a href="javascript:;">영상콘텐츠</a></li>
+                    <li class="onlypc last_one"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="float_top pd">
+                <div class="search">
+                    <a href="#">
+                        <input type="search" id="search" name="q" placeholder="지역/업종 선택하여 상권 분석하기" readonly />
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <!--top end-->
+        <!--top_section END-->
 
 
-    <!-- //dialog -->
-</body>
+        <!--top START-->
+        <div class="map_section" id="map"></div>
+        <%--<div class="float_loca mobile ">
+            영등포구 여의동
+        </div>--%>
+        <!--top END -->
 
+        <div class="float_loca mobile" onclick="reSearch();" style="top:170px;display: none;" >
+            <a href="javascript:;">현위치 조회</a>
+        </div>
 
+        <div id="basicReport">
+            <%@ include file="/WEB-INF/views/bizmap/analysis/basicReport.jsp" %>
+        </div>
+        <div id="flowpop" style="display:none;">
+            <%@ include file="/WEB-INF/views/bizmap/analysis/flowpop.jsp" %>
+        </div>
+        <div id="videoContents" style="display:none;">
+            <%@ include file="/WEB-INF/views/bizmap/analysis/videoContents.jsp" %>
+        </div>
+    </body>
 </html>
 
-<!-- js 모읍 -->
-<%@ include file="/WEB-INF/views/bizmap/include/script.jsp" %>
-
-
-
 <script type="text/javascript">
-    // html 변경이 있을떄 다시 잃기
-    $('body').bind('DOMSubtreeModified', function(){
-        //높이 - 지역분석시 테이블
-        var height = $(window).height();
-        $('.table_box').css('height', height - 261);
-    });
-
     var megaCd;
     var ctyCd;
     var admiCd;
 
-    var megaNm;
-    var ctyNm;
-    var admiNm;
+    var megaNm = "";
+    var ctyNm = "";
+    var admiNm = "";
 
     var upjong3Cd;
-    var final = false;
 
     $(function() {
+        // 검색창 클릭하여 카테고리 열기
+       /* $('.search').click(function () {
+            reset();
+            $('.sheet_01').show();
+            $('.modal').show();
+        });*/
 
-        //검색창 클릭하여 카테고리 열기
-        $('.search').click(function () {
-            $('.pop_up').css('display', 'block');
-            $('.map').css('display', 'none');
-            $('.reset').click();
-
-            // if(strAdmiCd == "" || strUpjongCd != ""){
-            // }else if(strUpjongCd == ""){
-            //     $('.confirm').removeClass('on');
-            //     $('.body1').css('display', 'none');
-            //     $('.in2').css('display', 'flex');
-            //     $('.in1').css('display', 'none');
-            //     var data = {
-            //         gubun : "upjong1"
-            //     };
-            //     getUpjong(data);
-            // }
-        });
-
-        //뒤로가기 클릭하여 홈화면으로 이동
-        $('.inner.in1').find('.before').click(function () {
-            $('.pop_up.module').css('display', 'none');
-            $('.map').css('display', '');
-        });
-
-        //뒤로가기 클릭 초기화 기능
-        $('.inner.in2').find('.before').click(function () {
-            $('.reset').click();
-        });
-
-        // 하단 버튼 기능()
-        $('.confirm').click(function () {
-            if(!final){
-                $('.confirm').removeClass('on');
-                $('.body1').css('display', 'none');
-                $('.in2').css('display', 'flex');
-                $('.in1').css('display', 'none');
-                var data = {
-                    gubun : "upjong1"
-                };
-                getUpjong(data);
-            }else{
-                $('.search').text(strAreaNm);
-                $('.map').css('display', '');
-                $('.confirm').removeClass('on');
-                $('.pop_up.module').css('display', 'none');
-                getAdmiFeatures();
+        var $item = $('.row > li > button').on('click', function() {
+            var idx = $item.index(this);
+            var val = $(this).val();
+            $('.cate2.cb.r1').css('display','none');
+            $('.cate2.cb.r2').css('display','none');
+            if(idx < 3){
+                $('.cate2.cb.r1').css('display','block');
+                $('.cate2.cb.r1').removeClass().addClass('cate2 cb r1 on'+ (idx+1));
+            }else if(idx > 2 && idx < 6){
+                $('.cate2.cb.r2').css('display','block');
+                $('.cate2.cb.r2').removeClass().addClass('cate2 cb r2 on'+ (idx-2));
             }
-        });
+            $('.loca_crumble_box.onlypc > .loca_crumble > li').removeClass('on');
+            $('.loca_crumble_box.onlypc > .loca_crumble > li:nth-child(1)').text($(this).text());
+            $('.loca_crumble_box.onlypc > .loca_crumble > li:nth-child(2)').addClass('on');
 
-        $('.reset').click(function (){
-            strAdmiCd = "";
-            strUpjongCd = "";
-            strAreaNm = "";
-            $('#_cty').hide();
-            $('#_admi').hide();
-            $('#_upjong2').hide();
-
-            $('.in2').hide();
-            $('.in1').show();
-            $('.label1 .place_holder').css('display', '');
-            $('.label1 .chosen').css('display', 'none');
-            $('.label2 .place_holder').css('display', '');
-            $('.label2 .chosen').css('display', 'none');
-
-            $('.confirm').removeClass('on');
-            $('.list2').removeClass('on');
-            $('.cate2').removeClass('on');
-            getArea($(this).data(), '');
             var data = {
-                gubun : "upjong1"
+                upjong1Cd : val
+                ,gubun : "upjong2"
             };
             getUpjong(data);
         });
 
+
     });
 
+    function areaReset(){
+        strGeoJson = "";
+        strAdmiCd = "";
+        strAreaNm = "";
+
+        megaCd ="";
+        ctyCd = "";
+        admiCd = "";
+        megaNm = "";
+        ctyNm = "";
+        admiNm = "";
+
+        var data = {};
+        getArea(data, '');
+
+        $('.pc_sheet .middle ul li:nth-child(1) > a').text('분석 지역을 선택해주세요');
+    }
+    function upjongReset(){
+        strUpjongCd = "";
+        strUpjongNm = "";
+
+        upjong3Cd = "";
+        data = {
+            gubun : "upjong1"
+        };
+        getUpjong(data);
+
+        $('.pc_sheet .middle ul li:nth-child(2) > a').text('분석 업종을 선택해주세요');
+    }
+    function reset(){
+        areaReset();
+        upjongReset();
+    }
+
     function getArea(data, gubun){
-        var param = {};
-        param.gubun = gubun
+        param = {};
         param.megaCd = data.megacd;
-        if(gubun == "cty"){
-            param.megaCd = data.megacd;
-            param.ctyCd = data.ctycd;
-        }
+        param.ctyCd = data.ctycd;
+        param.gubun = gubun;
 
         getAjax("features", "/bizmap/common/admin/getArea", param, fn_succ_getArea, fn_error);
     }
 
+
     function fn_succ_getArea(id, response, param){
-        final = false;
 
         var template = $('#tmp_area').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
 
-        if(param.gubun == ""){
-            $('#_mega').html(html);
-            $('.table_box .list1 dd').click(function () {
-                $('.table_box .list1 dd').removeClass('on');
-                $(this).toggleClass('on');
-                $('.list2').removeClass('on');
-                $(this).parent().next('.list2').toggleClass('on');
-                $(this).parent('.list1').addClass('fixed');
-                megaCd = $(this).data().cd;
-                megaNm = $(this).text();
-            });
+        $('.loca_list.cb').html(html);
 
-        }else if(param.gubun == "mega"){
-            $('#_cty').html(html);
-            $('.label1 .table_box .list2').show();
-            $('.label1 .table_box .list3').hide();
+        $('.loca_crumble').find('li').removeClass('on');
+        $('.loca_crumble').find('li').each(function (idx){
 
-            $('.table_box .list2 dd').click(function () {
-                $('.list3').removeClass('on');
-                $(this).parent().next('.list3').toggleClass('on');
-                $('.table_box .list2 dd').removeClass('on');
-                $(this).toggleClass('on');
-                ctyCd = $(this).data().cd;
-                ctyNm = $(this).text();
-            });
-        }else if(param.gubun == "cty"){
-            $('#_admi').html(html);
-            $('.label1 .table_box .list3').show();
-
-            $('.label1 .table_box .list3 dd').click(function () {
-                $('.label1 .table_box .list3 dd').removeClass('on');
-                $(this).toggleClass('on');
-                $('.label1 .table_label').toggleClass('on');
-                $('.label1 .table_box').toggleClass('on');
-                $('.label1 .chosen').css('display', 'block');
-                $('.label1 .place_holder').css('display', 'none');
-                $('.confirm').addClass('on');
-                admiCd = $(this).data().cd;
-                admiNm = $(this).text();
-
-                strAdmiCd = $(this).data().cd;
-                $('.label1 .chosen').text(megaNm +" "+ ctyNm +" "+ admiNm);
-                strAreaNm = megaNm +" "+ ctyNm +" "+ admiNm;
-            });
-        }
+            if(param.megaCd == undefined && param.ctyCd == undefined && $(this).text() == "시/도"){
+                $(this).addClass('on');
+            }else if(param.megaCd != undefined && param.ctyCd == "" && $(this).text() == "시/군/구"){
+                $(this).addClass('on');
+            }else if(param.megaCd != undefined && param.ctyCd != undefined && param.megaCd != "" && param.ctyCd != "" && $(this).text() == "읍/면/동"){
+                $(this).addClass('on');
+            }
+        });
     }
 
-    function menuClick(listThis){
+    function aearClick(listThis){
+        console.log(listThis.data());
+        var bounds = new naver.maps.LatLngBounds(
+            new naver.maps.LatLng(listThis.data().miny, listThis.data().minx),
+            new naver.maps.LatLng(listThis.data().maxy, listThis.data().maxx));
+        map.fitBounds(bounds);
+
+
         if(!common.isEmpty(listThis.data().megacd) && common.isEmpty(listThis.data().ctycd) && common.isEmpty(listThis.data().admicd)) {
+            megaNm = listThis.text();
+            megaCd = listThis.data().megacd;
             getArea(listThis.data(), 'mega');
         }else if(!common.isEmpty(listThis.data().megacd) && !common.isEmpty(listThis.data().ctycd) && common.isEmpty(listThis.data().admicd)){
+            ctyNm = listThis.text();
+            ctyCd = listThis.data().ctycd;
             getArea(listThis.data(), 'cty');
+        }else{
+            admiNm = listThis.text();
+            admiCd = listThis.data().admicd;
+            strAdmiCd = admiCd;
+            strAreaNm = megaNm + " " + ctyNm + " " + admiNm;
+            // 해상도 체크
+            if (widthCheck() =="MO") {
+                $('.sheet_01').hide();
+                $('.sheet_02').show();
+            }else if(widthCheck() =="PC"){
+                $('.sheet_01').toggleClass('on');
+                $('.pc_sheet .middle ul li:nth-child(1) > a').parents().toggleClass('on');
+            }
+        }
+        var tmp =  megaNm + " " + ctyNm + " " + admiNm;
+
+        // 모바일 버전 지역 선택 text
+        $(".sub_txt").children('.loca').text(tmp);
+
+        //PC버전 지역선택 text
+        $('.pc_sheet .middle ul li:nth-child(1) > a').text(tmp);
+
+        $('#search').val(strAreaNm);
+
+        // 해상도 체크
+        if (widthCheck() =="MO") {
+            var data = {
+                gubun: "upjong1"
+            };
+            getUpjong(data);
         }
     }
 
-    function getUpjong(data){
+    function getUpjong(param){
+        param.megaCd = megaCd;
+        param.ctyCd = ctyCd;
+        param.admiCd = admiCd;
 
-        data.megaCd = megaCd;
-        data.ctyCd = ctyCd;
-        data.admiCd = admiCd;
-
-        if(data.gubun == "upjong1"){
-            getAjax("features", "/bizmap/common/admin/getUpjong", data, fn_getUpjong1, fn_error);
-        }else if(data.gubun == "upjong2"){
-            getAjax("features", "/bizmap/common/admin/getUpjong", data, fn_getUpjong2, fn_error);
+        if(param.gubun == "upjong1"){
+            getAjax("features", "/bizmap/common/admin/getUpjong", param, fn_getUpjong1, fn_error);
+        }else if(param.gubun == "upjong2"){
+            getAjax("features", "/bizmap/common/admin/getUpjong", param, fn_getUpjong2, fn_error);
         }
     }
 
     function fn_getUpjong1(id, response, param){
-        final = false;
-        var template = $('#tmp_upjong1').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-        $('#_upjong1').html(html);
 
-        //업종 선택1
-        $('.cate1 > ul > li > a').click(function(){
-            $('.confirm').removeClass('on');
-            $('.cate1 > ul >li').removeClass('on');
-            $(this).parent('li').toggleClass('on');
-            //클릭한 a의 css 변화
-
-            $('.cate2').toggleClass('on');
-            var data = {
-                gubun : "upjong2"
-                , upjong1Cd : $(this).data().upjong1cd
-            };
-            getUpjong(data);
+        response.data.upjong1.forEach(function (data, idx){
+            $(".cate_kind").find(".row").children('li').removeClass("on");
+            $(".cate_kind").find(".row").children('li').find('button').each(function (){
+                if(data.upjong1Nm == $(this).text()){
+                    $(this).val(data.upjong1Cd);
+                }
+            });
         });
     }
 
     function fn_getUpjong2(id, response, param){
-        final = false;
         var template = $('#tmp_upjong2').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
-        $('#_upjong2').html(html);
 
-        $('#_upjong2').show();
-        $('.cate2').addClass('on');
-        //업종 선택 2
-        $('.cate2 > ul > li > p > a').click(function(){
-            $('.cate2 > ul >li').not($(this).parents('li')).removeClass('on');
-            $(this).parents('li').toggleClass('on');
-            //클릭한 a의 css 변화
-            $('.cate3').not($(this).parents('li').find('.cate3')).removeClass('on');
-            $(this).parents('li').find('.cate3').toggleClass('on');
-
-        });
-        // 업종 선택 3
-        $('.cate3 > li > a').click(function(){
-            $('.cate3 > li > a').removeClass("on");
-            upjong3Cd = $(this).data().upjong3cd;
-            strUpjongCd = $(this).data().upjong3cd;
-            strUpjongNm = $(this).text();
-
-            strAreaNm = strAreaNm + " " + strUpjongNm;
-
-            $('.label2 .place_holder').css('display', 'none');
-            $('.label2 .chosen').show();
-            $('.label2 .chosen').text($(this).text());
-
-            $(this).addClass('on');
-            $('.confirm').addClass('on');
-
-            final = true;
-        });
-    }
-
-    function getAdmiFeatures(){
-        var data={
-            admiCd : strAdmiCd
-            , upjongCd : strUpjongCd
+        if(param.upjong1Cd == "Q" || param.upjong1Cd == "D" || param.upjong1Cd == "F"){
+            $('.cate2.cb.r1').html(html);
+        }else{
+            $('.cate2.cb.r2').html(html);
         }
-        getAjax("features", "/bizmap/analysis/admiFeatures", data, fn_succ_features, fn_error);
+
+        $('.cate2 > ul > li > button').on('click', function() {
+            $(".cate2.cb").find("li").removeClass("on");
+            $('.cate2 > ul > li > button').find('span').css({"background":"url(/bizmap/assets/bizmap/images/icons/ico_plus_gr.svg) no-repeat 50% 50%/90%"});
+
+            $(this).parent().addClass("on");
+            $(this).find('span').css({"background":"url(/bizmap/assets/bizmap/images/icons/ico_check_bl.svg) no-repeat 50% 50%/90%"});
+            $('.cate3_top').css('display','none');
+            if($('.cate3_top.'+$(this).data().upjong2cd)){
+                $('.cate3_top.'+$(this).data().upjong2cd).css('display','block');
+            }
+
+            $('.loca_crumble_box.onlypc > .loca_crumble > li').removeClass('on');
+            $('.loca_crumble_box.onlypc > .loca_crumble > li:nth-child(2)').text($(this).text());
+            $('.loca_crumble_box.onlypc > .loca_crumble > li:nth-child(3)').addClass('on');
+
+        });
+
+        $('.cate3 > li > button').on('click', function() {
+            upjong3Cd = $(this).data().upjong3cd;
+            strUpjongCd = upjong3Cd;
+            strUpjongNm = $(this).text();
+            $(".cate3.cb").find("li").removeClass("on");
+            $(this).parent().addClass("on");
+            $(".sub_txt").find(".kind").text($(this).text());
+
+            $('.loca_crumble_box.onlypc > .loca_crumble > li:nth-child(3)').text($(this).text());
+
+            // 모바일 버전 업종 선택 text
+            $(".s_txt").find(".loca").text(strAreaNm);
+            $(".s_txt").find(".kind").text($(this).text());
+
+            // PC버전 업종선택 text
+            $('.pc_sheet .middle ul li:nth-child(2) > a').text($(this).text());
+            // 모바일 버전일때
+            if (widthCheck() =="MO") {
+                $('.btp2').css('display', 'block');
+            }else if(widthCheck() == "PC"){
+                $('.sheet_02').toggleClass('on');
+                $('.pc_sheet .middle ul li:nth-child(2) > a').parents().toggleClass('on');
+            }
+        });
     }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_area">
     {{#each data}}
-        <dd data-cd="{{cd}}" data-megaCd="{{megaCd}}" data-ctyCd="{{ctyCd}}" data-admiCd="{{admiCd}}" onclick="menuClick($(this));">{{nm}}</dd>
+    <li><a href="#" data-cd="{{cd}}" data-megaCd="{{megaCd}}" data-ctyCd="{{ctyCd}}" data-admiCd="{{admiCd}}" data-maxx={{maxx}} data-minx={{minx}} data-maxy={{maxy}} data-miny={{miny}} onclick="aearClick($(this));">{{nm}}</a></li>
     {{/each}}
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_upjong1">
+<script type="text/x-handlebars_template" id="tmp_upjong2">
     <ul>
-        {{#each data.upjong1}}
-        <li><a href="#li_{{upjong1Cd}}" data-upjong1Cd="{{upjong1Cd}}">{{upjong1Nm}}</a></li>
+        {{#each data.upjong2}}
+        <li>
+            <button data-upjong2Cd="{{upjong2Cd}}">
+                <span style="display: inline-block;
+                        border-radius: 100%;
+                        width: 16px;
+                        height: 16px;
+                        border: 1px solid rgba(190, 201, 218, 0.5);
+                        background: url(/bizmap/assets/bizmap/images/icons/ico_plus_gr.svg) no-repeat 50% 50%/90%;
+                        margin-bottom: -4px;
+                        margin-right: 8px;"
+                ></span>
+                {{upjong2Nm}}
+            </button>
+        </li>
+        <li style="width: 100%; display: none;" class="cate3_top {{upjong2Cd}}">
+            <ul class="cate3 cb">
+                {{#each ../data.upjong3}}
+                {{#ifCond ../upjong2Cd '==' upjong2Cd}}
+                <li><button data-upjong3Cd="{{upjong3Cd}}">{{upjong3Nm}}</button></li>
+                {{/ifCond}}
+                {{/each}}
+            </ul>
+        </li>
         {{/each}}
     </ul>
-</script>
-
-<script type="text/x-handlebars_template" id="tmp_upjong2">
-    <div class="cate2">
-        <ul>
-            {{#each data.upjong2}}
-            <li>
-                <p><a href="#li_{{upjong1Cd}}" data-upjong2Cd="{{upjong2Cd}}">{{upjong2Nm}}</a></p>
-                <ul class="cate3">
-                    {{#each ../data.upjong3}}
-                        {{#ifCond ../upjong2Cd '==' upjong2Cd}}
-                        <li><a href="#" data-upjong3Cd="{{upjong3Cd}}">{{upjong3Nm}}</a></li>
-                        {{/ifCond}}
-                    {{/each}}
-                </ul>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
 </script>

@@ -33,6 +33,8 @@
         select name as mem_nm
             , mobile_no
             , cert_no
+            , crt_dt
+            , case when to_char((now() -  crt_dt), 'sssss')::numeric <![CDATA[<]]> 180 then 'y' else 'n' end  as check_yn
         from tb_cellphone_cert
         where seq = #{seqNo}
     </select>

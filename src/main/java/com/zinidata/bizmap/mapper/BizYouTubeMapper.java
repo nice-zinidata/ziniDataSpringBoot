@@ -8,6 +8,7 @@ import java.util.ArrayList;
 @Mapper
 public interface BizYouTubeMapper {
 
+    ArrayList<BizYouTubeVO> getArea(BizYouTubeVO bizYouTubeVO);
     ArrayList<BizYouTubeVO> getYouTube(BizYouTubeVO bizYouTubeVO);
 
 

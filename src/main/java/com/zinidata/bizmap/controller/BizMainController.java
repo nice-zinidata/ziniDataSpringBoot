@@ -18,5 +18,15 @@ public class BizMainController {
         return "bizmap/index";
     }
 
+    @GetMapping("subscribe")
+    public String subscribe() {
+        return "bizmap/subscribe";
+    }
+
+    @GetMapping("support")
+    public String support() {
+        return "bizmap/support";
+    }
+
 
 }

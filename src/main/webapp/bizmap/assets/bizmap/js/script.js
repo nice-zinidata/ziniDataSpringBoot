@@ -188,10 +188,10 @@ $(document).ready(function(){
         // });
 
         //구독서비스 - 자세히 보기 텍스트 변경, 폼 유지
-        $('a.view').on('click', function() {
-            $('.modal1').css('display','block');
-            $('.pop_float').css('display','block');
-        });
+        // $('a.view').on('click', function() {
+        //     $('.modal1').css('display','block');
+        //     $('.pop_float').css('display','block');
+        // });
 
         //구독서비스 - 확인, 닫기
         //닫기(팝업 상단 오른쪽)
@@ -252,7 +252,7 @@ $(document).ready(function(){
             getNotice();
             $("#tabNoticeList").show();
         }else if(tabIndex == "1"){
-            getFaq();
+            getFaq(1);
             $("#tabFaqList").show();
         }
     });

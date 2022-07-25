@@ -35,7 +35,7 @@
 <title>고객지원</title>
 </head>
 
-<body class="idx1">
+<body class="pc_st static">
     <!-- snb START -->
     <div class="snb_box">
         <div class="snb_header cb">
@@ -70,7 +70,137 @@
     <div class="modal modal2"></div>
     <!--modal END-->
 
-    <!--sheet_02 START--><!--고객문의-->
+    <!--ㅡmenu_top-->
+    <div class="menu_top pd onlypc">
+        <div class="menu_left">
+            <div class="logo_box">
+                <a href="index.html"></a>
+            </div>
+            <p class="navi_text onlypc">고객지원</p>
+        </div>
+        <div class="menu_right">
+            <div class="comm_box">
+                <div id="menuToggle">
+                    <a href="#"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--ㅡmenu_top-->
+
+    <!--sheet_02 START-->
+    <div class="sheet sheet_05 full_sheet support" style="z-index: 5;">
+        <div class="sheet_hd wh pd">
+            <div class="ico_box back">
+                <a href="index.html"></a>
+            </div>
+            <div class="name_box">
+                고객지원
+            </div>
+            <div id="menuToggle">
+                <a href="#"></a>
+            </div>
+        </div>
+        <div class="sheet_body">
+            <div class="hd_banner">
+                <div class="box txt_bx notice nt1 banner">
+                    <img src="resource/images/banner/banner2.png" alt="">
+                </div>
+            </div>
+            <div class="pc_flex">
+                <div class="sheet_ul_box">
+                    <div class="ul_inner pd">
+                        <ul class="sheet_ul">
+                            <li class="on"><a href="javascript:;" data-tabIndex="0">공지사항</a></li>
+                            <li><a href="javascript:;" data-tabIndex="1">FAQ</a></li>
+                            <li><a href="javascript:;" data-tabIndex="2">상담게시판</a></li>
+                        </ul>
+                        <ul class="pd sheet_ul2 onlymb">
+                            <li class="on" data-gubun="1"><a href="#">서비스관련</a></li>
+                            <li data-gubun="2"><a href="#">회원가입</a></li>
+                            <li data-gubun="3"><a href="#">결제관련</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container pd" id="tabNoticeList">
+                    <div class="onlypc">
+                        <p class="title_tag">
+                            공지사항
+                            <span class="gray"></span>
+                        </p>
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col width="7%">
+                            <col width="60%">
+                            <col width="7%">
+                            <col width="15%">
+                            <col width="7%">
+                            <col width="5%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>등록자</th>
+                            <th>등록일</th>
+                            <th>조회수</th>
+                            <th>첨부파일</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyNoticeList">
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="dataTables_paginate paging_full_numbers" id="paginate"></div>
+                    </div>
+                </div>
+                <div id="noticeDetail" style="display: block;">
+                    <span>공지사항 내용</span>
+                    <div id="noticeDetailContents">
+
+                    </div>
+                </div>
+
+                <div class="container pd" id="tabFaqList" style="display: none;width: 100%;">
+                    <div class="onlypc">
+                        <p class="title_tag">
+                            FAQ
+                            <span class="gray"> | 자주묻는 질문을 확인해보세요</span>
+                        </p>
+                    </div>
+                    <div class="onlypc">
+                        <ul class="pd sheet_ul2">
+                            <li class="on" data-gubun="1"><a href="#">서비스관련</a></li>
+                            <li data-gubun="2"><a href="#">회원가입</a></li>
+                            <li data-gubun="3"><a href="#">결제관련</a></li>
+                        </ul>
+                    </div>
+                    <div class="accordion section last">
+                        <div class="accordion-item">
+                            <button id="accordion-button-1" aria-expanded="false">
+                                <span class="accordion-title">쿠폰은 어떻게사용하나요?</span>
+                                <span class="icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>
+                                    1. 지도화면 오른쪽 하단에 있는 상세보고서를 클릭해주세요.<br />
+                                    2. 로그인을 진행해주세요. 비회원이시라면 회원가입 후 이용해주세요.<br />
+                                    3. 지도화면에서 원하시는 지역, 영역, 업종을 선택하신 후 결제 페이지로 이동해주세요.<br />
+                                    4. 결제 페이지 하단에 위치한 쿠폰등록/사용 버튼을 클릭하신 후 쿠폰번호를 입력해 주세요.(대소문자 구분)<br />
+                                    이벤트나 관리자용으로 발급받으신 분들은 쿠폰이 미리 생성되어 있습니다.<br />
+                                    5. 쿠폰 등록하기를 클릭하시면 해당업종과 지역에 대한 상세보고서가 화면에 출력됩니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--sheet_02 END-->
+
+   <%-- <!--sheet_02 START--><!--고객문의-->
     <div class="sheet sheet_05 full_sheet support" style="z-index: 5;">
         <div class="sheet_hd wh pd">
             <div class="ico_box back">
@@ -107,11 +237,11 @@
                         <li><a href="javascript:;" data-tabIndex="1">FAQ</a></li>
                         <li><a href="javascript:;" data-tabIndex="2">상담게시판</a></li>
                     </ul>
-    <%--                <ul class="pd sheet_ul2">--%>
-    <%--                    <li class="on"><a href="#">서비스관련</a></li>--%>
-    <%--                    <li><a href="#">회원가입</a></li>--%>
-    <%--                    <li><a href="#">결제관련</a></li>--%>
-    <%--                </ul>--%>
+    &lt;%&ndash;                <ul class="pd sheet_ul2">&ndash;%&gt;
+    &lt;%&ndash;                    <li class="on"><a href="#">서비스관련</a></li>&ndash;%&gt;
+    &lt;%&ndash;                    <li><a href="#">회원가입</a></li>&ndash;%&gt;
+    &lt;%&ndash;                    <li><a href="#">결제관련</a></li>&ndash;%&gt;
+    &lt;%&ndash;                </ul>&ndash;%&gt;
                 </div>
             </div>
             <div class="container pd" id="tabNoticeList">
@@ -160,7 +290,7 @@
             <div class="sheet_ft">© Nicezinidata Corp. All rights reserved.</div>
         </div>
     </div>
-    <!--sheet_02 END--><!--업종선택-->
+    <!--sheet_02 END--><!--업종선택-->--%>
 
 </body>
 </html>
@@ -175,10 +305,30 @@
 
     $(function (){
 
+        $(".onlypc > .pd.sheet_ul2 > li").on('click', function (){
+            $(".onlypc > .pd.sheet_ul2 > li").removeClass('on');
+            $(this).addClass('on');
+            getFaq($(this).data('gubun'));
+        });
+
+        $(".onlymb > .pd.sheet_ul2 > li").on('click', function (){
+            $(".onlypc > .pd.sheet_ul2 > li").removeClass('on');
+            $(this).addClass('on');
+            getFaq($(this).data('gubun'));
+        });
+
         getNotice();
 
     });
 
+
+    function fn_error(response) {
+        console.log(response);
+        console.log('error');
+        alert(response.message);
+    }
+
+    // 공지사항 -------------------------------------
     function getNotice(){
         var param = {
             pageNo : (((pagingInfo.pageNo == 0) ? 1 : pagingInfo.pageNo-1) * pagingInfo.pageCnt)
@@ -187,14 +337,7 @@
         getAjax("getNotice", "/bizmap/notice/getNotice", param, fn_succ_getNotice, fn_error);
     }
 
-    function fn_error(response) {
-        console.log(response);
-        console.log('error');
-        alert(response.message);
-    }
-
     function fn_succ_getNotice(id,response,param){
-        console.log(response);
 
         var template = $('#tmp_tbodyNoticeList').html();
         var templateScript = Handlebars.compile(template);
@@ -222,12 +365,11 @@
     }
 
     function fn_succ_getNoticeDetail(id, response, param){
-
-        console.log(response);
         var template = $('#tmp_noticeDetail').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
+
         $('#noticeDetailContents').html(html);
 
         $("#tabNoticeList").hide();
@@ -239,17 +381,18 @@
         $("#tabNoticeList").show();
     }
 
-    function getFaq(){
+    // 공지사항 끝 ------------------------------------------------
+
+    // faq 시작 --------------------------------------------------
+    function getFaq(gubun){
         param = {
             boardNo: 3
+            , gubun : gubun   // 1 서비스, 2 회원 , 3 결제관련
         };
         getAjax("getFaq", "/bizmap/faq/getFaq", param, fn_succ_getFaq, fn_error);
     }
 
     function fn_succ_getFaq(id,response,param){
-
-        console.log(response);
-
         var template = $('#tmp_faqList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -263,6 +406,8 @@
             $("#"+$(this).attr('id')).attr("aria-expanded", true);
         });
     }
+    // faq 끝 --------------------------------------------------
+
 </script>
 
 <script type="text/x-handlebars_template" id="tmp_tbodyNoticeList">
@@ -320,7 +465,6 @@
         <div class="accordion-content">
             <p>
                 {{replaceHtml contents}}
-            </p>
         </div>
     </div>
     {{/each}}

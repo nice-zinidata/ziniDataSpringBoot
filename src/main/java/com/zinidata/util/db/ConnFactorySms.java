@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnFactorySms {
 
     private String DRIVER = "com.mysql.jdbc.Driver";
-    private String URL = "jdbc:mysql://116.125.141.168:23306/yosi";
-    private String USER = "lakecomo";
-    private String PASSWORD = "lakecomoqweasd!23";
+    private String URL = "jdbc:mysql://10.81.190.121:3306/cmapt";
+    private String USER = "cmapap";
+    private String PASSWORD = "nice1234";
 
     public Connection createConnection() throws SQLException{
         Connection con = null;

@@ -13,6 +13,9 @@ public class BizSubscribeVO {
     private String interestUpjong;
     private String personalInfo;
     private String marketingInfo;
+    private String upjongNm;
+    private String areaNm;
+    private String gubun; // 구독 : 1, 취소 0
 
     //output
 

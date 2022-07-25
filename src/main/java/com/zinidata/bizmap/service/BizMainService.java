@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -30,6 +31,9 @@ public class BizMainService {
 
     @Value("${bizmap.reports.trancallback}")
     private String tranCallback;
+
+    @Value("${bizmap.url}")
+    private String adminUrl;
 
     private final BizMainMapper bizMainMapper;
 
@@ -62,19 +66,22 @@ public class BizMainService {
             // tb_cellphone_cert set
             bizMainMapper.setCellPhoneCert(bizCertVO);
 
-
-            // 인증번호 sms 발송
+            // 구독정보 sms 발송
+            int cnt = 0;
             ConnFactorySms smsSql = new ConnFactorySms();
             Connection conn = smsSql.createConnection();
             Statement state = conn.createStatement();
             conn.setAutoCommit(false);
-            String query = "SELECT user_id FROM tb_user";
-            pstmt = conn.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
-                System.out.println(rs.getString("user_id"));
-            }
 
+            String query = "Insert into em_tran(tran_phone, tran_callback, tran_status, tran_date, tran_msg , tran_type, tran_rslt) \n" +
+                    "select '" + bizCertVO.getMobileNo() + "', '1566-2122','1',now() , concat('[나이스비즈맵]고객님의 SMS인증번호는 "+ randomStr +" 입니다. 정확히 입력해주세요.'), '4' ,'0'";
+            log.info("-----------------인증번호 문자-------------");
+            log.info(query);
+            state.executeUpdate(query);
+            conn.commit();
+
+            state.close();
+            conn.close();
 
             result = gsonUtil.toJson(new JsonOutputVo(Status.생성, bizCertVO));
 
@@ -101,7 +108,7 @@ public class BizMainService {
 
     }
 
-    public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO){
+    public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO) throws SQLException {
         String result = "";
         // 기존에 구독 정보가 있는지 체크
         int subscribeCnt = bizMainMapper.getSubscribe(bizSubscribeVO);
@@ -116,6 +123,66 @@ public class BizMainService {
         subscribeCnt = bizMainMapper.getSubscribe(bizSubscribeVO);
 
         if(subscribeCnt > 0){
+
+            // 구독정보 sms 발송
+            int cnt = 0;
+            ConnFactorySms smsSql = new ConnFactorySms();
+            Connection conn = smsSql.createConnection();
+            Statement state = conn.createStatement();
+            conn.setAutoCommit(false);
+            String query = "select count(*) cnt from tb_subscribe_info where mobile_no='" + bizSubscribeVO.getMobileNo() + "'";
+            pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()){
+                cnt = rs.getInt("cnt");
+            }
+
+            String upjong_nm =  bizSubscribeVO.getUpjongNm();
+            String admi_nm = bizSubscribeVO.getAreaNm();
+//            String upjong_nm =  URLDecoder.decode(dic.get("upjong_nm", ""), "utf-8").replaceAll("@@", ">");
+//            String admi_nm = URLDecoder.decode(dic.get("admi_nm", ""), "utf-8");
+            if(cnt > 0){
+                //update
+                if(bizSubscribeVO.getGubun().equals("1") ){
+                    query = "update tb_subscribe_info set mem_type = '" + bizSubscribeVO.getMemType()
+                            +"', interest_areacd = '" + bizSubscribeVO.getInterestAreacd()
+                            +"', interest_upjong='" + bizSubscribeVO.getInterestUpjong()
+                            +"', free_yn='" + 1
+                            +"', admi_nm='" + bizSubscribeVO.getAreaNm()
+                            +"', upjong_nm='" + bizSubscribeVO.getUpjongNm()
+                            +"', use_yn='1'"
+                            +", update_date=now()"
+                            +", send_date=null where mobile_no='" + bizSubscribeVO.getMobileNo() + "'";
+                }else{// 구독 취소
+                    query = "update tb_subscribe_info set use_yn = '0', update_date=now() where mobile_no='" + bizSubscribeVO.getMobileNo() + "'";
+                }
+                log.info("-----------------구독정보-------------");
+                state.executeUpdate(query);
+                conn.commit();
+            }else{
+                //insert
+                query = "insert into tb_subscribe_info(mobile_no, mem_type, interest_areacd, interest_upjong, use_yn, free_yn, admi_nm, upjong_nm, update_date)" +
+                        "values ('" + bizSubscribeVO.getMobileNo() +"','" + bizSubscribeVO.getMemType() +"','" + bizSubscribeVO.getInterestAreacd() +"','"
+                        + bizSubscribeVO.getInterestUpjong() +"','1','" + 1 +"','"
+                        + bizSubscribeVO.getAreaNm() +"','" + bizSubscribeVO.getUpjongNm() +"', now())";
+
+                log.info("-----------------구독정보-------------");
+                log.info(query);
+                state.executeUpdate(query);
+                conn.commit();
+            }
+
+            query = "Insert into em_tran(tran_phone, tran_callback, tran_status, tran_date, tran_msg , tran_type, tran_rslt) \n" +
+                    "select '" + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , concat('[bizmap-기본보고서]\\n','" + adminUrl + "/reportFree?admi=','" + bizSubscribeVO.getInterestAreacd() + "&upjong='" +bizSubscribeVO.getInterestUpjong()+ "), '4' ,'0'";
+            log.info("-----------------구독정보 문자-------------");
+            log.info(query);
+            state.executeUpdate(query);
+            conn.commit();
+
+            state.close();
+            conn.close();
+
+
             result = gsonUtil.toJson(new JsonOutputVo(Status.생성));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.실패));

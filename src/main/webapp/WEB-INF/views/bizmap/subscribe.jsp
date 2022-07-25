@@ -38,7 +38,51 @@ request.setCharacterEncoding("euc-kr");
     <title>구독서비스</title>
 </head>
 
-<body class="idx3">
+<body class="idx3 pc_st static" style="height: fit-content;">
+<!--ㅡmenu_top-->
+<div class="menu_top pd onlypc">
+    <div class="menu_left">
+        <div class="logo_box">
+            <a href="index.html"></a>
+        </div>
+        <p class="navi_text onlypc">구독 서비스</p>
+    </div>
+    <div class="menu_right">
+        <div class="comm_box">
+            <div id="menuToggle">
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--ㅡmenu_top-->
+
+<!-- snb START -->
+<div class="snb_box">
+    <div class="snb_header cb">
+        <div id="menuToggle2">
+            <a href="#"></a>
+        </div>
+    </div>
+    <ul class="snb_ul snb1">
+        <li><a href="#">나이스비즈맵</a></li>
+        <li><a href="/bizmap/analysis/analysisFree">상권분석</a></li>
+        <li><a href="#">상세보고서</a></li>
+        <li><a href="/bizmap/subscribe">구독서비스</a></li>
+        <li><a href="/bizmap/support">고객지원</a></li>
+    </ul>
+    <ul class="snb_ul snb2">
+        <li>
+            <p>퀵링크</p>
+            <ul>
+                <li><a href="http://nicezinidata.com">나이스지니데이타</a></li>
+                <li><a href="http://www.nicebizmap.co.kr">슬기로운외식사업 (교육과정)</a></li>
+                <li><a href="https://www.posplatform.co.kr">POS 데이터 플랫폼</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!-- snb START -->
 
     <div class="pop_float agree" style="display: none;">
         <div class="sheet_hd pd">
@@ -50,7 +94,7 @@ request.setCharacterEncoding("euc-kr");
 
             </div>
             <div class="close_box">
-                <a href="">
+                <a href="javascript:;">
                 </a>
             </div>
         </div>
@@ -246,6 +290,11 @@ request.setCharacterEncoding("euc-kr");
 
     <!--sheet_02 START-->
     <!--고객문의-->
+    <div class="onlypc middle_logo">
+        <div class="logo_box">
+            <a href="index.html"></a>
+        </div>
+    </div>
     <div class="sheet sheet_05 full_sheet subscribe" style="z-index: 5;">
         <div class="sheet_hd pd wh">
             <div class="ico_box">
@@ -359,7 +408,7 @@ request.setCharacterEncoding("euc-kr");
                                 <input type="checkbox" name="check2" id="check2">
                                 <span class="checkmark" data-check="1"></span>
                             </label>
-                            <a href="#" class="view fl">자세히 보기</a>
+                            <a href="#" class="view fl" data-gubun="personal">자세히 보기</a>
 
                         </li>
                         <li class="cb">
@@ -367,7 +416,7 @@ request.setCharacterEncoding("euc-kr");
                                 <input type="checkbox" name="check3" id="check3">
                                 <span class="checkmark" data-check="2"></span>
                             </label>
-                            <a href="#" class="view fl">자세히 보기</a>
+                            <a href="#" class="view fl" data-gubun="marketing">자세히 보기</a>
                         </li>
                     </ul>
                 </fieldset>
@@ -396,12 +445,38 @@ request.setCharacterEncoding("euc-kr");
     var ctyNm = "";
     var admiNm = "";
 
+    var upjongNm = "";
     var upjong3Cd = "";
     var seqNo ="";
     var certNo ="";
     var certCheck = false;
+    var agreeGubun = "";    // 동의 구분
 
-    $(function() {
+    $(document).ready(function (){
+        $('a.view').on('click', function() {
+            $('.modal1').css('display','block');
+            $('.pop_float').css('display','block');
+
+            agreeGubun = $(this).data('gubun');
+        });
+
+        //마케팅동의, 개인정보수집동의 x 버튼
+        $(".pop_float.agree").find('.close_box').on('click', function(){
+            $('.modal1').css('display','none');
+            $('.pop_float').css('display','none');
+        });
+        // 마케팅동의, 개인정보수집동의 취소 버튼
+        $(".pop_float.agree").find('.button_box > .btn2').on('click', function (){
+            $('.modal1').css('display','none');
+            $('.pop_float').css('display','none');
+        });
+
+        // 마케팅동의, 개인정보수집동의 동의 버튼
+        $(".pop_float.agree").find('.button_box > .btn1').on('click', function (){
+            $('.modal1').css('display','none');
+            $('.pop_float').css('display','none');
+            (agreeGubun == "personal") ? $("input[name=check2]").prop('checked',true) : $("input[name=check3]").prop('checked',true);
+        });
 
         $(".ico_box.popup_back").on('click', function (){
             $('.sheet_01').hide();
@@ -452,6 +527,8 @@ request.setCharacterEncoding("euc-kr");
                 upjong1Cd : val
                 ,gubun : "upjong2"
             };
+
+            upjongNm = $(this).text();
             getUpjong(data);
         });
 
@@ -666,6 +743,8 @@ request.setCharacterEncoding("euc-kr");
             if($('.cate3_top.'+$(this).data().upjong2cd)){
                 $('.cate3_top.'+$(this).data().upjong2cd).css('display','block');
             }
+            var tmp = $(this).text();
+            upjongNm = upjongNm + " " + tmp.trim();
         });
 
         $('.cate3 > li > button').on('click', function() {
@@ -677,14 +756,15 @@ request.setCharacterEncoding("euc-kr");
             $(".s_txt").find(".loca").text(strAreaNm);
             $(".s_txt").find(".kind").text($(this).text());
 
-            $("#interest_upjong1").val($(this).text());
+            var tmp = $(this).text();
+            upjongNm = upjongNm + " " + tmp.trim();
+            $("#interest_upjong1").val(upjongNm);
+
             $('.sheet_02').hide();
         });
     }
 
     function valid(){
-        console.log($("#mem_nm").val());
-        console.log(isEmpty($("#mem_nm").val()));
         if(isEmpty($("#mem_nm").val())){
             var offset = $("#mem_nm").offset();
             $('.sheet_body').animate({scrollTop : offset.top});
@@ -706,15 +786,12 @@ request.setCharacterEncoding("euc-kr");
             return false;
         }
 
-        console.log(admiCd);
         if(admiCd == null || admiCd == "" || admiCd ==''){
             var offset = $("#interest_areacd1").offset();
             $('.sheet_body').animate({scrollTop : offset.top});
             alert('지역을 선택해 주세요.');
             return false;
         }
-
-        console.log(upjong3Cd);
         if(upjong3Cd == null || upjong3Cd == "" || upjong3Cd ==''){
             var offset = $("#interest_upjong1").offset();
             $('.sheet_body').animate({scrollTop : offset.top});
@@ -734,6 +811,7 @@ request.setCharacterEncoding("euc-kr");
 
     // 구독서비스 등록
     function subscribe(){
+        console.log(upjongNm);
         if(valid()){
             var param = {};
             param.mobileNo = $("#mobile_no").val();
@@ -743,8 +821,9 @@ request.setCharacterEncoding("euc-kr");
             param.interestUpjong = upjong3Cd;
             param.personalInfo = ($("input[name=check2]").prop('checked')) ? 1 : 0;
             param.marketingInfo = ($("input[name=check3]").prop('checked')) ? 1 : 0;
-
-
+            param.upjongNm = upjongNm;
+            param.areaNm = strAreaNm;
+            param.gubun = "1";
             getAjax("subscribe", "/bizmap/subscribe", param, fn_subscribe, fn_error);
         }
     }

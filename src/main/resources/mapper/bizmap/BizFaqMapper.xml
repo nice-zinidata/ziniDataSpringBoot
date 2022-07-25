@@ -22,7 +22,8 @@
                 ) a
             ) a
         where ((1-1) * 900) <![CDATA[<]]> rn
-          and rn <![CDATA[<=]]> (1*900)
+            and rn <![CDATA[<=]]> (1*900)
+            and gubun = #{gubun}
     </select>
 
 

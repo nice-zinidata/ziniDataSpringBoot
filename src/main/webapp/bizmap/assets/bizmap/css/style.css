@@ -2504,6 +2504,9 @@ span.basic.sub{
 input#mobile_no{
     width: calc(100% - 82px);
 }
+input#auth_no{
+    width: calc(100% - 82px);
+}
 
 .base button.btn{
     width: 72px;

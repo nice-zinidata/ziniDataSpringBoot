@@ -80,7 +80,7 @@ public class BizMainControllerApi {
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "구독하기")
     })
-    public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO){
+    public String setSubscribe(HttpServletRequest request, BizSubscribeVO bizSubscribeVO) throws SQLException {
         String result = bizMainService.setSubscribe(request, bizSubscribeVO);
         return result;
     }

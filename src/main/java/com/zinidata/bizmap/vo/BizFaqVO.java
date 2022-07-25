@@ -20,7 +20,7 @@ public class BizFaqVO {
     private String crtId;
     private String updDt;
     private String updId;
-    private String gubun;
+    private int gubun;
     private String authFlag;
     private String password;
     private String passwordYn;

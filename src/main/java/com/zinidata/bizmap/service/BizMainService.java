@@ -48,7 +48,7 @@ public class BizMainService {
 
         // 동일한 IP 에서 최근 1시간 내 전송 횟수 10건 초화 잠시뒤 요청
         if(certCnt > 10){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.실패, certCnt));
 
         }else{
             // 인증번호 발송
@@ -178,7 +178,7 @@ public class BizMainService {
             log.info(message);
 
             query = "Insert into em_tran(tran_phone, tran_callback, tran_status, tran_date, tran_msg , tran_type, tran_rslt) \n" +
-                    "select '" + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , message , '4' ,'0'";
+                    "select '" + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , '" + message + "', '4' ,'0'";
 
 //            query = "Insert into em_tran( tran_phone, tran_callback, tran_status, tran_date, tran_msg , tran_type, tran_rslt) \n" +
 //                    "select " + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , concat('[bizmap-기본보고서]\\n','" + adminUrl + "/reportFree?admi=','" + bizSubscribeVO.getInterestAreacd() + "','&upjong=','" + bizSubscribeVO.getInterestUpjong() + "'), '4' ,'0'";

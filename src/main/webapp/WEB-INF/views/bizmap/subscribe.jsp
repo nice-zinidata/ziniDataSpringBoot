@@ -571,6 +571,11 @@ request.setCharacterEncoding("euc-kr");
 
             getAjax("setCert", "/bizmap/getCert", param,
                 function (id, response, param){
+                    console.log(response);
+                    if(response.result != 'success'){
+                        alert('인증번호 전송 오류');
+                        return;
+                    }
                     if(!common.isEmpty(response.data)){
                         if(response.data.checkYn == "y"){
 

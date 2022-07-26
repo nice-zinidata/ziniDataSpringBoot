@@ -772,10 +772,10 @@ request.setCharacterEncoding("euc-kr");
             return false;
         }
 
-        if(certCheck){
+        if(!certCheck){
             var offset = $("#mobile_no").offset();
             $('.sheet_body').animate({scrollTop : offset.top});
-            alert('휴대폰 인증을 해주세요 입력해주세요.');
+            alert('휴대폰 인증을 해주세요.');
             return false;
         }
 

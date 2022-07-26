@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -38,7 +39,7 @@ public class BizMainControllerApi {
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "인증번호 발송")
     })
-    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException {
+    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException, UnknownHostException {
         String result = bizMainService.setCert(request, bizCertVO);
         return result;
     }

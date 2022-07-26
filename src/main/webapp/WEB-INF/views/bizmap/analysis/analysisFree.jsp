@@ -125,6 +125,12 @@
         <div id="flowpop" style="display:none;">
             <%@ include file="/WEB-INF/views/bizmap/analysis/flowpop.jsp" %>
         </div>
+        <div id="density" style="display:none;">
+            <%@ include file="/WEB-INF/views/bizmap/analysis/density.jsp" %>
+        </div>
+        <div id="rising" style="display:none;">
+            <%@ include file="/WEB-INF/views/bizmap/analysis/rising.jsp" %>
+        </div>
         <div id="videoContents" style="display:none;">
             <%@ include file="/WEB-INF/views/bizmap/analysis/videoContents.jsp" %>
         </div>
@@ -145,20 +151,22 @@
     $(function() {
         // 검색창 클릭하여 카테고리 열기
        /* $('.search').click(function () {
-            reset();
+            // reset();
             $('.sheet_01').show();
             $('.modal').show();
         });*/
+        reset();
 
         var $item = $('.row > li > button').on('click', function() {
             var idx = $item.index(this);
             var val = $(this).val();
             $('.cate2.cb.r1').css('display','none');
             $('.cate2.cb.r2').css('display','none');
-            if(idx < 3){
+            console.log(idx);
+            if((idx < 3) || (idx == 6 || idx == 7 || idx == 8)){
                 $('.cate2.cb.r1').css('display','block');
                 $('.cate2.cb.r1').removeClass().addClass('cate2 cb r1 on'+ (idx+1));
-            }else if(idx > 2 && idx < 6){
+            }else if((idx > 2 && idx < 6) || (idx ==9 || idx == 10 | idx == 11)){
                 $('.cate2.cb.r2').css('display','block');
                 $('.cate2.cb.r2').removeClass().addClass('cate2 cb r2 on'+ (idx-2));
             }

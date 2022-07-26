@@ -288,6 +288,8 @@ $(document).ready(function(){
 
         $("#basicReport").hide();
         $("#flowpop").hide();
+        $("#density").hide();
+        $("#rising").hide();
         $("#videoContents").hide();
 
         $('.tab_box > .pd > li').removeClass("on");
@@ -310,6 +312,24 @@ $(document).ready(function(){
             $("#flowpop").show();
             // $("#basicReport").hide();
             $("#search").attr("placeholder", "지역 선택하여 유동인구 분석하기");
+            // 유동인구 조회
+            reSearch();
+        }else if($(this).text() == "밀집도"){
+            // 지도 listener 이벤트가 되면 안됨.
+            removeListener();
+            strMenuGugun = 2;
+            $("#density").show();
+            // $("#basicReport").hide();
+            $("#search").attr("placeholder", "지역 선택하여 트는업종 보기");
+            // 유동인구 조회
+            reSearch();
+        }else if($(this).text() == "뜨는업종"){
+            // 지도 listener 이벤트가 되면 안됨.
+            removeListener();
+            strMenuGugun = 3;
+            $("#rising").show();
+            // $("#basicReport").hide();
+            $("#search").attr("placeholder", "지역 선택하여 트는업종 보기");
             // 유동인구 조회
             reSearch();
         }else if($(this).text() == "영상콘텐츠"){

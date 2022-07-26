@@ -34,10 +34,6 @@ public class BizFlowpopService {
     public String getFlowpop(BizFlowpopVO bizFlowpopVO){
         ArrayList<BizFlowpopVO> outVo = bizFlowpopMapper.getFlowpop(bizFlowpopVO);
 
-        BizAnalysisVO bizAnalysisVO = new BizAnalysisVO();
-        bizAnalysisVO.setXAxis(bizFlowpopVO.getXAxis());
-        bizAnalysisVO.setYAxis(bizFlowpopVO.getYAxis());
-
         String result = "";
         if(!BizmapUtil.isEmpty(outVo)){
             // 로그인 성공

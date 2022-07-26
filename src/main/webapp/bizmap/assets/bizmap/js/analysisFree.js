@@ -231,7 +231,11 @@ function reSearch(){
 	// 유동인구
 	if(strMenuGugun == 1){
 		flowpop(drag_lng, drag_lat);
-	}else if(strMenuGugun == 4){
+	}else if(strMenuGugun == 2){	// 밀집도
+		density(drag_lng, drag_lat);
+	}else if(strMenuGugun == 3){	// 뜨는업종
+		rising(drag_lng, drag_lat);
+	}else if(strMenuGugun == 4){	// 영상
 		videoContents(0.0);
 	}
 }
@@ -303,6 +307,58 @@ function fn_succ_getFlowpop(id, response, param){
 	map.setZoom(15);
 }
 
+// 밀집도
+function density(drag_lng, drag_lat){
+	for(var i=0; i< markers.length; i++) {
+		marker = markers[i];
+		marker.setMap(null);
+	}
+	markers = [];
+
+	var data={
+		xAxis: drag_lng
+		, yAxis: drag_lat
+		, zoomStatus : "admiCd"
+	}
+
+	getAjax("features", "/bizmap/analysis/admiFeatures", data, function (id, response){
+		$(".map_place_box > a > input").val(response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm);
+	}, fn_error, true);
+
+	var data = {
+		xAxis : drag_lng
+		, yAxis : drag_lat
+		, admiCd : strAdmiCd
+		, upjongCd : strUpjongCd
+		, radius : 1000
+	}
+	getAjax("getDensity", "/bizmap/density/getDensity", data, fn_succ_getDensity, fn_error, "POST", false);
+}
+
+function fn_succ_getDensity(id, response, param){
+	console.log(response);
+}
+
+// 뜨는업종
+function rising(drag_lng, drag_lat){
+	var data={
+		xAxis: drag_lng
+		, yAxis: drag_lat
+		, zoomStatus : "admiCd"
+	}
+
+	getAjax("features", "/bizmap/analysis/admiFeatures", data, function (id, response){
+		$(".map_place_box > a > input").val(response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm);
+	}, fn_error, false);
+
+	var data = {
+		xAxis : drag_lng
+		, yAxis : drag_lat
+		, admiCd : strAdmiCd
+		, radius : 500
+	}
+	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getFlowpop, fn_error, "POST", false);
+}
 
 // 영상콘텐츠
 function videoContents(youtubeNo){

@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.InetAddress;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -39,11 +41,12 @@ public class BizMainService {
 
     PreparedStatement pstmt = null;
 
-    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException {
+    public String setCert(HttpServletRequest request, BizCertVO bizCertVO) throws SQLException, UnknownHostException {
         String result = "";
 
         // 여러번 발송한 ip인지 확인
-        bizCertVO.setIpAddr(request.getRemoteAddr());
+        InetAddress ip = InetAddress.getLocalHost();
+        bizCertVO.setIpAddr(ip.getHostAddress());
         int certCnt = bizMainMapper.getCertCnt(bizCertVO);
 
         // 동일한 IP 에서 최근 1시간 내 전송 횟수 10건 초화 잠시뒤 요청

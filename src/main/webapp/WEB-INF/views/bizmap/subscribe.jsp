@@ -552,8 +552,11 @@ request.setCharacterEncoding("euc-kr");
                 function (id, response, param){
                     console.log(response);
                     if(response.result=="fail"){
-                        alert("인증번호 ");
+                        alert("인증번호");
+                        return;
                     }
+
+                    alert('인증번호 전송 완료');
                     $("#certSendMsg").show();
                     $("#certSendMsg2").show();
                     $("#certSuccessMsg").hide();
@@ -564,6 +567,10 @@ request.setCharacterEncoding("euc-kr");
         });
 
         $('#auth_check').on('click', function (){
+            if(seqNo.length < 1){
+                alert('휴대폰 번호 인증을 하세요.');
+                return;
+            }
             param = {};
             param.mobileNo = $("#mobile_no").val();
             param.memNm = $("#mem_nm").val();

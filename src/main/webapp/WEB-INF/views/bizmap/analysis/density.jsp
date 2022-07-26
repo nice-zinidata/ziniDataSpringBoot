@@ -16,6 +16,20 @@
 
 %>
 
+<div class="bottom_pop btp2 pd mobile" style="display:none;">
+    <div class="pop_body">
+        <p class="s_txt">
+            <span class="loca">여의동</span> <span>밀집도 분석</span></p>
+    </div>
+    <div class="pop_foot">
+        <div class="button_box">
+            <button class="btn2">재선택</button>
+            <button class="btn1">밀집도 보기</button>
+        </div>
+    </div>
+</div>
+
+
 <div class="pc_sheet onlypc">
     <div class="pc_hd">
         <div class="tag_txt">
@@ -42,46 +56,12 @@
             </ul>
         </div>
         <div class="button_box">
-            <button class="btn2" id="pcBasicReset">다시선택</button>
-            <button class="btn1" id="pcBasicReport">보고서 보기</button>
+            <button class="btn2" id="pcDensityReset">다시선택</button>
+            <button class="btn1" id="pcDensityReport">밀집도 보기</button>
         </div>
     </div>
 </div>
 
-<div class="bottom_pop btp1 pd mobile" style="display:none;">
-    <div class="pop_head">
-        <a href="#"></a>
-    </div>
-    <div class="pop_body">
-        <p class="m_txt">영등포구 여의동 상권 분석</p>
-        <p class="s_txt">업종을 추가로 선택하시면<br>
-            영등포구 여의동의 상권을 분석할 수 있어요!</p>
-    </div>
-    <div class="pop_foot">
-        <div class="button_box">
-            <button class="btn2">취소</button>
-            <button class="btn1">업종선택</button>
-        </div>
-    </div>
-</div>
-
-<div class="bottom_pop btp2 pd mobile" style="display:none;">
-    <div class="pop_body">
-        <p class="s_txt">
-            <span class="loca">여의동</span>
-            <span class="bar">|</span>
-            <span class="kind">호프/맥주</span><span>상권 분석</span>
-        </p>
-    </div>
-    <div class="pop_foot">
-        <div class="button_box">
-            <button class="btn2" id="moBasicReset">재선택</button>
-            <button class="btn1" id="moBasicReport">보고서 보기</button>
-        </div>
-    </div>
-</div>
-
-<!--분석지역-->
 <div class="sheet sheet_01 md_sheet">
     <div class="sheet_hd pd">
         <div class="ico_box back">
@@ -122,8 +102,6 @@
         </div>
     </div>
 </div>
-<!--분석지역-->
-
 
 <!--업종선택-->
 <div class="sheet md_sheet sheet_02 ">
@@ -192,43 +170,37 @@
 </div>
 <!--업종선택-->
 
+<div class="bottom_pop btp4 pd mobile">
+    <div class="pop_body">
+        <p class="m_txt">점포 밀집수</p>
+        <!-- <p class="s_txt">[ 단위:곳 ]</p> -->
+    </div>
+    <div class="pop_foot">
+        <div class="index_box">
+            <p>20곳이상</p>
+            <p>16-19곳</p>
+            <p>11-15곳</p>
+            <p>6-10곳</p>
+            <p>5곳이하</p>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 
-    $(document).ready(function (){
-        $(".pc_bdy.ticket").children(".middle").find('ul > li').on('click', function (){
-            if($(this).data('gubun') == "area"){
-                areaReset();
-            }else if($(this).data('gubun') == "upjong"){
-                upjongReset();
-            }
-        });
+    $(function (){
+
 
         // pc 재선택
-        $("#pcBasicReset").on('click', function (){
+        $("#pcDensityReset").on('click', function (){
             reset();
         });
 
-        // pc 리포트 생성
-        $("#pcBasicReport").on('click', function (){
-            getFreeReport();
-        });
-
-        // 모바일 재선택
-        $("#moBasicReset").on('click', function (){
-            reset();
-            $('.sheet_02').hide();
-            $('.cate2.cb').hide();
-            $('.sheet_01').show();
-        });
-
-        //모바일 리포트 생성
-        $("#moBasicReport").on('click', function (){
-            getFreeReport();
+        // pc 재조회 생성
+        $("#pcDensityReport").on('click', function (){
+            reSearch();
         });
 
     });
 
 </script>
-
-

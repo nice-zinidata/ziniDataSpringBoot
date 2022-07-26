@@ -173,7 +173,7 @@ public class BizMainService {
             }
 
             query = "Insert into em_tran(tran_pr, tran_phone, tran_callback, tran_status, tran_date, tran_msg , tran_type, tran_rslt) \n" +
-                    "select em_tran_pr.nextval,'" + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , concat('[bizmap-기본보고서]\\n','" + adminUrl + "/reportFree?admi=','" + bizSubscribeVO.getInterestAreacd() + "','&upjong=','" + bizSubscribeVO.getInterestUpjong() + "'), '4' ,'0'";
+                    "select nextval('em_tran_pr'),'" + bizSubscribeVO.getMobileNo() + "', '1566-2122','1',now() , concat('[bizmap-기본보고서]\\n','" + adminUrl + "/reportFree?admi=','" + bizSubscribeVO.getInterestAreacd() + "','&upjong=','" + bizSubscribeVO.getInterestUpjong() + "'), '4' ,'0'";
             log.info("-----------------구독정보 문자-------------");
             log.info(query);
             state.executeUpdate(query);

@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zinidata.bizmap.mapper.BizDensityMapper">
-
-
     <select id="getDensity" resultType="com.zinidata.bizmap.vo.BizDensityVO">
         with tmp_table as (
             select ST_Buffer(ST_Transform(ST_SetSRID(ST_Point(#{xAxis}, #{yAxis}), 4326), 6645), #{radius}, 'quad_segs=333') geom
         )
-        select a.blk_cd, a.admi_cd, blk_nm
-            , coalesce (b.store_cnt, 0) as store_cnt
-            , case when coalesce(b.store_cnt, 0) between  0 and  0 then 0
-                    when coalesce(b.store_cnt, 0) between  1 and  1 then 1
-                    when coalesce(b.store_cnt, 0) between  2 and  2 then 2
-                    when coalesce(b.store_cnt, 0) between  3 and  3 then 3
-                    when coalesce(b.store_cnt, 0) between  4 and  4 then 4
+        select case when coalesce(store_cnt, 0) between  0 and  0 then 0
+                    when coalesce(store_cnt, 0) between  1 and  1 then 1
+                    when coalesce(store_cnt, 0) between  2 and  2 then 2
+                    when coalesce(store_cnt, 0) between  3 and  3 then 3
+                    when coalesce(store_cnt, 0) between  4 and  4 then 4
                     else 5
             end as cnt_num
-            , a."__xmin" as minx
-            , a."__xmax" as maxx
-            , a.ymin as miny
-            , a.ymax as maxy
-            , a.x_axis as centerx
-            , a.y_axis as centery
-            , st_transform(st_setsrid(a.geom, 6645), 4326)  as geom
-        from tbshp_block_v3 a
-        left join tbss_sum_sales_v3 b on a.blk_cd = b.block_cd_v3
-        <if test='upjongCd != null and upjongCd != ""'>
-            and b.upjong3_cd=#{upjongCd}
-        </if>
+            , a1.*
+        from (
+            select a.blk_cd, a.admi_cd, blk_nm
+                , sum(coalesce(1)) as store_cnt
+                , a."__xmin" as minx
+                , a."__xmax" as maxx
+                , a.ymin as miny
+                , a.ymax as maxy
+                , a.x_axis as centerx
+                , a.y_axis as centery
+                , st_transform(st_setsrid(a.geom, 6645), 4326)  as geom
+                , ST_AsGeoJSON(st_transform(st_setsrid(a.geom, 6645), 4326))::jsonb as geometry
+            from tbshp_block_v3 a
+            left join tbss_sum_sales_v3 b on a.blk_cd = b.block_cd_v3
+            <if test='upjongCd != null and upjongCd != ""'>
+                and b.upjong3_cd=#{upjongCd}
+            </if>
             , tmp_table c
-        where ST_Intersects(c.geom, a.geom) = true
+            where ST_Intersects(c.geom, a.geom) = true
+            group by blk_cd , admi_cd , blk_nm, "__xmin", "__xmax", ymin, ymax, x_axis, y_axis, a.geom
+        ) a1
     </select>
 
 

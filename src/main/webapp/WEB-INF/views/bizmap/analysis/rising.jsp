@@ -16,7 +16,13 @@
 
 %>
 
-<!--bottom_pop btp1 pd mobile START-->
+<div class="show_map mobile" style="display: none;">
+  <a href="#">
+    뜨는업종 지도로 찾기
+  </a>
+</div>
+
+<!--bottom_pop btp2 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
   <div class="pop_body">
     <p class="s_txt">
@@ -29,7 +35,7 @@
     </div>
   </div>
 </div>
-<!--bottom_pop btp1 pd mobile END-->
+<!--bottom_pop btp2 pd mobile END-->
 
 <!--sheet_01 START--><!--분석지역-->
 <div class="sheet sheet_01 md_sheet">
@@ -78,12 +84,15 @@
 </div>
 <!--sheet_01 END--><!--분석지역-->
 
-<!--sheet_04 START--><!--영상콘텐츠-->
+<!--sheet_01 START--><!--뜨는업종-->
 <div class="sheet sheet_03 md_sheet md_up">
   <div class="pop_head">
     <a href="#"></a>
   </div>
   <div class="sheet_body has_mapshow">
+    <div class="onlypc close rt_close">
+      <a href="#"></a>
+    </div>
     <div class="box txt_bx">
       <div class="pd">
         <p class="main_txt">여의동  뜨는업종 TOP 5</p>
@@ -122,7 +131,7 @@
           </p>
         </div>
         <div class="slide_tag_box kind_sli_box">
-          <ul class="cb slide_tag kind_sli">
+          <ul class="cb slide_tag kind_sli between2">
             <li class="fl tag on">
               <a href="#">
                 매출 증가 업종
@@ -136,11 +145,28 @@
           </ul>
         </div>
         <div class="card_box">
-          <div class="col card2">
+          <div class="col card1">
             <div class="card_header cb">
               <div class="card_header_tt">
                 <p class="card_s_txt">영등포구 여의동</p>
                 <p class="card_m_txt">매출 증가업종 TOP 5</p>
+              </div>
+            </div>
+            <div class="card_body">
+              <ul>
+                <li class="cb"><p><span class="color">1</span></p><p>노래방</p><p><span class="up">10.9%</span></p></li>
+                <li class="cb"><p><span class="color">2</span></p><p>일반유흥주점</p><p><span class="up">10.9%</span></p></li>
+                <li class="cb"><p><span class="color">3</span></p><p>빠/카페</p><p><span class="up">10.9%</span></p></li>
+                <li class="cb"><p><span class="mono">4</span></p><p>닭갈비 전문</p><p><span class="up">10.9%</span></p></li>
+                <li class="cb"><p><span class="mono">5</span></p><p>호프/맥주</p><p><span class="up">10.9%</span></p></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col card2"  style="display: none;">
+            <div class="card_header cb">
+              <div class="card_header_tt">
+                <p class="card_s_txt">영등포구 여의동</p>
+                <p class="card_m_txt">점포수 증가업종 TOP 5</p>
               </div>
             </div>
             <div class="card_body">
@@ -271,38 +297,43 @@
   </div>
   <div class="sheet_ft"></div>
 </div>
-<!--sheet_04 END--><!--영상콘텐츠-->
+<!--sheet_01 END--><!--뜨는업종-->
 
-<div class="pc_sheet onlypc location">
-  <div class="pc_hd">
-    <div class="tag_txt">
-      <p class="sub_txt">
-        <span>현 위치</span>
-      </p>
-      <div class="map_place_box">
-        <a href="#">
-          <input type="text" id="" name="show" placeholder="여의동" readonly>
-        </a>
+<!--only_pc pc_sheet START-->
+<div class="pc_sheet onlypc location on" id="pc_sheet">
+  <a class="handle" href="#" id="handle"></a>
+  <div style="overflow-y: auto;">
+    <div class="pc_hd">
+      <div class="tag_txt">
+        <p class="sub_txt">
+          <span>현 위치</span>
+        </p>
+        <div class="map_place_box">
+          <a href="#">
+            <input type="text" id="" name="show" placeholder="여의동" readonly>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="pc_bdy ticket">
+      <div class="tag_txt">
+        <p class="sub_txt">
+          <span>분석 지역 선택</span>
+        </p>
+      </div>
+      <div class="middle">
+        <ul>
+          <li><a href="#">분석 지역을 선택해주세요</a></li>
+        </ul>
+      </div>
+      <div class="button_box">
+        <button class="btn2">다시선택</button>
+        <button class="btn1">뜨는업종 보기</button>
       </div>
     </div>
   </div>
-  <div class="pc_bdy ticket">
-    <div class="tag_txt">
-      <p class="sub_txt">
-        <span>분석 지역 선택</span>
-      </p>
-    </div>
-    <div class="middle">
-      <ul>
-        <li><a href="#">분석 지역을 선택해주세요</a></li>
-      </ul>
-    </div>
-    <div class="button_box">
-      <button class="btn2">다시선택</button>
-      <button class="btn1">뜨는업종 보기</button>
-    </div>
-  </div>
 </div>
+<!--only_pc pc_sheet END-->
 
 <script>
   var $frame = $('.centered');
@@ -344,6 +375,8 @@
   function onAnimationFinished(){
     $frame.sly('reload');
   }
+
+
   $grid.on( 'layoutComplete', onAnimationFinished );
 </script>
 <!-- script for slider -->
@@ -353,8 +386,8 @@
   $(function (){
 
     // 영상 등록된 지역 필터 목록 조회
-    param = {};
-    getAjax("features", "/bizmap/youTube/getArea", param, fn_succ_getVideoMega, fn_error);
+    // param = {};
+    // getAjax("features", "/bizmap/youTube/getArea", param, fn_succ_getVideoMega, fn_error);
 
 
   });

@@ -19,6 +19,35 @@ var mousemoveListener;
 var clickListener;
 var dragendListener;
 
+var fillColor = {
+	  0: '#8500ab80'
+	, 1: '#542EC080'
+	, 2: '#1F67FD70'
+	, 3: '#16b1d370'
+	, 4: '#71CEB280'
+	, 5: ''
+};
+var strokeColor = {
+	0: ''
+	, 1: '#8500ab'
+	, 2: '#542EC0'
+	, 3: '#1F67FD'
+	, 4: '#16b1d3'
+	, 5: '#71CEB2'
+};
+var mouseoverAfterColor = {
+	0: ''
+	, 1: '#8500ab'
+	, 2: '#542EC0'
+	, 3: '#1F67FD'
+	, 4: '#16b1d3'
+	, 5: '#71CEB2'
+};
+
+var geomClickListener;
+var mouseoverListener;
+var mouseoutListener;
+
 $( document ).ready(function() {
 	CENTER = new naver.maps.LatLng(37.56648, 126.97787);
 	mapOptions = {
@@ -48,9 +77,9 @@ function addListener(){
 
 	// 지도 드레그 종료
 	dragendListener = naver.maps.Event.addListener(map, 'dragend', function (e){
-		//유동인구, 밀집도, 뜨는업종, 영상콘텐츠에서만 버튼 보이도록
-		if(strMenuGugun == 1){
-			$(".float_loca.mobile").css('display','block');
+		//유동인구, 밀집도, 뜨는업종에서만 버튼 보이도록
+		if(strMenuGugun == 1 || strMenuGugun == 2 || strMenuGugun == 3){
+			$(".reserch").css('display','block');
 		}
 	});
 
@@ -150,7 +179,7 @@ function fn_succ_features(id, response, param){
 	}
 
 	if(!map.data.hasListener('click')){
-		map.data.addListener('click', function(e){
+		geomClickListener = map.data.addListener('click', function(e){
 			// if( map.getZoom() >= 14 ) {
 				$('.pc_sheet .middle ul li:nth-child(1) > a').text(strAreaNm);
 
@@ -226,15 +255,16 @@ function reSearch(){
 	var drag_lng = mapCenter.lng();	// x
 	var drag_lat = mapCenter.lat();	// y
 
-	$(".float_loca.mobile").css('display','none');
+	$(".reserch").css('display','none');
 
-	// 유동인구
-	if(strMenuGugun == 1){
+	LoadingBar(true);
+	if(strMenuGugun == 1){			// 유동인구
 		flowpop(drag_lng, drag_lat);
 	}else if(strMenuGugun == 2){	// 밀집도
 		density(drag_lng, drag_lat);
 	}else if(strMenuGugun == 3){	// 뜨는업종
-		rising(drag_lng, drag_lat);
+		// rising(drag_lng, drag_lat);
+		LoadingBar(false);
 	}else if(strMenuGugun == 4){	// 영상
 		videoContents(0.0);
 	}
@@ -264,12 +294,19 @@ function flowpop(drag_lng, drag_lat){
 		, admiCd : strAdmiCd
 		, radius : 500
 	}
-	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getFlowpop, fn_error, "POST", false);
+	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getFlowpop, fn_error, "POST", true);
 }
 
 function fn_succ_getFlowpop(id, response, param){
 
 	var content;
+	var level1 = [];
+	var level2 = [];
+	var level3 = [];
+	var level4 = [];
+	var level5 = [];
+
+
 	for(var i=0; i<response.data.length;i++){
 		var tmp = response.data[i];
 
@@ -277,7 +314,7 @@ function fn_succ_getFlowpop(id, response, param){
 		content = '<img src="' + image + '">';
 
 		let flowmarker = new naver.maps.Marker({
-			position: new naver.maps.LatLng(tmp.yAxis,tmp.xAxis),
+			position: new  naver.maps.LatLng(tmp.yAxis,tmp.xAxis),
 			map: dMap,
 			icon: {
 				content : content,
@@ -289,7 +326,24 @@ function fn_succ_getFlowpop(id, response, param){
 
 		markers.push(flowmarker);
 
+		(tmp.flowLv==1) ? level1.push(tmp.flowPop) : '';
+		(tmp.flowLv==2) ? level2.push(tmp.flowPop) : '';
+		(tmp.flowLv==3) ? level3.push(tmp.flowPop) : '';
+		(tmp.flowLv==4) ? level4.push(tmp.flowPop) : '';
+		(tmp.flowLv==5) ? level5.push(tmp.flowPop) : '';
 	}
+
+	// 범례 데이터
+	// console.log(Math.max.apply(Math,level1));
+	// console.log(Math.min.apply(Math,level1));
+	// console.log(Math.max.apply(Math,level2));
+	// console.log(Math.min.apply(Math,level2));
+	// console.log(Math.max.apply(Math,level3));
+	// console.log(Math.min.apply(Math,level3));
+	// console.log(Math.max.apply(Math,level4));
+	// console.log(Math.min.apply(Math,level4));
+	// console.log(Math.max.apply(Math,level5));
+	// console.log(Math.min.apply(Math,level5));
 
 	for(var i=0; i< markers.length; i++){
 		marker = markers[i];
@@ -305,6 +359,8 @@ function fn_succ_getFlowpop(id, response, param){
 	}
 
 	map.setZoom(15);
+
+	LoadingBar(false);
 }
 
 // 밀집도
@@ -332,11 +388,70 @@ function density(drag_lng, drag_lat){
 		, upjongCd : strUpjongCd
 		, radius : 1000
 	}
-	getAjax("getDensity", "/bizmap/density/getDensity", data, fn_succ_getDensity, fn_error, "POST", false);
+	getAjax("getDensity", "/bizmap/density/getDensity", data, fn_succ_getDensity, fn_error, "POST", true);
 }
 
 function fn_succ_getDensity(id, response, param){
-	console.log(response);
+	// var level1 = [];
+	// var level2 = [];
+	// var level3 = [];
+	// var level4 = [];
+	// var level5 = [];
+	// response.data.forEach(function (val, idx){
+	//
+	// 	(val.cntNum==1) ? level1.push(val.storeCnt) : '';
+	// 	(val.cntNum==2) ? level2.push(val.storeCnt) : '';
+	// 	(val.cntNum==3) ? level3.push(val.storeCnt) : '';
+	// 	(val.cntNum==4) ? level4.push(val.storeCnt) : '';
+	// 	(val.cntNum==5) ? level5.push(val.storeCnt) : '';
+	// });
+	//
+	// // 범례 데이터
+	// console.log(Math.max.apply(Math,level1));
+	// console.log(Math.min.apply(Math,level1));
+	// console.log(Math.max.apply(Math,level2));
+	// console.log(Math.min.apply(Math,level2));
+	// console.log(Math.max.apply(Math,level3));
+	// console.log(Math.min.apply(Math,level3));
+	// console.log(Math.max.apply(Math,level4));
+	// console.log(Math.min.apply(Math,level4));
+	// console.log(Math.max.apply(Math,level5));
+	// console.log(Math.min.apply(Math,level5));
+
+
+	geoJsonArr.forEach(function (val, idx){
+		map.data.removeGeoJson(val);
+	});
+	var result = getGeomJson("density", "FeatureCollection", response.data);
+	strGeoJson = result;
+	geoJsonArr.push(strGeoJson);
+	map.data.addGeoJson(result);
+
+	map.data.setStyle(function(feature){
+		var styleOptions = {
+			fillOpacity : 0.3
+			, fillColor : fillColor[(feature.getProperty('cntNum'))]
+			, strokeColor : strokeColor[(feature.getProperty('cntNum'))]
+			, storkeWeight:0.5
+			, storkeOpacity : 1
+		}
+
+		return styleOptions;
+	});
+
+	mouseoverListener = map.data.addListener('mouseover', function(e) {
+		map.data.overrideStyle(e.feature, {
+			fillColor: mouseoverAfterColor[(e.feature.getProperty('cntNum'))],
+		});
+	});
+
+	mouseoutListener = map.data.addListener('mouseout', function(e) {
+		map.data.overrideStyle(e.feature, {
+			fillColor: fillColor[(e.feature.getProperty('cntNum'))],
+		});
+	});
+
+	LoadingBar(false);
 }
 
 // 뜨는업종
@@ -357,7 +472,12 @@ function rising(drag_lng, drag_lat){
 		, admiCd : strAdmiCd
 		, radius : 500
 	}
-	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getFlowpop, fn_error, "POST", false);
+	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getRising, fn_error, "POST", false);
+}
+function fn_succ_getRising(id, response, param){
+
+	console.log(response);
+	LoadingBar(false);
 }
 
 // 영상콘텐츠
@@ -365,7 +485,7 @@ function videoContents(youtubeNo){
 	var data = {
 		youtubeNo : youtubeNo
 	}
-	getAjax("getFlowpop", "/bizmap/youTube/getYouTube", data, fn_succ_getVideoContents, fn_error, "POST", false);
+	getAjax("getFlowpop", "/bizmap/youTube/getYouTube", data, fn_succ_getVideoContents, fn_error, "POST", true);
 }
 
 function fn_succ_getVideoContents(id, response, param){
@@ -457,6 +577,10 @@ function removeMarkers(){
 		markers[i].setMap(null);
 	}
 	markers = [];
+
+	naver.maps.Event.removeListener(mouseoverListener);
+	naver.maps.Event.removeListener(mouseoutListener);
+	naver.maps.Event.removeListener(geomClickListener);
 }
 
 

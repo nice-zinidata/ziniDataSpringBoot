@@ -19,8 +19,6 @@ function isEmpty(value){
 
 function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, async) {
   var isEmptyOption = isEmpty(option);
-  $('#fade').show();
-  $('#loading').show();
   $.ajax({
     beforeSend : function(xhr){
 
@@ -48,8 +46,6 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, as
       successFunc(dst_id, data, dst_params);
     }
   }).fail(function (data, textStatus, jqXHR) {
-    $('#fade').hide();
-    $('#loading').hide();
     try {
       if (errorFunc != null) {
         errorFunc(data, textStatus, jqXHR);
@@ -107,6 +103,17 @@ function getGeomJson(name, type, response){
     , "type": type
     , "features" : list
   }
+
+  return result;
+}
+
+var epsg4326 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+var openmate = "+proj=tmerc +lat_0=38.0 +lon_0=128.0 +x_0=400000.0 +y_0=600000.0 +k=0.9999 +ellps=bessel +a=6377397.155 +b=6356078.9628181886 +units=m +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43";
+// epsg4326, openmate, x좌표, y좌표
+function fn_projTransform(from, to, x_axis, y_axis) {
+
+  var coordinates = [parseFloat(x_axis), parseFloat(y_axis)];
+  var result = proj4(from, to, coordinates);
 
   return result;
 }

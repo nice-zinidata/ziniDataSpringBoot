@@ -16,6 +16,7 @@
 
 %>
 
+<!--bottom_pop btp2 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
     <div class="pop_body">
         <p class="s_txt">
@@ -28,39 +29,84 @@
         </div>
     </div>
 </div>
+<!--bottom_pop btp2 pd mobile END-->
 
-
-<div class="pc_sheet onlypc">
-    <div class="pc_hd">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>현 위치</span>
-            </p>
-            <div class="map_place_box">
-                <a href="#">
-                    <input type="text" id="" name="show" placeholder="여의동" readonly>
-                </a>
-            </div>
-        </div>
+<!--bottom_pop btp3 pd mobile START-->
+<div class="bottom_pop btp4 pd mobile">
+    <div class="pop_body">
+        <p class="m_txt">점포 밀집수</p>
+        <!-- <p class="s_txt">[ 단위:곳 ]</p> -->
     </div>
-    <div class="pc_bdy ticket">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>분석 지역 | 업종 선택</span>
-            </p>
-        </div>
-        <div class="middle">
-            <ul>
-                <li data-gubun="area"><a href="#">분석 지역을 선택해주세요</a></li>
-                <li data-gubun="upjong"><a href="#">분석 업종을 선택해주세요</a></li>
-            </ul>
-        </div>
-        <div class="button_box">
-            <button class="btn2" id="pcDensityReset">다시선택</button>
-            <button class="btn1" id="pcDensityReport">밀집도 보기</button>
+    <div class="pop_foot">
+        <div class="index_box">
+            <p>20곳이상</p>
+            <p>16-19곳</p>
+            <p>11-15곳</p>
+            <p>6-10곳</p>
+            <p>5곳이하</p>
         </div>
     </div>
 </div>
+<!--bottom_pop btp3 pd mobile END-->
+
+
+<!--only_pc pc_sheet START-->
+<div class="pc_sheet onlypc on" id="pc_sheet">
+    <a class="handle" href="#" id="handle"></a>
+    <div style="overflow-y: auto;">
+        <div class="pc_hd">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>현 위치</span>
+                </p>
+                <div class="map_place_box">
+                    <a href="#">
+                        <input type="text" id="" name="show" placeholder="여의동" readonly>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pc_bdy ticket">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>분석 지역 | 업종 선택</span>
+                </p>
+            </div>
+            <div class="middle">
+                <ul>
+                    <li><a href="#">분석 지역을 선택해주세요</a></li>
+                    <li><a href="#">분석 업종을 선택해주세요</a></li>
+                </ul>
+            </div>
+            <div class="button_box">
+                <button class="btn2" id="pcDensityReset">다시선택</button>
+                <button class="btn1" id="pcDensityReport">밀집도 보기</button>
+            </div>
+        </div>
+        <div class="pc_foot">
+            <div class="bottom_pop btp4 pd onlypc" style="position: static;">
+                <div class="point_tag">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="pop_body">
+                    <p class="m_txt">점포 밀집수</p>
+                    <!-- <p class="s_txt">[ 단위:곳 ]</p> -->
+                </div>
+                <div class="pop_foot">
+                    <div class="index_box">
+                        <p>5곳 이상</p>
+                        <p>4곳</p>
+                        <p>3곳</p>
+                        <p>2곳</p>
+                        <p>1곳</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--only_pc pc_sheet END-->
 
 <div class="sheet sheet_01 md_sheet">
     <div class="sheet_hd pd">
@@ -169,22 +215,6 @@
     </div>
 </div>
 <!--업종선택-->
-
-<div class="bottom_pop btp4 pd mobile">
-    <div class="pop_body">
-        <p class="m_txt">점포 밀집수</p>
-        <!-- <p class="s_txt">[ 단위:곳 ]</p> -->
-    </div>
-    <div class="pop_foot">
-        <div class="index_box">
-            <p>20곳이상</p>
-            <p>16-19곳</p>
-            <p>11-15곳</p>
-            <p>6-10곳</p>
-            <p>5곳이하</p>
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
 

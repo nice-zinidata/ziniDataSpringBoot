@@ -44,13 +44,6 @@ $(document).ready(function(){
         //show_map 지도로 보기 숨기기
         $('.show_map').css('display','none');
 
-        /*if($(this).parents('.md_up').hasClass('up')){
-            $('.sheet_body.has_mapshow').animate({scrollTop : 0});
-            $(this).parents('.md_up').css("transform","translateY(0px)");
-        }else{
-            $(this).parents('.md_up').css("transform","translateY(-153px)");
-        }*/
-
     });
 
     //snb 사이드 네비게이션 제어
@@ -85,8 +78,8 @@ $(document).ready(function(){
 
     if ($(window).width() < 1024) {
 
-        //!!-------------- 나중에 지워주세요 흐름 파악용 START --------------!!//
-        //흐름 -> index1.html
+    //!!-------------- 나중에 지워주세요 흐름 파악용 START --------------!!//
+    //흐름 -> index1.html
 
         //지역/업종 선택 #search1 클릭시 분석지역.sheet_01 열기
         $('#search').on('click', function() {
@@ -176,16 +169,6 @@ $(document).ready(function(){
             $('.idx2 .modal1').css('display','none');
             //여기에 리포트 열기
         });
-
-        //구독서비스에서 업종선택
-        // $('.idx3 input#interest_upjong1').on('click', function() {
-        //     $('.sheet_02').css('display','block');
-        // });
-
-        //구독서비스에서 지역선택
-        // $('.idx3 input#interest_areacd1').on('click', function() {
-        //     $('.sheet_01').css('display','block');
-        // });
 
         //구독서비스 - 자세히 보기 텍스트 변경, 폼 유지
         // $('a.view').on('click', function() {
@@ -352,7 +335,7 @@ $(document).ready(function(){
         //카테고리 안쪽 max height 맞춰 영역 크기 설정
         function maxHeight1() {
             var ht = $(window).height();
-            if( ht < 580){
+            if( ht < 680){
                 $('.sheet_01').addClass('side');
                 $('.sheet_02').addClass('side');
                 $('.middle ul li').addClass('side_box');
@@ -382,7 +365,7 @@ $(document).ready(function(){
             $('.sheet_01').toggleClass('on');
             $('.sheet_02').removeClass('on');
             $('.pc_sheet .middle ul li:nth-child(2)').removeClass('on');
-            $(this).parents().toggleClass('on');
+            $('.pc_sheet .middle ul li:nth-child(1)').toggleClass('on');
             areaReset();
         })
 
@@ -391,7 +374,7 @@ $(document).ready(function(){
             $('.sheet_02').toggleClass('on');
             $('.sheet_01').removeClass('on');
             $('.pc_sheet .middle ul li:nth-child(1)').removeClass('on');
-            $(this).parents().toggleClass('on');
+            $('.pc_sheet .middle ul li:nth-child(2)').toggleClass('on');
 
             $(".row").show();
             $(".cate2").hide();
@@ -476,6 +459,24 @@ $(document).ready(function(){
             $('.pc_st').removeClass('static');
             $('html').css('overflow-y','hidden');
         }    
+        
+    });
+
+    if ($(window).width() <= 280) {
+        $("#search1").attr("placeholder", "지역/업종 선택");
+        $("#search2").attr("placeholder", "지역 선택");
+    }
+
+    //핸들
+    $('.handle').on('click', function() {
+        $('.pc_sheet').toggleClass('on');
+        $('.handle').toggleClass('on');
+    });
+
+    //토글 로그인 클릭
+    $('#toggle_click').on('click', function() {
+        $('#toggle_login').toggleClass('on');
+        $(this).toggleClass('on');
     });
 });
 
@@ -488,3 +489,7 @@ function widthCheck(){
     }
 }
 
+function LoadingBar(gubun){
+    gubun ? $(".modal.modal2").show() : $(".modal.modal2").hide();
+    gubun ? $(".loader.loader--style3").show() : $(".loader.loader--style3").hide();
+}

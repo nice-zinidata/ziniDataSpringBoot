@@ -24,4 +24,5 @@ public class BizDensityVO {
     private String centerx;
     private String centery;
     private String geom;
+    private String geometry;
 }

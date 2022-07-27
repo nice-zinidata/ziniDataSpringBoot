@@ -16,6 +16,7 @@
 
 %>
 
+<!--bottom_pop btp2 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
     <div class="pop_body">
         <p class="s_txt">
@@ -28,6 +29,7 @@
         </div>
     </div>
 </div>
+<!--bottom_pop btp2 pd mobile END-->
 
 <div class="sheet sheet_01 md_sheet">
     <div class="sheet_hd pd">
@@ -70,10 +72,7 @@
     </div>
 </div>
 
-<!--modal START-->
-<div class="modal" ></div>
-<!--modal END-->
-
+<!--bottom_pop btp3 pd mobile START-->
 <div class="bottom_pop btp3 pd mobile">
     <div class="pop_body">
         <p class="m_txt">일평균 유동인구</p>
@@ -89,37 +88,64 @@
         </div>
     </div>
 </div>
+<!--bottom_pop btp3 pd mobile END-->
 
-<div class="pc_sheet onlypc location">
-    <div class="pc_hd">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>현 위치</span>
-            </p>
-            <div class="map_place_box">
-                <a href="#">
-                    <input type="text" id="" name="show" placeholder="여의동" readonly>
-                </a>
+
+<!--only_pc pc_sheet START-->
+<div class="pc_sheet onlypc location on" id="pc_sheet">
+    <a class="handle" href="#" id="handle"></a>
+    <div style="overflow-y: auto;">
+        <div class="pc_hd">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>현 위치</span>
+                </p>
+                <div class="map_place_box">
+                    <a href="#">
+                        <input type="text" id="" name="show" placeholder="여의동" readonly>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pc_bdy ticket">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>분석 지역 선택</span>
+                </p>
+            </div>
+            <div class="middle">
+                <ul>
+                    <li><a href="#">분석 지역을 선택해주세요</a></li>
+                </ul>
+            </div>
+            <div class="button_box">
+                <button class="btn2" id="pcFlowReset">다시선택</button>
+                <button class="btn1" id="pcFlowResearch">유동인구 보기</button>
+            </div>
+        </div>
+        <div class="pc_foot">
+            <div class="bottom_pop btp3 pd onlypc">
+                <div class="point_tag">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="pop_body">
+                    <p class="m_txt">일평균 유동인구</p>
+                </div>
+                <div class="pop_foot">
+                    <div class="index_box">
+                        <p>1등급 </p>
+                        <p>2등급</p>
+                        <p>3등급</p>
+                        <p>4등급</p>
+                        <p>5등급</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="pc_bdy ticket">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>분석 지역 선택</span>
-            </p>
-        </div>
-        <div class="middle">
-            <ul>
-                <li data-gubun="area"><a href="#">분석 지역을 선택해주세요</a></li>
-            </ul>
-        </div>
-        <div class="button_box">
-            <button class="btn2" id="pcFlowReset">다시선택</button>
-            <button class="btn1" id="pcFlowResearch">유동인구 보기</button>
-        </div>
-    </div>
 </div>
+<!--only_pc pc_sheet END-->
 
 <script type="text/javascript">
 

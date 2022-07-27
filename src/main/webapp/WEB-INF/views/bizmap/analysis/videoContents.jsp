@@ -16,7 +16,13 @@
 
 %>
 
-<!--bottom_pop btp1 pd mobile START-->
+<div class="show_map mobile" style="display: none;">
+  <a href="#">
+    영상콘텐츠 지도로 찾기
+  </a>
+</div>
+
+<!--bottom_pop btp2 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
   <div class="pop_body">
     <p class="s_txt">
@@ -25,11 +31,11 @@
   <div class="pop_foot">
     <div class="button_box">
       <button class="btn2">재선택</button>
-      <button class="btn1">유동인구 보기</button>
+      <button class="btn1">영상콘텐츠 보기</button>
     </div>
   </div>
 </div>
-<!--bottom_pop btp1 pd mobile END-->
+<!--bottom_pop btp2 pd mobile END-->
 
 <!--sheet_01 START--><!--분석지역-->
 <div class="sheet sheet_01 md_sheet">
@@ -119,36 +125,41 @@
 </div>
 <!--sheet_04 END--><!--영상콘텐츠-->
 
-<div class="pc_sheet onlypc location">
-  <div class="pc_hd">
-    <div class="tag_txt">
-      <p class="sub_txt">
-        <span>현 위치</span>
-      </p>
-      <div class="map_place_box">
-        <a href="#">
-          <input type="text" id="" name="show" placeholder="여의동" readonly>
-        </a>
+<!--only_pc pc_sheet START-->
+<div class="pc_sheet onlypc location on" id="pc_sheet">
+  <a class="handle" href="#" id="handle"></a>
+  <div style="overflow-y: auto;">
+    <div class="pc_hd">
+      <div class="tag_txt">
+        <p class="sub_txt">
+          <span>현 위치</span>
+        </p>
+        <div class="map_place_box">
+          <a href="#">
+            <input type="text" id="" name="show" placeholder="여의동" readonly>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="pc_bdy ticket">
+      <div class="tag_txt">
+        <p class="sub_txt">
+          <span>분석 지역 선택</span>
+        </p>
+      </div>
+      <div class="middle">
+        <ul>
+          <li><a href="#">분석 지역을 선택해주세요</a></li>
+        </ul>
+      </div>
+      <div class="button_box">
+        <button class="btn2" id="pcVideoReset">다시선택</button>
+        <button class="btn1" id="pcVideoResearch">영상콘텐츠 보기</button>
       </div>
     </div>
   </div>
-  <div class="pc_bdy ticket">
-    <div class="tag_txt">
-      <p class="sub_txt">
-        <span>분석 지역 선택</span>
-      </p>
-    </div>
-    <div class="middle">
-      <ul>
-        <li><a href="#">분석 지역을 선택해주세요</a></li>
-      </ul>
-    </div>
-    <div class="button_box">
-      <button class="btn2">다시선택</button>
-      <button class="btn1">영상콘텐츠 보기</button>
-    </div>
-  </div>
 </div>
+<!--only_pc pc_sheet END-->
 
 <script>
   <!-- script for slider -->
@@ -205,6 +216,16 @@
 
   $(function (){
 
+    // pc 재선택
+    $("#pcVideoReset").on('click', function (){
+      areaReset();
+    });
+
+    // pc 재조회 생성
+    $("#pcVideoResearch").on('click', function (){
+      reSearch();
+    });
+
     // 영상 등록된 지역 필터 목록 조회
     param = {};
     getAjax("features", "/bizmap/youTube/getArea", param, fn_succ_getVideoMega, fn_error);
@@ -251,9 +272,7 @@
     var html = templateScript(context);
     $('#videoContentList').html(html);
 
-
-    if(widthCheck() == "PC"){
-    }
+    LoadingBar(false);
   }
 
   function fn_succ_getVideoMega(id, response, param){

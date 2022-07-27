@@ -146,25 +146,82 @@ request.setCharacterEncoding("euc-kr");
         </div>
     </div>
 
-    <!--sheet_01 START-->
+    <!--분석지역-->
+    <div class="sheet sheet_01 md_sheet" style="display: none;">
+        <div class="sheet_hd pd">
+            <div class="ico_box back">
+                <a href="#" style="display: none;">
+                </a>
+            </div>
+            <div class="name_box">
+                지역 선택
+            </div>
+            <div class="close_box">
+                <a href="javascript:;">
+                </a>
+            </div>
+        </div>
+        <div class="sheet_body pd">
+            <div class="box txt_bx">
+                <p class="main_txt">분석하고자 하는<br />
+                    지역을 선택해주세요.</p>
+                <p class="sub_txt">
+                    <span class="loca">지역선택</span>
+                    <!-- <span class="bar">|</span>
+                    <span class="kind">업종선택</span> -->
+                </p>
+            </div>
+            <div class="box select_bx">
+                <div class="cate_loca">
+                    <div class="loca_crumble_box">
+                        <ul class="loca_crumble">
+                            <li class="on"><button>시/도</button></li>
+                            <li><button>시/군/구</button></li>
+                            <li><button>읍면동</button></li>
+
+                        </ul>
+                    </div>
+                    <div class="loca_list_bx">
+                        <ul class="loca_list cb">
+                            <li class="on"><a href="#">서울특별시</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sheet_ft"></div>
+    </div>
+    <!--sheet_01 END-->
+    <!--분석지역-->
+
+
+    <!--sheet_02 START-->
+    <!--업종선택-->
     <div class="sheet md_sheet sheet_02" style="display: none;">
         <div class="sheet_hd pd">
-            <div class="ico_box popup_back">
-                <a href="#">
+            <div class="ico_box back">
+                <a href="#" style="display: none;">
                 </a>
             </div>
             <div class="name_box">
                 업종 선택
             </div>
             <div class="close_box">
-                <a href="">
+                <a href="javascript:;">
                 </a>
             </div>
+        </div>
+        <div class="loca_crumble_box onlypc">
+            <ul class="loca_crumble">
+                <li class="on"><button>음식업</button></li>
+                <li><button>중분류</button></li>
+                <li><button>소분류</button></li>
+            </ul>
         </div>
         <div class="sheet_body pd">
             <div class="box txt_bx">
                 <p class="main_txt">업종을 선택하여
-                    <br/>상권 분석을 시작해 보세요.</p>
+                    <br />상권 분석을 시작해 보세요.</p>
                 <p class="sub_txt">
                     <span class="loca">여의동</span>
                     <span class="bar">|</span>
@@ -179,10 +236,11 @@ request.setCharacterEncoding("euc-kr");
                         <li><button>생활서비스</button></li>
                     </ul>
                     <ul class="cate2 cb r1 on1" style="display: none;">
-                        <li><button>간이주점</button></li>
+                        <li class="on"><button>간이주점</button></li>
                         <li style="width: 100%; display: none;" class="cate3_top">
                             <ul class="cate3 cb">
-                                <li><button>호프/맥주</button></li>
+                                <li class="on"><button>호프/맥주</button></li>
+                                <li><button>소주방/포장마차</button></li>
                             </ul>
                         </li>
                     </ul>
@@ -192,10 +250,11 @@ request.setCharacterEncoding("euc-kr");
                         <li><button>의료/건강</button></li>
                     </ul>
                     <ul class="cate2 cb r2 on1" style="display: none;">
-                        <li><button>간이주점</button></li>
+                        <li class="on"><button>간이주점</button></li>
                         <li style="width: 100%; display: none;" class="cate3_top">
                             <ul class="cate3 cb">
-                                <li><button>호프/맥주</button></li>
+                                <li class="on"><button>호프/맥주</button></li>
+                                <li><button>소주방/포장마차</button></li>
                             </ul>
                         </li>
                     </ul>
@@ -204,55 +263,8 @@ request.setCharacterEncoding("euc-kr");
         </div>
         <div class="sheet_ft"></div>
     </div>
-    <!--sheet_02 END--><!--업종선택-->
-
-    <!--sheet_01 START--><!--분석지역-->
-    <div class="sheet sheet_01 md_sheet" style="display: none;">
-        <div class="sheet_hd pd">
-            <div class="ico_box popup_back">
-                <a href="#">
-                </a>
-            </div>
-            <div class="name_box">
-                지역 선택
-            </div>
-            <div class="close_box">
-                <a href="">
-                </a>
-            </div>
-        </div>
-        <div class="sheet_body pd">
-            <div class="box txt_bx">
-                <p class="main_txt">분석하고자 하는<br/>
-                    지역을 선택해주세요.</p>
-                <p class="sub_txt">
-                    <span class="loca">지역선택</span>
-                    <!-- <span class="bar">|</span>
-                    <span class="kind">업종선택</span> -->
-                </p>
-            </div>
-            <div class="box select_bx">
-                <div class="cate_loca">
-                    <div class="loca_crumble_box">
-                        <ul class="loca_crumble">
-                            <li class="on">시/도</li>
-                            <li>시/군/구</li>
-                            <li>읍/면/동</li>
-                        </ul>
-                    </div>
-                    <div class="loca_list_bx">
-                        <ul class="loca_list cb">
-                            <li class="on"><a href="#">서울특별시</a></li>
-                            <li><a href="#">대구광역시</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="sheet_ft"></div>
-    </div>
-    <!--sheet_01 END--><!--분석지역-->
-
+    <!--sheet_02 END-->
+    <!--업종선택-->
 
     <!-- snb START -->
     <div class="snb_box">
@@ -369,21 +381,17 @@ request.setCharacterEncoding("euc-kr");
                             </div>
                             <div class="base">
                                 <label for="interest_areacd1" class="tp_lb">지역</label>
-                                <input type="text" id="interest_areacd1" name="interest_areacd1" value=""
-                                    readonly="readonly" title="분석 지역 선택" placeholder="분석 지역 선택">
+                                <input type="text" id="interest_areacd1" name="interest_areacd1" value="" readonly="readonly" title="분석 지역 선택" placeholder="분석 지역 선택">
                                 <label for="interest_areacd1">
-                                    <span class="alert" style="display: none;"><strong>&nbsp!&nbsp</strong> 분석 지역을 선택해
-                                        주세요</span>
+                                    <span class="alert" style="display: none;"><strong>&nbsp!&nbsp</strong> 분석 지역을 선택해 주세요</span>
                                     <span class="basic"><strong>&nbsp!&nbsp</strong> 표본수 3개 이하의 지역은 분석이 제한됩니다.</span>
                                 </label>
                             </div>
                             <div class="base">
                                 <label for="interest_upjong1" class="tp_lb">업종</label>
-                                <input type="text" id="interest_upjong1" name="interest_upjong1" value=""
-                                    readonly="readonly" title="분석 업종 선택" placeholder="분석 업종 선택">
+                                <input type="text" id="interest_upjong1" name="interest_upjong1" value="" readonly="readonly" title="분석 업종 선택" placeholder="분석 업종 선택">
                                 <label for="interest_upjong1">
-                                    <span class="alert" style="display: none;"><strong>&nbsp!&nbsp</strong> 분석 업종을 선택해
-                                        주세요</span>
+                                    <span class="alert" style="display: none;"><strong>&nbsp!&nbsp</strong> 분석 업종을 선택해 주세요</span>
                                     <span class="basic"><strong>&nbsp!&nbsp</strong> 표본수 3개 이하의 업종은 분석이 제한됩니다.</span>
                                 </label>
                             </div>
@@ -483,20 +491,7 @@ request.setCharacterEncoding("euc-kr");
             $('.sheet_02').hide();
         });
 
-        //구독서비스에서 업종선택
-        $('.idx3 input#interest_upjong1').on('click', function() {
-            $('.sheet_02').css('display','block');
-            $("#interest_upjong1").val('');
-            upjong3Cd = "";
-            var data = {
-                gubun : "upjong1"
-            };
-            getUpjong(data);
-        });
-
-        //구독서비스에서 지역선택
-        $('.idx3 input#interest_areacd1').on('click', function() {
-            $('.sheet_01').css('display','block');
+        $('#interest_areacd1').on('click', function() {
             $("#interest_areacd1").val('');
             strAreaNm = "";
 
@@ -509,6 +504,48 @@ request.setCharacterEncoding("euc-kr");
 
             var data = {};
             getArea(data, '');
+
+            $('.sheet_01').css('display','block');
+            $('.sheet_01').addClass('pop');
+            $('.sheet_01').css('z-index','999');
+            $('.modal1').css('display','block');
+            $('.modal1').css('z-index','990');
+        });
+
+        //구독서비스에서 업종선택
+        $('#interest_upjong1').on('click', function() {
+            $("#interest_upjong1").val('');
+            upjong3Cd = "";
+            var data = {
+                gubun : "upjong1"
+            };
+            getUpjong(data);
+
+            $(".cate_kind > .row").show();
+            $(".cate_kind > .cate2").hide();
+
+            $('.sheet_02').css('display','block');
+            $('.sheet_02').addClass('pop');
+            $('.sheet_02').css('z-index','999');
+            $('.modal1').css('display','block');
+            $('.modal1').css('z-index','990');
+        });
+
+        //마케팅동의, 개인정보수집동의 x 버튼
+        $(".pop_float.agree").find('.close_box').on('click', function(){
+            $('.modal1').css('display','none');
+            $('.pop_float').css('display','none');
+        });
+
+        $(".sheet.md_sheet > .sheet_hd.pd > .close_box").on('click', function (){
+            $('.sheet_01').css('display','none');
+            $('.sheet_01').removeClass('pop');
+            $('.sheet_01').css('z-index','0');
+            $('.sheet_02').css('display','none');
+            $('.sheet_02').removeClass('pop');
+            $('.sheet_02').css('z-index','0');
+            $('.modal1').css('display','none');
+            $('.modal1').css('z-index','0');
         });
 
         var $item = $('.row > li > button').on('click', function() {
@@ -699,8 +736,7 @@ request.setCharacterEncoding("euc-kr");
             admiNm = listThis.text();
             admiCd = listThis.data().admicd;
             strAreaNm = megaNm + " " + ctyNm + " " + admiNm;
-            $('.sheet_01').hide();
-            // $('.sheet_02').show();
+            $(".sheet.md_sheet > .sheet_hd.pd > .close_box").click();
         }
         var tmp =  megaNm + " " + ctyNm + " " + admiNm;
         $(".sub_txt").children('.loca').text(tmp);
@@ -722,7 +758,6 @@ request.setCharacterEncoding("euc-kr");
     }
 
     function fn_getUpjong1(id, response, param){
-
         response.data.upjong1.forEach(function (data, idx){
             $(".cate_kind").find(".row").find('button').removeClass("on");
             $(".cate_kind").find(".row").find('button').each(function (){
@@ -772,7 +807,7 @@ request.setCharacterEncoding("euc-kr");
             upjongNm = upjongNm + " " + tmp.trim();
             $("#interest_upjong1").val(upjongNm);
 
-            $('.sheet_02').hide();
+            $(".sheet.md_sheet > .sheet_hd.pd > .close_box").click();
         });
     }
 
@@ -823,7 +858,6 @@ request.setCharacterEncoding("euc-kr");
 
     // 구독서비스 등록
     function subscribe(){
-        console.log(upjongNm);
         if(valid()){
             var param = {};
             param.mobileNo = $("#mobile_no").val();
@@ -856,7 +890,7 @@ request.setCharacterEncoding("euc-kr");
 
 <script type="text/x-handlebars-template" id="tmp_area">
     {{#each data}}
-    <li><a href="#" data-cd="{{cd}}" data-megaCd="{{megaCd}}" data-ctyCd="{{ctyCd}}" data-admiCd="{{admiCd}}" data-maxx={{maxx}} data-minx={{minx}} data-maxy={{maxy}} data-miny={{miny}} onclick="aearClick($(this));">{{nm}}</a></li>
+    <li><a href="javascrip:;" data-cd="{{cd}}" data-megaCd="{{megaCd}}" data-ctyCd="{{ctyCd}}" data-admiCd="{{admiCd}}" data-maxx={{maxx}} data-minx={{minx}} data-maxy={{maxy}} data-miny={{miny}} onclick="aearClick($(this));">{{nm}}</a></li>
     {{/each}}
 </script>
 
@@ -872,8 +906,7 @@ request.setCharacterEncoding("euc-kr");
                         border: 1px solid rgba(190, 201, 218, 0.5);
                         background: url(/bizmap/assets/bizmap/images/icons/ico_plus_gr.svg) no-repeat 50% 50%/90%;
                         margin-bottom: -4px;
-                        margin-right: 8px;"
-                ></span>
+                        margin-right: 8px;"></span>
                 {{upjong2Nm}}
             </button>
         </li>

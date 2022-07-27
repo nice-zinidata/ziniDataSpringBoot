@@ -16,38 +16,45 @@
 
 %>
 
-<div class="pc_sheet onlypc">
-    <div class="pc_hd">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>현 위치</span>
-            </p>
-            <div class="map_place_box">
-                <a href="#">
-                    <input type="text" id="" name="show" placeholder="여의동" readonly>
-                </a>
+
+<!--only_pc pc_sheet_box PC일때 사이드 START-->
+<div class="pc_sheet onlypc on" id="pc_sheet">
+    <a class="handle" href="#" id="handle"></a>
+    <div style="overflow-y: auto;">
+        <div class="pc_hd">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>현 위치</span>
+                </p>
+                <div class="map_place_box">
+                    <a href="#">
+                        <input type="text" id="" name="show" placeholder="여의동" readonly>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pc_bdy ticket">
+            <div class="tag_txt">
+                <p class="sub_txt">
+                    <span>분석 지역 | 업종 선택</span>
+                </p>
+            </div>
+            <div class="middle">
+                <ul>
+                    <li><a href="#">분석 지역을 선택해주세요</a></li>
+                    <li><a href="#">분석 업종을 선택해주세요</a></li>
+                </ul>
+            </div>
+            <div class="button_box">
+                <button class="btn2" id="pcBasicReset">다시선택</button>
+                <button class="btn1" id="pcBasicReport">보고서 보기</button>
             </div>
         </div>
     </div>
-    <div class="pc_bdy ticket">
-        <div class="tag_txt">
-            <p class="sub_txt">
-                <span>분석 지역 | 업종 선택</span>
-            </p>
-        </div>
-        <div class="middle">
-            <ul>
-                <li data-gubun="area"><a href="#">분석 지역을 선택해주세요</a></li>
-                <li data-gubun="upjong"><a href="#">분석 업종을 선택해주세요</a></li>
-            </ul>
-        </div>
-        <div class="button_box">
-            <button class="btn2" id="pcBasicReset">다시선택</button>
-            <button class="btn1" id="pcBasicReport">보고서 보기</button>
-        </div>
-    </div>
 </div>
+<!--only_pc pc_sheet_box PC일때 사이드 END-->
 
+<!--bottom_pop btp1 pd mobile START-->
 <div class="bottom_pop btp1 pd mobile" style="display:none;">
     <div class="pop_head">
         <a href="#"></a>
@@ -64,14 +71,16 @@
         </div>
     </div>
 </div>
+<!--bottom_pop btp1 pd mobile END-->
 
+<!--bottom_pop btp2 pd mobile START-->
 <div class="bottom_pop btp2 pd mobile" style="display:none;">
     <div class="pop_body">
         <p class="s_txt">
             <span class="loca">여의동</span>
             <span class="bar">|</span>
-            <span class="kind">호프/맥주</span><span>상권 분석</span>
-        </p>
+            <span class="kind">호프/맥주</span><span>상권 분석</span></p>
+
     </div>
     <div class="pop_foot">
         <div class="button_box">
@@ -80,6 +89,7 @@
         </div>
     </div>
 </div>
+<!--bottom_pop btp2 pd mobile END-->
 
 <!--분석지역-->
 <div class="sheet sheet_01 md_sheet">

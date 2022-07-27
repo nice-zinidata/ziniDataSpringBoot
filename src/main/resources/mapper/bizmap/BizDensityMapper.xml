@@ -30,7 +30,7 @@
                 and b.upjong3_cd=#{upjongCd}
             </if>
             , tmp_table c
-            where ST_Intersects(c.geom, a.geom) = true
+            where ST_Intersects(c.geom, st_setsrid(a.geom, 6645)) = true
             group by blk_cd , admi_cd , blk_nm, "__xmin", "__xmax", ymin, ymax, x_axis, y_axis, a.geom
         ) a1
     </select>

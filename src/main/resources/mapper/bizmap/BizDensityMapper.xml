@@ -15,7 +15,7 @@
             , a1.*
         from (
             select a.blk_cd, a.admi_cd, blk_nm
-                , sum(coalesce(1)) as store_cnt
+                , sum(coalesce(store_cnt,0)) as store_cnt
                 , a."__xmin" as minx
                 , a."__xmax" as maxx
                 , a.ymin as miny

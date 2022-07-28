@@ -245,3 +245,13 @@ common.substr = function(value, st, ed){
         return value.substr(st);
     }
 };
+
+common.upAndDownClass = function(value){
+    var result = '';
+    if(0 < Number(value)){
+        result = 'up';
+    }else if(Number(value) < 0){
+        result = 'down';
+    }
+    return result;
+}

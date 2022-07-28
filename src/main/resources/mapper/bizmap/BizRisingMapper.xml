@@ -4,6 +4,45 @@
 
 
     <select id="getRisingUpjong" resultType="com.zinidata.bizmap.vo.BizRisingUpjongVO">
+        SELECT UPJONG3_CD, UPJONG3_NM, UPJONG1_CD, SALE_PERCNT, STORE_PERCNT, SALE_RNK, STORE_RNK, ADMI_CD, filter_cnt
+        FROM (
+                SELECT A.UPJONG3_CD, A.UPJONG3_NM, A.UPJONG1_CD
+                    , ROUND((B.SALE_AMT - A.SALE_AMT) / A.SALE_AMT * 100, 1) AS SALE_PERCNT
+                    , ROUND((B.STORE_CNT - A.STORE_CNT) / A.STORE_CNT * 100, 1) AS STORE_PERCNT
+                    , RANK() OVER(ORDER BY (B.SALE_AMT - A.SALE_AMT) / A.SALE_AMT DESC) AS SALE_RNK
+                    , RANK() OVER(ORDER BY (B.STORE_CNT - A.STORE_CNT) / A.STORE_CNT DESC) AS STORE_RNK
+                    , A.ADMI_CD
+                    , b.filter_cnt
+                FROM (
+                        -- 직전3개월 매출, 점포수
+                        SELECT A.UPJONG3_CD, B.UPJONG3_NM, B.UPJONG1_CD, A.ADMI_CD, SUM(SALE_AMT) AS SALE_AMT, SUM(STORE_CNT) AS STORE_CNT
+                        FROM TBSS_SUM_ADMI_HIS_V3 a, VW_upjong b
+                        WHERE 1=1
+                        AND A.ADMI_CD = #{admiCd}
+                        AND a.upjong3_cd = b.upjong3_cd
+                        AND A.BUPIN_GB = '1'
+                        AND A.YYYYMM BETWEEN to_char(to_date((SELECT batch_ym FROM tb_batch_log),'yyyymm')- interval '5' month, 'yyyymm') AND to_char(to_date((SELECT batch_ym FROM tb_batch_log),'yyyymm')- interval '3' month, 'yyyymm')
+                        GROUP BY A.UPJONG3_CD, B.UPJONG3_NM, B.UPJONG1_CD, A.ADMI_CD
+                    ) A, (
+                        -- 최근3개월 매출, 점포수
+                        SELECT A.UPJONG3_CD, B.UPJONG3_NM, B.UPJONG1_CD, A.ADMI_CD, SUM(SALE_AMT) AS SALE_AMT, SUM(STORE_CNT) AS STORE_CNT
+                            , sum(CASE WHEN a.yyyymm = (SELECT batch_ym FROM tb_batch_log) THEN store_cnt ELSE 0 END) AS filter_cnt
+                        FROM TBSS_SUM_ADMI_HIS_V3 a, VW_upjong b
+                        WHERE 1=1
+                        AND A.ADMI_CD = #{admiCd}
+                        AND a.upjong3_cd = b.upjong3_cd
+                        AND A.BUPIN_GB = '1'
+                        AND A.YYYYMM BETWEEN to_char(to_date((SELECT batch_ym FROM tb_batch_log),'yyyymm')- interval '2' month, 'yyyymm') AND (SELECT batch_ym FROM tb_batch_log)
+                        GROUP BY A.UPJONG3_CD, B.UPJONG3_NM, B.UPJONG1_CD, A.ADMI_CD
+                    ) B
+                WHERE A.UPJONG3_CD = B.UPJONG3_CD
+                AND b.filter_CNT > 3
+                AND A.UPJONG3_CD NOT IN ('D01002','D01003','D04001','D11006','D14001','F02003','F03001','F05001','F08001','F09002','O01001','O01003','O02002',
+                                            'O03001','O03006','R04003','R04005','R04006','R04008','R05001','R05002','R06001','R06004','R07002','R07003','R08001','S01001','S02002','S02004',
+                                            'S02005','S03001','S03002','S03003','S03004','S03005','S03007','S03008','S04001','S04002','S04003','S04004','D11001','D11003','D13003','F03002',
+                                            'F09001','O01002')
+            ) a1
+        WHERE SALE_PERCNT > 0
     </select>
 
 

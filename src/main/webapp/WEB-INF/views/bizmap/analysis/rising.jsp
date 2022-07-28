@@ -100,24 +100,8 @@
           매출과 점포수로 확인하는 지금 뜨는 업종
         </p>
       </div>
-      <div class="slide_tag_box pd" style="padding-right: 0;">
-        <div class="slide_tag ct">
-          <div class="tag">
-            &#129351; 노래방
-          </div>
-          <div class="tag">
-            &#129352; 일반유흥주점
-          </div>
-          <div class="tag">
-            &#129353; 호프/맥주
-          </div>
-          <div class="tag">
-            노래방
-          </div>
-          <div class="tag">
-            닭갈비 전문
-          </div>
-        </div>
+      <div class="slide_tag_box pd" style="padding-right: 0;" id="top5">
+
       </div>
     </div>
     <div class="box select_bx">
@@ -132,12 +116,12 @@
         </div>
         <div class="slide_tag_box kind_sli_box">
           <ul class="cb slide_tag kind_sli between2">
-            <li class="fl tag on">
+            <li class="fl tag on" data-val="sale">
               <a href="#">
                 매출 증가 업종
               </a>
             </li>
-            <li class="fl tag">
+            <li class="fl tag" data-val="store">
               <a href="#">
                 점포수 증가 업종
               </a>
@@ -145,24 +129,7 @@
           </ul>
         </div>
         <div class="card_box">
-          <div class="col card1">
-            <div class="card_header cb">
-              <div class="card_header_tt">
-                <p class="card_s_txt">영등포구 여의동</p>
-                <p class="card_m_txt">매출 증가업종 TOP 5</p>
-              </div>
-            </div>
-            <div class="card_body">
-              <ul>
-                <li class="cb"><p><span class="color">1</span></p><p>노래방</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="color">2</span></p><p>일반유흥주점</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="color">3</span></p><p>빠/카페</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="mono">4</span></p><p>닭갈비 전문</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="mono">5</span></p><p>호프/맥주</p><p><span class="up">10.9%</span></p></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col card2"  style="display: none;">
+          <div class="col card1" id="top5Card">
             <div class="card_header cb">
               <div class="card_header_tt">
                 <p class="card_s_txt">영등포구 여의동</p>
@@ -170,12 +137,8 @@
               </div>
             </div>
             <div class="card_body">
-              <ul>
-                <li class="cb"><p><span class="color">1</span></p><p>노래방</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="color">2</span></p><p>일반유흥주점</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="color">3</span></p><p>빠/카페</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="mono">4</span></p><p>닭갈비 전문</p><p><span class="up">10.9%</span></p></li>
-                <li class="cb"><p><span class="mono">5</span></p><p>호프/맥주</p><p><span class="up">10.9%</span></p></li>
+              <ul id="cardBoxTop5">
+
               </ul>
             </div>
           </div>
@@ -190,36 +153,37 @@
             순위 측정 기준
           </p>
         </div>
+
         <div class="slide_tag_box kind_sli_box">
           <ul class="cb slide_tag kind_sli">
             <li class="fl tag on">
-              <a href="#">
-                음식업
+              <a href="#" data-val="Q">
+                음식
               </a>
             </li>
             <li class="fl tag">
-              <a href="#">
-                소매업
+              <a href="#" data-val="D">
+                소매/유통
               </a>
             </li>
             <li class="fl tag">
-              <a href="#">
+              <a href="#" data-val="F">
                 생활서비스
               </a>
             </li>
             <li class="fl tag">
-              <a href="#">
+              <a href="#" data-val="O">
                 여가/오락
               </a>
             </li>
             <li class="fl tag">
-              <a href="#">
+              <a href="#" data-val="R">
                 학문/교육
               </a>
             </li>
             <li class="fl tag last">
-              <a href="#">
-                의약/의료
+              <a href="#" data-val="S">
+                의료/건강
               </a>
             </li>
           </ul>
@@ -227,7 +191,7 @@
         <div class="slider slider2">
           <div class="wrap">
             <div class="frame centered" >
-              <div class="grid row">
+              <div class="grid row rising">
                 <div class="col element-item idx-1 card1">
                   <div class="card_header cb">
                     <p class="card_s_txt">1위 &#129351;</p>
@@ -335,118 +299,141 @@
 </div>
 <!--only_pc pc_sheet END-->
 
-<script>
-  var $frame = $('.centered');
-  var $wrap  = $frame.parent();
+<!-- script for slider -->
 
-  // Call Sly on frame
-  $frame.sly({
-    horizontal: 1,
-    itemNav: 'centered',
-    smart: 1,
-    //activateOn: 'click',
-    mouseDragging: 1,
-    touchDragging: 1,
-    releaseSwing: 1,
-    startAt: 4,
-    scrollBy: 1,
-    speed: 300,
-    elasticBounds: 1,
-    easing: 'easeOutExpo',
-    dragHandle: 1,
-    dynamicHandle: 1,
-    clickBar: 1,
+<script type="text/javascript">
 
-    // Buttons
-    prev: $wrap.find('.prev'),
-    next: $wrap.find('.next')
+
+  var saleRnk;
+  var storeRnk;
+  var saleRnkTop5 = [];
+  var storeRnkTop5 = [];
+
+
+  $(document).ready(function (){
+
+    $(".section.pd.last").find(".cb.slide_tag.kind_sli").find('a').on('click', function (){
+      console.log($(this).data('val'));
+    });
+
+    $(".cb.slide_tag.kind_sli.between2 > li").on('click', function (){
+      $(".cb.slide_tag.kind_sli.between2 > li").removeClass('on');
+      $("#top5Card").removeClass('card1');
+      $("#top5Card").removeClass('card2');
+      $(this).addClass('on');
+      ($(this).data('val') == "sale") ? top5(saleRnkTop5, $(this).data('val')) : top5(storeRnkTop5, $(this).data('val'));
+      ($(this).data('val') == "sale") ? $("#top5Card").addClass('card1') : $("#top5Card").addClass('card2');
+
+    });
+
   });
 
-  // init Isotope
-  var $grid = $('.grid').isotope({
-    itemSelector: '.element-item',
-    layoutMode: 'fitRows',
-    percentPosition: true,
-    masonry: {
-      columnWidth: '.element-item'
-    }
-  });
+  function init(){
+    console.log("--------------");
+    var $frame = $('.centered');
+    var $wrap  = $frame.parent();
+
+    // Call Sly on frame
+    $frame.sly({
+      horizontal: 1,
+      itemNav: 'centered',
+      smart: 1,
+      //activateOn: 'click',
+      mouseDragging: 1,
+      touchDragging: 1,
+      releaseSwing: 1,
+      startAt: 4,
+      scrollBy: 1,
+      speed: 300,
+      elasticBounds: 1,
+      easing: 'easeOutExpo',
+      dragHandle: 1,
+      dynamicHandle: 1,
+      clickBar: 1,
+
+      // Buttons
+      prev: $wrap.find('.prev'),
+      next: $wrap.find('.next')
+    });
+
+    // init Isotope
+    var $grid = $('.grid.rising').isotope({
+      itemSelector: '.element-item',
+      layoutMode: 'fitRows',
+      percentPosition: true,
+      masonry: {
+        columnWidth: '.element-item'
+      }
+    });
+
+    $grid.on( 'layoutComplete', onAnimationFinished );
+  }
+
 
   function onAnimationFinished(){
     $frame.sly('reload');
   }
 
+  function fn_risingContentsList(response){
+    saleRnkTop5 = [];
+    storeRnkTop5 = [];
+    saleRnk = response;
+    storeRnk = response;
 
-  $grid.on( 'layoutComplete', onAnimationFinished );
-</script>
-<!-- script for slider -->
+    saleRnk = saleRnk.sort(function (a, b) { return a.saleRnk - b.saleRnk; });
+    saleRnk.forEach(function (val, int){
+      if(int > 4){
+        return false;
+      }
+      saleRnkTop5.push(val);
+    });
 
-<script type="text/javascript">
+    storeRnk = storeRnk.sort(function (a, b) {return a.storeRnk - b.storeRnk;});
+    storeRnk.forEach(function (val, int){
+      if(int > 4){
+        return false;
+      }
+      storeRnkTop5.push(val);
+    });
 
-  $(function (){
+    top5(saleRnkTop5, "sale");
+  }
 
-    // 영상 등록된 지역 필터 목록 조회
-    // param = {};
-    // getAjax("features", "/bizmap/youTube/getArea", param, fn_succ_getVideoMega, fn_error);
-
-
-  });
-
-  function fn_videoContentsList(response){
-
-    var template = $('#tmp_videoContentList').html();
-    var templateScript = Handlebars.compile(template);
-    var context = response.data;
-    var html = templateScript(context);
-    $('#videoContentList').html(html);
-
-
-    if(widthCheck() == "PC"){
+  // 매출증가, 점포수 증가 top5 목록
+  function top5(response, gubun){
+    for(var i=0; i<response.length;i++){
+      response[i].persent = (gubun == "sale") ? response[i].salePercnt : response[i].storePercnt;
+      response[i].rank = (gubun == "sale") ? response[i].saleRnk : response[i].storeRnk;
     }
-  }
-
-  function fn_succ_getVideoMega(id, response, param){
-    var template = $('#tmp_filter1').html();
+    var template = $('#tmp_top5').html();
     var templateScript = Handlebars.compile(template);
-    var context = response.data;
+    var context = response;
     var html = templateScript(context);
-    $('#filter1').html(html);
+    $('#top5').html(html);
+
+    var template = $('#tmp_cardBoxTop5').html();
+    var templateScript = Handlebars.compile(template);
+    var context = response;
+    var html = templateScript(context);
+    $('#cardBoxTop5').html(html);
+
+    init();
   }
 
 </script>
 
-<script type="text/x-handlebars_template" id="tmp_videoContentList">
+<script type="text/x-handlebars_template" id="tmp_top5">
   {{#each this}}
-  <div class="section pd">
-    <div class="card_con" id="video_{{youtubeNo}}">
-      <div class="con_header pd cb">
-        <div class="thumb fl"></div>
-        <div class="thumb_txt fl">
-          <p class="thumb_main">상권읽어주는 남자</p>
-          <p class="thumb_sub">Youtube<span class="gr"> | </span>2020.07.08</p>
-        </div>
-      </div>
-      <div class="con_body">
-        <div class="con_title pd">
-          <p>{{title}}</p>
-        </div>
-        <div class="con_thumb">
-          <iframe src="{{url}}" title="{{title}}" style="width: 100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-        </div>
-      </div>
-      <div class="con_foot pd cb">
-        <div class="slide_tag_box">
-          <div class="slide_tag">
-            <div class="tag">
-              {{address}}
-            </div>
-          </div>
-        </div>
-        <div class="con_txt">
-        </div>
-        <div class="action_area fr"><a href="{{url}}" target="_blank">자세히 알아보기</a></div>
+    <div class="slide_tag ct">
+      <div class="tag">
+        &#129351; {{upjong3Nm}}
       </div>
     </div>
-  </div>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars_template" id="tmp_cardBoxTop5">
+  {{#each this}}
+    <li class="cb"><p><span class="color">{{rank}}</span></p><p>{{upjong3Nm}}</p><p><span class="{{upAndDownClass persent}}">{{addComma persent}}%</span></p></li>
   {{/each}}
 </script>

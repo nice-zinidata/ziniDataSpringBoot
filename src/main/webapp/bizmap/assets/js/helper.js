@@ -250,3 +250,7 @@ Handlebars.registerHelper("rowNumAsc", function (total, value, pageNo, pageCnt) 
     pageCnt = isNaN(Number(pageCnt)) ? 0 : pageCnt;
     return value + ((pageNo - 1) * pageCnt) + 1;
 });
+
+Handlebars.registerHelper("upAndDownClass", function(value) {
+    return common.upAndDownClass(value);
+});

@@ -263,8 +263,7 @@ function reSearch(){
 	}else if(strMenuGugun == 2){	// 밀집도
 		density(drag_lng, drag_lat);
 	}else if(strMenuGugun == 3){	// 뜨는업종
-		// rising(drag_lng, drag_lat);
-		LoadingBar(false);
+		rising(drag_lng, drag_lat);
 	}else if(strMenuGugun == 4){	// 영상
 		videoContents(0.0);
 	}
@@ -456,27 +455,36 @@ function fn_succ_getDensity(id, response, param){
 
 // 뜨는업종
 function rising(drag_lng, drag_lat){
-	var data={
-		xAxis: drag_lng
-		, yAxis: drag_lat
-		, zoomStatus : "admiCd"
-	}
-
-	getAjax("features", "/bizmap/analysis/admiFeatures", data, function (id, response){
-		$(".map_place_box > a > input").val(response.data[0].megaNm + " " + response.data[0].ctyNm + " " + response.data[0].admiNm);
-	}, fn_error, false);
 
 	var data = {
 		xAxis : drag_lng
 		, yAxis : drag_lat
-		, admiCd : strAdmiCd
-		, radius : 500
 	}
-	getAjax("getFlowpop", "/bizmap/flowpop/getFlowpop", data, fn_succ_getRising, fn_error, "POST", false);
+	getAjax("getRisingUpjong", "/bizmap/rising/getRisingUpjong", data, fn_succ_getRising, fn_error, "POST", false);
 }
 function fn_succ_getRising(id, response, param){
 
-	console.log(response);
+
+	geoJsonArr.forEach(function (val, idx){
+		map.data.removeGeoJson(val);
+	});
+	var result = getGeomJson("density", "FeatureCollection", response.data.admiFeatures);
+	strGeoJson = result;
+	geoJsonArr.push(strGeoJson);
+	map.data.addGeoJson(result);
+
+	map.data.setStyle(function(feature){
+		var styleOptions = {
+			fillOpacity : 0.3
+			, fillColor : "rgba(44,180,246,0.91)"
+			, strokeColor : "rgba(30,154,255,0.89)"
+			, storkeWeight:2
+			, storkeOpacity : 1
+		}
+
+		return styleOptions;
+	});
+	fn_risingContentsList(response.data.rising);
 	LoadingBar(false);
 }
 

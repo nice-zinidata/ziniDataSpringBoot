@@ -25,15 +25,13 @@
                 , st_transform(st_setsrid(a.geom, 6645), 4326)  as geom
                 , ST_AsGeoJSON(st_transform(st_setsrid(a.geom, 6645), 4326))::jsonb as geometry
             from tbshp_block_v3 a
-            left join tbss_sum_sales_v3 b on a.blk_cd = b.block_cd_v3
+            left join tbss_sum_sales_v3 b on a.blk_cd = b.block_cd_v3 and b.bupin_gb = '1'
             <if test='upjongCd != null and upjongCd != ""'>
                 and b.upjong3_cd=#{upjongCd}
             </if>
-            , tmp_table c, tb_upjong3 d
+            left join tb_upjong3 d on b.upjong3_cd = d.upjong3_cd and d.svc_yn = 'Y'
+            , tmp_table c
             where ST_Intersects(c.geom, st_setsrid(a.geom, 6645)) = true
-            and b.bupin_gb = '1'
-            and b.upjong3_cd = d.upjong3_cd
-            and d.svc_yn = 'Y'
             group by blk_cd , admi_cd , blk_nm, "__xmin", "__xmax", ymin, ymax, x_axis, y_axis, a.geom
         ) a1
     </select>

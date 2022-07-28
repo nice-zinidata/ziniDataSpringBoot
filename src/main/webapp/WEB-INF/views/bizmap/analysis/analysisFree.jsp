@@ -285,12 +285,14 @@
     }
 
     function aearClick(listThis){
-        console.log(listThis.data());
         var bounds = new naver.maps.LatLngBounds(
             new naver.maps.LatLng(listThis.data().miny, listThis.data().minx),
             new naver.maps.LatLng(listThis.data().maxy, listThis.data().maxx));
         map.fitBounds(bounds);
 
+        if(strMenuGugun == 1 || strMenuGugun == 2 || strMenuGugun == 3){
+            $(".reserch").css('display','block');
+        }
 
         if(!common.isEmpty(listThis.data().megacd) && common.isEmpty(listThis.data().ctycd) && common.isEmpty(listThis.data().admicd)) {
             megaNm = listThis.text();

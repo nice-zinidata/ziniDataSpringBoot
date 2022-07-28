@@ -100,8 +100,9 @@
           매출과 점포수로 확인하는 지금 뜨는 업종
         </p>
       </div>
-      <div class="slide_tag_box pd" style="padding-right: 0;" id="top5">
-
+      <div class="slide_tag_box pd" style="padding-right: 0;">
+        <div class="slide_tag ct" id="top5">
+        </div>
       </div>
     </div>
     <div class="box select_bx">
@@ -192,66 +193,6 @@
           <div class="wrap">
             <div class="frame centered" >
               <div class="grid row rising">
-                <div class="col element-item idx-1 card1">
-                  <div class="card_header cb">
-                    <p class="card_s_txt">1위 &#129351;</p>
-                    <p class="card_m_txt">노래방</p>
-                    <p class="card_number"><span class="up">10.9%</span></p>
-                  </div>
-                  <div class="card_body">
-                    <div class="button_box">
-                      <button class="btn2">보고서생성</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col element-item idx-2 card1">
-                  <div class="card_header cb">
-                    <p class="card_s_txt">2위 &#129352;</p>
-                    <p class="card_m_txt">일반유흥주점</p>
-                    <p class="card_number"><span class="up">10.9%</span></p>
-                  </div>
-                  <div class="card_body">
-                    <div class="button_box">
-                      <button class="btn2">보고서생성</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col element-item idx-3 card1">
-                  <div class="card_header cb">
-                    <p class="card_s_txt">3위 &#129353;</p>
-                    <p class="card_m_txt">호프/맥주</p>
-                    <p class="card_number"><span class="up">10.9%</span></p>
-                  </div>
-                  <div class="card_body">
-                    <div class="button_box">
-                      <button class="btn2">보고서생성</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col element-item idx-4 card1">
-                  <div class="card_header cb">
-                    <p class="card_s_txt">4위</p>
-                    <p class="card_m_txt">빠/카페</p>
-                    <p class="card_number"><span class="up">10.9%</span></p>
-                  </div>
-                  <div class="card_body">
-                    <div class="button_box">
-                      <button class="btn2">보고서생성</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col element-item idx-5 card1">
-                  <div class="card_header cb">
-                    <p class="card_s_txt">5위</p>
-                    <p class="card_m_txt">닭갈비 전문</p>
-                    <p class="card_number"><span class="up">10.9%</span></p>
-                  </div>
-                  <div class="card_body">
-                    <div class="button_box">
-                      <button class="btn2">보고서생성</button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -291,8 +232,8 @@
         </ul>
       </div>
       <div class="button_box">
-        <button class="btn2">다시선택</button>
-        <button class="btn1">뜨는업종 보기</button>
+        <button class="btn2" id="pcRisingReset">다시선택</button>
+        <button class="btn1" id="pcRisingReserch">뜨는업종 보기</button>
       </div>
     </div>
   </div>
@@ -309,11 +250,37 @@
   var saleRnkTop5 = [];
   var storeRnkTop5 = [];
 
+  var risingQData = [];
+  var risingDData = [];
+  var risingFData = [];
+  var risingOData = [];
+  var risingRData = [];
+  var risingSData = [];
 
   $(document).ready(function (){
 
+    init();
+    init();
+
+    // pc 재선택
+    $("#pcRisingReset").on('click', function (){
+      areaReset();
+    });
+
+    // pc 재조회 생성
+    $("#pcRisingReserch").on('click', function (){
+      reSearch();
+    });
+
     $(".section.pd.last").find(".cb.slide_tag.kind_sli").find('a').on('click', function (){
-      console.log($(this).data('val'));
+      $(".section.pd.last").find(".cb.slide_tag.kind_sli > li").removeClass('on');
+      $(this).parent().addClass('on');
+      if($(this).data('val') == "Q") risingTop5(risingQData);
+      if($(this).data('val') == "D") risingTop5(risingDData);
+      if($(this).data('val') == "F") risingTop5(risingFData);
+      if($(this).data('val') == "O") risingTop5(risingOData);
+      if($(this).data('val') == "R") risingTop5(risingRData);
+      if($(this).data('val') == "S") risingTop5(risingSData);
     });
 
     $(".cb.slide_tag.kind_sli.between2 > li").on('click', function (){
@@ -329,7 +296,6 @@
   });
 
   function init(){
-    console.log("--------------");
     var $frame = $('.centered');
     var $wrap  = $frame.parent();
 
@@ -367,6 +333,7 @@
     });
 
     $grid.on( 'layoutComplete', onAnimationFinished );
+    $('.grid.row.rising').css('transform','translateZ(0px) translateX(0px)');
   }
 
 
@@ -388,6 +355,40 @@
       saleRnkTop5.push(val);
     });
 
+    saleRnk.forEach(function (val, int){
+      if(val.upjong3Cd.substr(0,1) == "Q"){
+        if(risingQData.length > 4) return;
+        val.idx = risingQData.length + 1;
+        risingQData.push(val);
+      }
+      if(val.upjong3Cd.substr(0,1) == "D"){
+        if(risingDData.length > 4) return;
+        val.idx = risingDData.length + 1;
+        risingDData.push(val);
+      }
+      if(val.upjong3Cd.substr(0,1) == "F"){
+        if(risingFData.length > 4) return;
+        val.idx = risingFData.length + 1;
+        risingFData.push(val);
+      }
+      if(val.upjong3Cd.substr(0,1) == "O"){
+        if(risingOData.length > 4) return;
+        val.idx = risingOData.length + 1;
+        risingOData.push(val);
+      }
+      if(val.upjong3Cd.substr(0,1) == "R"){
+        if(risingRData.length > 4) return;
+        val.idx = risingRData.length + 1;
+        risingRData.push(val);
+      }
+      if(val.upjong3Cd.substr(0,1) == "S"){
+        if(risingSData.length > 4) return;
+        val.idx = risingSData.length + 1;
+        risingSData.push(val);
+      }
+    });
+
+
     storeRnk = storeRnk.sort(function (a, b) {return a.storeRnk - b.storeRnk;});
     storeRnk.forEach(function (val, int){
       if(int > 4){
@@ -396,7 +397,9 @@
       storeRnkTop5.push(val);
     });
 
+
     top5(saleRnkTop5, "sale");
+    risingTop5(risingQData, 'Q');
   }
 
   // 매출증가, 점포수 증가 top5 목록
@@ -417,17 +420,31 @@
     var html = templateScript(context);
     $('#cardBoxTop5').html(html);
 
+  }
+
+  function risingTop5(response){
+    var template = $('#tmp_cardRising').html();
+    var templateScript = Handlebars.compile(template);
+    var context = response;
+    var html = templateScript(context);
+    $('.grid.row.rising').html(html);
     init();
+  }
+
+  function getReport(target){
+    var data = target.data();
+    console.log(data);
   }
 
 </script>
 
 <script type="text/x-handlebars_template" id="tmp_top5">
   {{#each this}}
-    <div class="slide_tag ct">
-      <div class="tag">
-        &#129351; {{upjong3Nm}}
-      </div>
+    <div class="tag">
+      {{#ifCond rank '==' 1}} &#129351; {{/ifCond}}
+      {{#ifCond rank '==' 2}} &#129352; {{/ifCond}}
+      {{#ifCond rank '==' 3}} &#129353; {{/ifCond}}
+      {{upjong3Nm}}
     </div>
   {{/each}}
 </script>
@@ -435,5 +452,27 @@
 <script type="text/x-handlebars_template" id="tmp_cardBoxTop5">
   {{#each this}}
     <li class="cb"><p><span class="color">{{rank}}</span></p><p>{{upjong3Nm}}</p><p><span class="{{upAndDownClass persent}}">{{addComma persent}}%</span></p></li>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars_template" id="tmp_cardRising">
+  {{#each this}}
+  <div class="col element-item idx-1 card1">
+    <div class="card_header cb">
+        <p class="card_s_txt">
+          {{idx}}위
+          {{#ifCond idx '==' 1}} &#129351; {{/ifCond}}
+          {{#ifCond idx '==' 2}} &#129352; {{/ifCond}}
+          {{#ifCond idx '==' 3}} &#129353; {{/ifCond}}
+        </p>
+        <p class="card_m_txt">{{upjong3Nm}}</p>
+        <p class="card_number"><span class="{{upAndDownClass persent}}">{{addComma persent}}%</span></p>
+      </div>
+      <div class="card_body">
+        <div class="button_box">
+          <button class="btn2" data-admiCd="{{admiCd}}" data-upjongCd="{{upjong3Cd}}" onclick="getReport($(this))">보고서생성</button>
+        </div>
+      </div>
+    </div>
   {{/each}}
 </script>

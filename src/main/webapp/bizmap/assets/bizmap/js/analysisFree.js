@@ -20,15 +20,15 @@ var clickListener;
 var dragendListener;
 
 var fillColor = {
-	  0: '#8500ab80'
-	, 1: '#542EC080'
-	, 2: '#1F67FD70'
-	, 3: '#16b1d370'
-	, 4: '#71CEB280'
-	, 5: ''
+	0: 'rgba(255,255,255,0)'
+	, 1: '#8500ab80'
+	, 2: '#542EC080'
+	, 3: '#1F67FD70'
+	, 4: '#16b1d370'
+	, 5: '#71CEB280'
 };
 var strokeColor = {
-	0: ''
+	0: 'rgba(255,255,255,0.59)'
 	, 1: '#8500ab'
 	, 2: '#542EC0'
 	, 3: '#1F67FD'
@@ -36,7 +36,7 @@ var strokeColor = {
 	, 5: '#71CEB2'
 };
 var mouseoverAfterColor = {
-	0: ''
+	0: 'rgba(255,255,255,0.59)'
 	, 1: '#8500ab'
 	, 2: '#542EC0'
 	, 3: '#1F67FD'
@@ -165,9 +165,11 @@ function fn_succ_features(id, response, param){
 			, storkeOpacity : 1
 		}
 		// 상권이 3개 이하면
-		if(feature.getProperty("storeCnt") < 4){
-			styleOptions.fillColor = "rgba(255,78,78,0.91)";
-			styleOptions.strokeColor = "rgba(255,0,0,0.91)";
+		if(strMenuGugun == 0) {
+			if (feature.getProperty("storeCnt") < 4) {
+				styleOptions.fillColor = "rgba(255,78,78,0.91)";
+				styleOptions.strokeColor = "rgba(255,0,0,0.91)";
+			}
 		}
 
 		return styleOptions;
@@ -464,7 +466,6 @@ function rising(drag_lng, drag_lat){
 }
 function fn_succ_getRising(id, response, param){
 
-
 	geoJsonArr.forEach(function (val, idx){
 		map.data.removeGeoJson(val);
 	});
@@ -484,6 +485,10 @@ function fn_succ_getRising(id, response, param){
 
 		return styleOptions;
 	});
+
+	$(".sheet_body.has_mapshow").find(".pd > .main_txt").text(response.data.admiFeatures[0].admiNm + " 뜨는업종 TOP 5");
+	$("#top5Card").find(".card_s_txt").text(response.data.admiFeatures[0].ctyNm+ " " + response.data.admiFeatures[0].admiNm);
+
 	fn_risingContentsList(response.data.rising);
 	LoadingBar(false);
 }
@@ -560,7 +565,6 @@ function videoMarkerClick(data){
 	map.setCenter(CENTER);
 	map.setZoom(12);
 
-
 	var param = {
 		filter1 : '0'
 		,filter2 : '0'
@@ -572,10 +576,16 @@ function videoMarkerClick(data){
 		}
 		, fn_error, "POST", true);
 
-	var offset = $("#video_"+data.youtubeno).offset();
+	if(widthCheck()== "MO"){
+		$(".sheet.sheet_04.md_sheet.md_up").toggleClass("up");
+		$(".modal1").toggleClass('on');
+	}
+
+	// 스크롤이동
+	/*var offset = $("#video_"+data.youtubeno).offset();
 	setTimeout(function (){
 		$('#videoContentList').animate({scrollTop : offset.top-180});
-	}, 200);
+	}, 200);*/
 
 }
 

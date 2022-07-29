@@ -259,6 +259,7 @@
 
   $(document).ready(function (){
 
+    // 이렇게 두번해야 적용이 됨...
     init();
     init();
 
@@ -347,6 +348,13 @@
     saleRnk = response;
     storeRnk = response;
 
+    risingQData = [];
+    risingDData = [];
+    risingFData = [];
+    risingOData = [];
+    risingRData = [];
+    risingSData = [];
+
     saleRnk = saleRnk.sort(function (a, b) { return a.saleRnk - b.saleRnk; });
     saleRnk.forEach(function (val, int){
       if(int > 4){
@@ -420,14 +428,18 @@
     var html = templateScript(context);
     $('#cardBoxTop5').html(html);
 
+    $(".section.pd.last").find(".cb.slide_tag.kind_sli > li").removeClass('on');
+    $(".section.pd.last").find(".cb.slide_tag.kind_sli > li:nth-child(1)").addClass('on');
   }
 
   function risingTop5(response){
+    console.log(response);
     var template = $('#tmp_cardRising').html();
     var templateScript = Handlebars.compile(template);
     var context = response;
     var html = templateScript(context);
     $('.grid.row.rising').html(html);
+
     init();
   }
 

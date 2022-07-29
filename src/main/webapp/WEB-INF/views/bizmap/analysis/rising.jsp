@@ -478,7 +478,7 @@
           {{#ifCond idx '==' 3}} &#129353; {{/ifCond}}
         </p>
         <p class="card_m_txt">{{upjong3Nm}}</p>
-        <p class="card_number"><span class="{{upAndDownClass persent}}">{{addComma persent}}%</span></p>
+        <p class="card_number"><span class="{{upAndDownClass salePercnt}}">{{addComma salePercnt}}%</span></p>
       </div>
       <div class="card_body">
         <div class="button_box">

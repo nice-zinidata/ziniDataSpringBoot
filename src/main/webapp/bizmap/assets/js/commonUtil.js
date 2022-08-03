@@ -414,4 +414,24 @@ util.thSortEvent = function(callFunction){
         }
         callFunction($(this).data().sort, desc);
     });
+},
+
+util.editorInit = function() {
+    var targetEditor = $('._editor');
+
+    targetEditor.summernote({
+        lang: 'ko-KR',
+        height: 500,
+        focus: false,
+        callbacks: { // 콜백을 사용
+
+        },
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']]
+            , ['fontname', ['fontname']]
+            , ['fontsize', ['fontsize']]
+            , ['color', ['color']]
+            , ['view', ['codeview']]
+        ],
+    });
 }

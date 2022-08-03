@@ -14,6 +14,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -33,10 +35,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/bizmap/common/file")
 class ComFileControllerApi {
+    private static final Logger log = LoggerFactory.getLogger(ComFileControllerApi.class);
 
     @Autowired
     GsonUtil gsonUtil;
@@ -50,7 +54,7 @@ class ComFileControllerApi {
     @ApiResponses(value = {
             @ApiResponse(code=200, message = "파일업로드")
     })
-    public String upload(HttpServletRequest request) throws NoSuchAlgorithmException, IOException {
+    public String upload(HttpServletRequest request, ComFileVO comFileVO) throws NoSuchAlgorithmException, IOException {
 
         // 오늘 날짜
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -88,7 +92,11 @@ class ComFileControllerApi {
         System.out.println("저장된 파일 이름 : " + fileName);
         System.out.println("실제 파일 이름 : " + original);
 
-        ComFileVO comFileVO = new ComFileVO();
+
+        log.info("------------------------------------------------------");
+        log.info("idx : {}" , comFileVO.getIdx());
+        log.info("memNo : {}", comFileVO.getMemNo());
+
         comFileVO.setFileName(fileName);
         comFileVO.setOriginal(original);
         comFileVO.setFilePath(strToday);

@@ -20,28 +20,28 @@ var clickListener;
 var dragendListener;
 
 var fillColor = {
-	0: 'rgba(255,255,255,0)'
-	, 1: '#8500ab80'
-	, 2: '#542EC080'
+	0: 'rgba(201,201,201,0.84)'
+	, 5: '#8500ab80'
+	, 4: '#542EC080'
 	, 3: '#1F67FD70'
-	, 4: '#16b1d370'
-	, 5: '#71CEB280'
+	, 2: '#16b1d370'
+	, 1: '#71CEB280'
 };
 var strokeColor = {
-	0: 'rgba(255,255,255,0.59)'
-	, 1: '#8500ab'
-	, 2: '#542EC0'
+	0: 'rgb(255,255,255)'
+	, 5: '#8500ab'
+	, 4: '#542EC0'
 	, 3: '#1F67FD'
-	, 4: '#16b1d3'
-	, 5: '#71CEB2'
+	, 2: '#16b1d3'
+	, 1: '#71CEB2'
 };
 var mouseoverAfterColor = {
-	0: 'rgba(255,255,255,0.59)'
-	, 1: '#8500ab'
-	, 2: '#542EC0'
+	0: 'rgb(89,89,89)'
+	, 5: '#8500ab'
+	, 4: '#542EC0'
 	, 3: '#1F67FD'
-	, 4: '#16b1d3'
-	, 5: '#71CEB2'
+	, 2: '#16b1d3'
+	, 1: '#71CEB2'
 };
 
 var geomClickListener;
@@ -201,9 +201,10 @@ function fn_succ_features(id, response, param){
 										sw = false;
 									}
 								});
+								console.log(sw);
 								if(sw){
 									$('.sheet.md_sheet.sheet_02').toggleClass('on');
-									$('.pc_sheet .middle ul li:nth-child(2) > a').parents().toggleClass('on')
+									$('.pc_sheet .middle ul li:nth-child(2) > a').parent().addClass('on')
 								}
 							}
 							upjongReset();

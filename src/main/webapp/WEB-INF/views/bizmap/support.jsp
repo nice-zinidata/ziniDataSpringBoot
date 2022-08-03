@@ -123,6 +123,7 @@
                     </div>
                 </div>
 
+                <!-- 공지사항 -->
                 <div class="container pd" id="tabNoticeList">
                     <div class="onlypc">
                         <p class="title_tag">
@@ -153,16 +154,17 @@
                         </tbody>
                     </table>
                     <div>
-                        <div class="dataTables_paginate paging_full_numbers" id="paginate"></div>
+                        <div class="dataTables_paginate paging_full_numbers" id="paginate_notice"></div>
                     </div>
                 </div>
-                <div id="noticeDetail" style="display: block;">
+                <div id="noticeDetail" style="display: none;">
                     <span>공지사항 내용</span>
                     <div id="noticeDetailContents">
 
                     </div>
                 </div>
 
+                <!-- faq -->
                 <div class="container pd" id="tabFaqList" style="display: none;width: 100%;">
                     <div class="onlypc">
                         <p class="title_tag">
@@ -195,103 +197,61 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 상담 게시판 -->
+                <div class="container pd" id="tabConsultingList" style="display: none;width: 100%;">
+                    <div class="onlypc">
+                        <p class="title_tag">
+                            상담게시판
+                            <span class="gray"></span>
+                        </p>
+                    </div>
+                    <table>
+                        <colgroup>
+                            <col width="7%">
+                            <col width="60%">
+                            <col width="7%">
+                            <col width="15%">
+                            <col width="7%">
+                            <col width="5%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>처리상태</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyConsultingList">
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="dataTables_paginate paging_full_numbers" id="paginate_consulting"></div>
+                    </div>
+                    <input type="text" id="password">
+                    <button id="editConsulting" onclick="editConsulting(0);">글쓰기</button>
+                </div>
+
+                <!-- 등록 / 수정 -->
+                <div id="consultingEdit" style="display: none;width: 100%;">
+                    <span>상담 내용</span>
+                    <div id="consultingEditContents">
+                    </div>
+                </div>
+
+                <!-- 상세 내용 조회 -->
+                <div id="consultingDetail" style="display: none;width: 100%;">
+                    <span>상담 내용</span>
+                    <div id="consultingDetailContents">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!--sheet_02 END-->
-
-   <%-- <!--sheet_02 START--><!--고객문의-->
-    <div class="sheet sheet_05 full_sheet support" style="z-index: 5;">
-        <div class="sheet_hd wh pd">
-            <div class="ico_box back">
-                <a href="javascript:;" onclick="history.back();"></a>
-            </div>
-            <div class="name_box">
-                고객지원
-            </div>
-            <div id="menuToggle">
-                <a href="#"></a>
-            </div>
-        </div>
-        <div class="sheet_body">
-            <div class="hd_banner">
-                <div class="box txt_bx notice nt1 banner">
-                    <img src="/bizmap/assets/bizmap/images/banner/banner2.png" alt="">
-                    <!-- <p class="main_txt">나이스비즈맵 구독서비스</p>
-                <p class="sub_txt">
-                    구독 서비스를 신청하시면
-                    매월 변화하는 상권보고서를 확인 할 수 있어요.
-                </p> -->
-                </div>
-            </div>
-            <div class="sheet_ul_box">
-                <!-- <div class="box txt_bx notice nt1">
-                    <p class="main_txt">나이스비즈맵 고객지원</p>
-                    <p class="sub_txt">
-                        서비스 이용에 필요한 유용한 정보와 온라인 상담 기능을 제공합니다.
-                    </p>
-                </div> -->
-                <div class="ul_inner pd">
-                    <ul class="sheet_ul">
-                        <li class="on"><a href="javascript:;" data-tabIndex="0">공지사항</a></li>
-                        <li><a href="javascript:;" data-tabIndex="1">FAQ</a></li>
-                        <li><a href="javascript:;" data-tabIndex="2">상담게시판</a></li>
-                    </ul>
-    &lt;%&ndash;                <ul class="pd sheet_ul2">&ndash;%&gt;
-    &lt;%&ndash;                    <li class="on"><a href="#">서비스관련</a></li>&ndash;%&gt;
-    &lt;%&ndash;                    <li><a href="#">회원가입</a></li>&ndash;%&gt;
-    &lt;%&ndash;                    <li><a href="#">결제관련</a></li>&ndash;%&gt;
-    &lt;%&ndash;                </ul>&ndash;%&gt;
-                </div>
-            </div>
-            <div class="container pd" id="tabNoticeList">
-                <table>
-                    <colgroup>
-                        <col width="7%">
-                        <col width="60%">
-                        <col width="7%">
-                        <col width="15%">
-                        <col width="7%">
-                        <col width="5%">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>등록자</th>
-                            <th>등록일</th>
-                            <th>조회수</th>
-                            <th>첨부파일</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyNoticeList">
-                    </tbody>
-                </table>
-                <div>
-                    <div class="dataTables_paginate paging_full_numbers" id="paginate"></div>
-                </div>
-            </div>
-            <div id="noticeDetail" style="display: none;">
-                <span>공지사항 내용</span>
-                <div id="noticeDetailContents">
-
-                </div>
-            </div>
-            <div class="container pd" id="tabFaqList" style="display: none">
-                <div class="accordion section last">
-                    <div class="accordion-item">
-                        <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">상세보고서는 어떤 용도로 활용하나요?</span><span class="icon" aria-hidden="true"></span></button>
-                        <div class="accordion-content">
-                            <p>상세보고서는 기본보고서와 달리 보고서 형태로(3개월 보관) 출력이 가능합니다. 선택 업종과 지역의 사업성 진단시 참고자료로써 사용하실 수 있습니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="sheet_ft">© Nicezinidata Corp. All rights reserved.</div>
-        </div>
-    </div>
-    <!--sheet_02 END--><!--업종선택-->--%>
-
 </body>
 </html>
 
@@ -302,6 +262,8 @@
         , pageNo : 1
         , pageCnt : 10
     };
+    var strBoardDtlNo;
+    var strMemNo;
 
     $(function (){
 
@@ -311,15 +273,24 @@
             getFaq($(this).data('gubun'));
         });
 
-        $(".onlymb > .pd.sheet_ul2 > li").on('click', function (){
-            $(".onlypc > .pd.sheet_ul2 > li").removeClass('on');
-            $(this).addClass('on');
-            getFaq($(this).data('gubun'));
-        });
+        // $(".onlymb > .pd.sheet_ul2 > li").on('click', function (){
+        //     $(".onlypc > .pd.sheet_ul2 > li").removeClass('on');
+        //     $(this).addClass('on');
+        //     getFaq($(this).data('gubun'));
+        // });
 
         getNotice();
 
     });
+
+    function supportReset(){
+        $("#tabNoticeList").hide();
+        $("#noticeDetail").hide();
+        $("#tabFaqList").hide();
+        $("#tabConsultingList").hide();
+        $("#consultingDetail").hide();
+        $("#consultingEdit").hide();
+    }
 
 
     function fn_error(response) {
@@ -346,15 +317,10 @@
         $('#tbodyNoticeList').html(html);
 
         pagingInfo.totalCnt = response.data.notice[0].totalRowCount;
-        util.renderPagingNavigation('paginate', pagingInfo);
+        util.renderPagingNavigation('paginate_notice', pagingInfo);
         pagingInfo.pageNo=1;
 
-        (pagingInfo.totalCnt < 1) ? $("#paginate").hide() : $("#paginate").show();
-    }
-
-    function handlebarsPaging(targetId, pagingInfo){
-        pagingInfo = pagingInfo;
-        getNotice();
+        (pagingInfo.totalCnt < 1) ? $("#paginate_notice").hide() : $("#paginate_notice").show();
     }
 
     function getNoticeDetail(notice){
@@ -369,15 +335,15 @@
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
-
         $('#noticeDetailContents').html(html);
 
-        $("#tabNoticeList").hide();
+        supportReset();
         $("#noticeDetail").show();
     }
 
     function noticeBack(){
-        $("#noticeDetail").hide();
+        getNotice();
+        supportReset();
         $("#tabNoticeList").show();
     }
 
@@ -408,6 +374,207 @@
     }
     // faq 끝 --------------------------------------------------
 
+
+    // 상담게시판 -------------------------------------
+    function getConsulting(){
+        var param = {
+            pageNo : (((pagingInfo.pageNo == 0) ? 1 : pagingInfo.pageNo-1) * pagingInfo.pageCnt)
+            , pageCnt : pagingInfo.pageCnt
+        };
+        getAjax("getConsulting", "/bizmap/consulting/getConsulting", param, fn_succ_getConsulting, fn_error);
+    }
+
+    function fn_succ_getConsulting(id,response,param){
+
+        console.log(response);
+        var template = $('#tmp_tbodyConsultingList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.consulting;
+        var html = templateScript(context);
+        $('#tbodyConsultingList').html(html);
+
+        pagingInfo.totalCnt = response.data.consulting[0].totalRowCount;
+        util.renderPagingNavigation('paginate_consulting', pagingInfo);
+        pagingInfo.pageNo=1;
+
+        (pagingInfo.totalCnt < 1) ? $("#paginate_notice").hide() : $("#paginate_notice").show();
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        pagingInfo = pagingInfo;
+        if(targetId == "paginate_notice"){
+            getNotice();
+        }else if(targetId == "paginate_consulting"){
+            getConsulting();
+        }
+    }
+
+    function getConsultingDetail(consulting, passwordSw){
+        if(passwordSw == "Y"){
+            var param = {
+                boardDtlNo:consulting.data('boarddtlno')
+                , password:$("#password").val()
+            };
+            getAjax("getConsultingDetail", "/bizmap/consulting/getConsulting", param, fn_succ_getConsultingDetail, fn_error);
+        }else{
+            var param = {
+                boardDtlNo:consulting.data('boarddtlno')
+            };
+            getAjax("getConsultingDetail", "/bizmap/consulting/getConsulting", param, fn_succ_getConsultingDetail, fn_error);
+        }
+    }
+
+    function fn_succ_getConsultingDetail(id, response, param){
+        console.log(response);
+        if(response.code == "C010"){
+            alert('비밀번호가 틀렸습니다.');
+            return;
+        }
+        var template = $('#tmp_consultingDetail').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $('#consultingDetailContents').html(html);
+
+        supportReset();
+        $("#consultingDetail").show();
+
+        console.log(response.data.consulting[0].contents);
+        console.log(common.replaceHtml(response.data.consulting[0].contents));
+
+        response.data.attach.forEach(function(val, idx){
+            var fileDownLoadUrl = '/bizmap/common/fileDownLoad?filePath=' + val.filePath + '&fileName=' +val.fileNm + '&orgFileNm=' + val.orgFileNm;
+            $("#fileDownLoad").attr('href', fileDownLoadUrl);
+        });
+
+    }
+
+    function consultBack(){
+        getConsulting();
+        supportReset();
+        $("#tabConsultingList").show();
+    }
+
+    function editConsulting(boardDtlNo) {
+
+        var data = {};
+        var template = $('#tmp_consultingEdit').html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html = templateScript(context);
+        $('#consultingEditContents').html(html);
+
+        util.editorInit();
+        supportReset();
+        $("#consultingEdit").show();
+
+        $("input[name=check]").on('change', function(){
+            $(this).prop('checked') ? $("#passwordText").attr('disabled', false) :  $("#passwordText").attr('disabled', true);
+        });
+
+    }
+
+    function isVaild(){
+        if(common.isEmpty($("#title").val())){
+            alert('제목을 입력해 주세요.');
+            return false;
+        }
+        if(common.isEmpty($("#content").summernote('code'))){
+            alert('내용을 입력해 주세요.');
+            return false;
+        }
+        if($("input[name=check]").prop('checked')){
+            if(common.isEmpty($("#passwordText").val())){
+                alert('비밀번호를 입력해 주세요');
+                return false;
+            }
+        }
+        return true;
+    }
+    function setConsult(){
+        if(isVaild()){
+            var contents = $("#content").summernote('code');
+
+            var param = {
+                subject : $("#title").val()
+                , contents : contents
+                , passwordYn : $("input[name=check]").prop('checked') ? "Y" : "N"
+                , password : $("#passwordText").val()
+                , password : $("#passwordText").val()
+                , memNo : 9999999999
+                , loginId : 'test'
+                , boardNo : 1
+            };
+
+            console.log(param);
+            getAjax("getConsultingDetail", "/bizmap/consulting/setConsulting", param, fn_succ_setConsultingDetail, fn_error);
+        }
+    }
+
+    function fn_succ_setConsultingDetail(id, response){
+        // 정상일때 파일이 있는 경우 파일 업로드 처리
+        strBoardDtlNo = response.data.boardDtlNo;
+        strMemNo = response.data.memNo;
+        if(response.message == "success"){
+            var fileCheck = document.getElementById("uploadFile").value;
+            if(!common.isEmpty(fileCheck)){
+                // 파일 업로드 공통 호출
+                var form = $("#fileUploadForm")[0];
+                var formData = new FormData(form);
+
+                $.ajax({
+                    cache : false,
+                    url : "/bizmap/common/file/upload",
+                    processData: false,
+                    contentType: false,
+                    type : 'POST',
+                    data : formData,
+                    async : true,
+                    success : function(response) {
+                        response = JSON.parse(response);
+                        if(response.message == "success"){
+                            console.log("파일업로드 성공");
+                            setAttachInfo(response);
+                        }else{
+                            // 등록에러
+                            alert("파일 업로드 실패");
+                        }
+                    },
+                    error : function(xhr, status) {
+                        alert("파일 업로드 실패\n" + xhr + " : " + status);
+                    }
+                });
+            }else{
+                $('.ul_inner.pd > .sheet_ul > li > a').click();
+            }
+        }else{
+            alert('등록 실패[관리자에게 문의]');
+        }
+    }
+
+
+    // 게시글 파일 업로드 정보 등록
+    function setAttachInfo(response){
+        var param = {
+            idx : strBoardDtlNo
+            , memNo : strMemNo
+            , fileNm : response.data.fileName
+            , filePath : response.data.filePath
+            , orgFileNm : response.data.original
+        };
+        getAjax("setAttachInfo", "/bizmap/consulting/setAttachInfo", param, fn_succ_setAttachInfo, fn_error);
+
+    }
+
+    function fn_succ_setAttachInfo(id, response){
+        if(response.message!="success"){
+            alert('파일 정보 등록 오류');
+            return;
+        }
+        // 목록 재조회
+        $('.ul_inner.pd > .sheet_ul > li > a').click();
+    }
+
 </script>
 
 <script type="text/x-handlebars_template" id="tmp_tbodyNoticeList">
@@ -415,7 +582,7 @@
     <tr>
         <td>{{rowNum}}</td>
         <td style="cursor:pointer;" data-boardDtlNo="{{boardDtlNo}}" onclick="getNoticeDetail($(this));">
-            {{replaceHtml subject}}
+            {{{replaceHtml subject}}}
         </td>
         <td>{{adminNm}}</td>
         <td>{{updDt}}</td>
@@ -459,13 +626,100 @@
     {{#each this}}
     <div class="accordion-item">
         <button id="accordion-button-{{boardDtlNo}}" aria-expanded="false">
-            <span class="accordion-title">{{replaceHtml subject}}</span>
+            <span class="accordion-title">{{{replaceHtml subject}}}</span>
             <span class="icon" aria-hidden="true"></span>
         </button>
         <div class="accordion-content">
-            <p>
-                {{replaceHtml contents}}
+            {{{replaceHtml contents}}}
         </div>
     </div>
     {{/each}}
+</script>
+
+
+<script type="text/x-handlebars_template" id="tmp_tbodyConsultingList">
+    {{#each this}}
+    <tr>
+        <td>{{contentIdx}}</td>
+        <td style="cursor:pointer;" data-boardDtlNo="{{boardDtlNo}}" onclick="getConsultingDetail($(this), {{#ifCond password '!=' ''}} 'Y' {{else}} 'N' {{/ifCond}} );">
+            {{{replaceHtml subject}}}
+        </td>
+        <td>{{memNm}}</td>
+        <td>
+            {{#ifCond depth '>' 0}}
+                &nbsp;
+            {{else}}
+                {{#ifCond reCnt '>' 1}}
+                    답변완료
+                {{else}}
+                    처리중
+                {{/ifCond}}
+            {{/ifCond}}
+        </td>
+        <td>{{crtDt}}</td>
+        <td>{{queryCnt}}</td>
+    </tr>
+    {{/each}}
+</script>
+
+<script type="text/x-handlebars_template" id="tmp_consultingDetail">
+    <table>
+        {{#each this.consulting}}
+        <tr>
+            <td colspan="3">{{{replaceHtml subject}}}</td>
+        </tr>
+        <tr>
+            <td>{{adminNm}}</td>
+            <td>{{queryCnt}}</td>
+            <td>{{updDt}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                {{{replaceHtml contents}}}
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+    <div>
+        {{#each this.attach}}
+        <span><a id="fileDownLoad">{{orgFileNm}}</a></span>
+        {{/each}}
+    </div>
+    <div class="base">
+        <button class="btn" onclick="consultBack();">목록보기</button>
+<%--        {{#each this.consulting}}--%>
+<%--        <button class="btn" data-boardDtlNo={{boardDtlNo}} onclick="editConsulting($(this).data('boarddtlno'));">수정</button>--%>
+<%--        {{/each}}--%>
+    </div>
+</script>
+
+<script type="text/x-handlebars_template" id="tmp_consultingEdit">
+    <div class="base">
+        <span>등록자 | </span>
+        <span></span>
+    </div>
+    <div class="base">
+        <span>제목 </span>
+        <input id="title" type="text" title="제목입력 란" placeholder="제목입력">
+    </div>
+    <div>
+        <textarea class="_editor" id="content" name="content"></textarea>
+    </div>
+
+    <form name="fileUploadForm" id="fileUploadForm" method="POST" enctype="multipart/form-data">
+        <input type="file" id="uploadFile" name="uploadFile">
+        <input type="hidden" name="memNo" id="memNo">
+        <input type="hidden" name="idx" id="idx">
+    </form>
+
+    <div class="base">
+        <label class="chk_box fl" for="check"><strong>비밀글</strong>
+            <input type="checkbox" name="check" id="check">
+            <span class="checkmark" data-check="Y"></span>
+        </label>
+        <input id="passwordText" type="password" title="비밀번호" placeholder="비밀번호" disabled>
+        <button class="btn" onclick="setConsult();">등록</button>
+        <button class="btn" onclick="consultBack();">목록보기</button>
+    </div>
+
 </script>

@@ -17,6 +17,7 @@ public enum Status {
     데이터없음("0", "no.data", "데이터가 없을 시"),
     처리완료("C008", "operate.success", "처리완료 시"),
     권한없음("C009", "no.auth", "접근 권한이 없을 시"),
+    비밀번호오류 ("C010", "password.fail", "비밀번호 틀렸을 시"),
 
     ;
 

@@ -30,6 +30,7 @@ function getAjax(dst_id, dst_url, dst_params, successFunc, errorFunc, option, as
     url: dst_url,
     dataType: isEmptyOption ? 'json' : isEmpty(option.dataType) ? 'json' : option.dataType,
     data: dst_params,
+    contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
     async: isEmpty(async) ? true : async,
     xhrFields: {
       withCredentials: true

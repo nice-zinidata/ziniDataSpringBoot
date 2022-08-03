@@ -107,11 +107,18 @@ common.formatDate = function(date, stringFormat){
 
 common.replaceHtml = function(text){
         if(!common.isEmpty(text)){
-            text = text.replace(/\\n/g, '');
+            var tmp = text;
+            tmp = tmp.replace(/\\n/gi, '');
+            tmp = tmp.replace(/&amp;/gi, "&");
+            tmp = tmp.replace(/&lt;/gi, "<");
+            tmp = tmp.replace(/&gt;/gi, ">");
+
+            /*text = text.replace(/\\n/g, '');
             text = this.replace(text, "&lt;", "<");
             text = this.replace(text, "&gt;", ">");
-            text = this.replace(text, "&amp;", "&");
-            return text;
+            text = this.replace(text, "&amp;", "&");*/
+            console.log(tmp);
+            return tmp;
         }
 }
 
@@ -255,3 +262,10 @@ common.upAndDownClass = function(value){
     }
     return result;
 }
+
+/*common.escapeHtml = function(text){
+    if(!common.isEmpty(text)){
+        text = this.replace(text,"'","$#34;");
+        return text;
+    }
+}*/

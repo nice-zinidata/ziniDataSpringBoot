@@ -5,6 +5,8 @@
 <script type="text/javascript" src="/bizmap/assets/lib/jquery-1.4.js"></script>
 <script type="text/javascript" src="/bizmap/assets/lib/jquery.min.js"></script>
 <script type="text/javascript" src="/bizmap/assets/lib/handlebars-v4.7.2.js"></script>
+<script type="text/javascript" src="/bizmap/assets/lib/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/bizmap/assets/lib/summernote/js/summernote.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=jbzd2c9qh7&submodules=geocoder"></script>
 
 <!-- lib (변동 있는 js)-->

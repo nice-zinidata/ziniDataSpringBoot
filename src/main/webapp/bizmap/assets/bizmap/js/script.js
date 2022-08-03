@@ -228,15 +228,24 @@ $(document).ready(function(){
         $('.ul_inner.pd > .sheet_ul > li').removeClass('on');
         $(this).parent().addClass("on");
         var tabIndex = $(this).data('tabindex');
-        $("#tabNoticeList").hide();
-        $("#noticeDetail").hide();
-        $("#tabFaqList").hide();
+
+        supportReset();
+
+        pagingInfo = {
+            totalCnt : 0
+            , pageNo : 1
+            , pageCnt : 10
+        };
+
         if(tabIndex == "0"){
             getNotice();
             $("#tabNoticeList").show();
-        }else if(tabIndex == "1"){
+        }else if(tabIndex == "1") {
             getFaq(1);
             $("#tabFaqList").show();
+        }else if(tabIndex == "2"){
+            getConsulting();
+            $("#tabConsultingList").show();
         }
     });
 

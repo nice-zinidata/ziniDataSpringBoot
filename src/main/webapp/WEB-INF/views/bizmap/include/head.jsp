@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+<%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/lib/bootstrap/css/bootstrap.css">--%>
+    <link rel="stylesheet" type="text/css" href="/bizmap/assets/lib/summernote/css/summernote.css">
+
     <!-- lib (변동 있는 css)-->
     <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/pretendard.css?<%=version%>">
 <%--    <link rel="stylesheet" type="text/css" href="/bizmap/assets/bizmap/css/sly.min.css?<%=version%>">--%>

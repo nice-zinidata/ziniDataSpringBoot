@@ -814,21 +814,27 @@ request.setCharacterEncoding("euc-kr");
     function valid(){
         if(isEmpty($("#mem_nm").val())){
             var offset = $("#mem_nm").offset();
-            $('.sheet_body').animate({scrollTop : offset.top});
+            var height = Number($("#mem_nm").parent().css('height').replace('px',''));
+            var tmp = Number(offset.top) - height;
+            window.scrollTo({top:tmp-30, behavior:'smooth'});
             alert('이름을 입력해주세요.');
             return false;
         }
 
         if(!certCheck){
             var offset = $("#mobile_no").offset();
-            $('.sheet_body').animate({scrollTop : offset.top});
+            var height = Number($("#mobile_no").parent().css('height').replace('px',''));
+            var tmp = Number(offset.top) - height;
+            window.scrollTo({top:tmp-30, behavior:'smooth'});
             alert('휴대폰 인증을 해주세요.');
             return false;
         }
 
         if(isEmpty($("#mem_type").val())){
             var offset = $("#mem_type").offset();
-            $('.sheet_body').animate({scrollTop : offset.top});
+            var height = Number($("#mem_type").parent().css('height').replace('px',''));
+            var tmp = Number(offset.top) - height;
+            window.scrollTo({top:tmp-30, behavior:'smooth'});
             alert('나의 유형을 선택해 주세요.');
             return false;
         }

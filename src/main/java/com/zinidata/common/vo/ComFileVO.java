@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class ComFileVO {
     // input
+    private String idx;
+    private String memNo;
 
     // output
     private String fileName;

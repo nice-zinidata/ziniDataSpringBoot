@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zinidata.bizmap.mapper.BizConsultingMapper">
+
+    <select id="getConsulting" resultType="com.zinidata.bizmap.vo.BizConsultingVO">
+        select a.*, (a.total_row_count - a.rn + 1) as rowNum
+        from (
+            select a.*
+                , coalesce (a.mem_nm1,'관리자') as mem_nm
+                , row_number() over(order by a.t_board_dtl_no desc, a.p_board_dtl_no desc, board_dtl_no asc) rn
+                , count(*) over() total_row_count
+            from ( --
+                    SELECT A.*
+                    , A.BOARD_NO BOARDNO
+                    , (
+                        SELECT COUNT(COMMENT_NO)
+                        FROM TB_BOARD_COMMENT
+                        WHERE BOARD_DTL_NO = A.BOARD_DTL_NO
+                        AND DEL_YN = 'N') AS COMMCNT
+                        , (
+                            SELECT COUNT(attach_no)
+                            FROM TB_BOARD_ATTACH
+                            WHERE BOARD_DTL_NO = A.BOARD_DTL_NO
+                            AND DEL_YN = 'N') AS attach_cnt
+                        , (
+                            SELECT admin_nm
+                            FROM TB_ADMIN_INFO
+                            WHERE admin_no = A.MEM_NO
+                            AND END_DT = '99991231') AS admin_nm
+                        , (
+                            SELECT mem_nm
+                            FROM TB_MEMBER
+                            WHERE mem_no = a.mem_no
+                            GROUP BY mem_nm
+                            UNION ALL
+                            SELECT corp_nm mem_nm
+                            FROM TB_MEMBER_CORP
+                            WHERE corp_mem_no = a.mem_no
+                            GROUP BY corp_nm) AS MEM_NM1
+                        , (
+                            SELECT COUNT(*) cnt
+                            FROM TB_BOARD_DTL
+                            WHERE t_board_dtl_no = a.board_dtl_no
+                            AND del_yn = 'N') AS re_cnt
+                        , "password"
+                        , coalesce(password_yn,'N') as password_yn
+                        , case when disp_order = 1 then (RANK() OVER (ORDER BY (case when disp_order = 1 then t_board_dtl_no else 9999999999999999999999999999999 end ) ASC)) else 0 end as content_idx
+                    FROM TB_BOARD_DTL A
+                    WHERE A.BOARD_NO in (1)
+                    AND A.DEL_YN = 'N' --
+            ) a
+            where 1=1 --
+        ) a
+        where 1=1 --
+        <if test="searchText != null">
+            and subject like concat('%',#{searchText},'%') and contents like concat('%',#{searchText},'%')
+        </if>
+        <if test="boardDtlNo != 0">
+            and a.board_dtl_no = #{boardDtlNo}
+        </if>
+        order by t_board_dtl_no desc, depth asc
+        <if test="pageCnt != 0">
+            limit #{pageCnt} offset #{pageNo}
+        </if>
+    </select>
+
+    <update id="setConsultingQuertyCntUpdate">
+        update TB_BOARD_DTL
+        set query_cnt = query_cnt +1
+        , upd_dt = now()
+        where board_dtl_no = #{boardDtlNo}
+    </update>
+
+    <select id="getAttach" resultType="com.zinidata.bizmap.vo.BizConsultingVO">
+        select *
+        from tb_board_attach
+        where del_yn = 'N'
+        and board_dtl_no = #{boardDtlNo}
+    </select>
+
+    <select id="getBoardSeq" resultType="integer">
+        select nextval('tb_board_dtl_seq1') as boardDtlNo
+    </select>
+
+    <insert id="setConsulting">
+        insert into tb_board_dtl(board_dtl_no,board_no,mem_no,t_board_dtl_no,p_board_dtl_no,subject,contents,disp_order,"depth",query_cnt,query_auth,del_yn,crt_dt,crt_id,gubun,auth_flag,"password",password_yn)
+        values (#{boardDtlNo}, #{boardNo}, #{memNo}, #{boardDtlNo}, #{boardDtlNo}, #{subject}, #{contents}, 1, 0, 1, '','N', now(), #{loginId}, 0, 'N', #{password}, #{passwordYn})
+    </insert>
+
+    <insert id="setAttachInfo">
+        insert into tb_board_attach values (nextval('tb_board_attach_seq'), #{idx}, #{fileNm}, #{filePath}, #{orgFileNm}, 0, 'N', now(), now())
+    </insert>
+
+</mapper>
